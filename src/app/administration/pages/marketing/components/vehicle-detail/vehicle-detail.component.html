@@ -1,0 +1,38 @@
+<div class="card h-100">
+    <!-- Imagen Vehicle -->
+    <img class="card-img-top img-fluid" [src]="vehicle_image" width="300" alt="{{ vehicle.name | titlecase }}" alt="{{ vehicle.carmodel.brand.name | titlecase }} {{ vehicle.name | titlecase }}">
+
+    <div class="card-body">
+        <div class="row">
+            <div class="me-auto text-truncate">
+                <h2 class="fw-bold text-truncate">{{ vehicle.carmodel.brand.name| titlecase }} {{ vehicle.carmodel.name| titlecase }}</h2>
+                <span class="text-muted fw-light">{{ vehicle.name | titlecase }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="me-auto text-truncate text-muted fw-light">
+                <span>{{ vehicle.yearModel }} </span><i class="fas fa-angle-right"></i>
+                <span> {{ vehicle.km | number:'.2-2'}} km </span><i class="fas fa-angle-right"></i>
+                <span> {{ vehicle.transmission | titlecase }}</span>
+            </div>
+            <span class="fw-bold">{{ vehicle.vin | uppercase }}</span>
+        </div>
+
+        <!-- Buttons Tools Vehicle -->
+        <div class="row">
+            <div class="col mt-2">
+                <!-- Picture -->
+                <button type="button" mat-mini-fab class="abcars-background-color mx-1" (click)="openPictures()">
+                    <i class="far fa-images"></i>
+                </button>
+                <button type="button" mat-mini-fab class="abcars-background-color mx-2" (click)="openOrderPictures()">
+                    <i class="fas fa-exchange-alt"></i>
+                </button>
+                <button type="button" mat-mini-fab class="abcars-background-color" (click)="open360Vehicles()">
+                    360
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

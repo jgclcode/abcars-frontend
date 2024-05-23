@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 py-5">
+            <div class="row">
+                <div class="col-12 py-4">
+                    <img class="rounded mx-auto d-block" width="100" src="assets/icons/login.svg" alt="User Icon" />
+                </div>                                
+            </div>
+
+            <div class="row">               
+                <h1 class="fs-3 fw-bold mb-4 text-center mx-auto">Registrarme</h1>
+
+                <div class="col-12 mx-auto">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                        <div class="row">
+                            <div class="col-10 col-md-7 col-lg-4 mx-auto">
+                                <!-- Name -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre(s)</mat-label>
+                                    <input matInput type="text" placeholder="Jorge" formControlName="name" required>
+                                    <mat-hint class="text-danger" *ngIf="nameInvalid">Complete su nombre(s).</mat-hint>
+                                </mat-form-field>
+    
+                                <!-- Father Lastname and Mother Lastname -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Apellido(s)</mat-label>
+                                    <input matInput type="text" placeholder="Sanchez" formControlName="surname" required>
+                                    <mat-hint class="text-danger" *ngIf="surnameInvalid">Complete sus apellidos.</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-10 col-md-7 col-lg-4 mx-auto">
+                                <!-- Phone One -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Número de Teléfono Principal</mat-label>
+                                    <input matInput type="tel" placeholder="1234567890" #phoneone (keyup)="maxLengthCheck(phoneone)" maxlength="10" formControlName="phoneOne" required>     
+                                    <mat-hint class="text-danger" *ngIf="phoneOneInvalid">Ingrese un número telefónico válido.</mat-hint>                                                                 
+                                </mat-form-field> 
+
+                                <!-- Phone Two -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Número de Teléfono Secundario</mat-label>
+                                    <input matInput type="tel" placeholder="1234567890" #phonetwo (keyup)="maxLengthCheck(phonetwo)" maxlength="10" formControlName="phoneTwo" required>     
+                                    <mat-hint class="text-danger" *ngIf="phoneTwoInvalid">Ingrese un número telefónico válido.</mat-hint>                                                                 
+                                </mat-form-field> 
+                                
+                                <!-- Gender -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Género</mat-label>
+                                    <mat-select matInput formControlName="gender" required>
+                                        <mat-option value="f">Mujer</mat-option>
+                                        <mat-option value="m">Hombre</mat-option>
+                                    </mat-select>                                                                      
+                                    <mat-hint class="text-danger" *ngIf="genderInvalid">Seleccione su género.</mat-hint>
+                                </mat-form-field> 
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-10 col-md-7 col-lg-4 mx-auto">
+                                <!-- Curp -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Clave Única de Registro de Población (CURP)</mat-label>
+                                    <input matInput type="text" placeholder="ABC123" formControlName="curp" #curp (keyup)="maxLengthCheck(curp)" maxlength="18" (keyup)="convertMayus($event)" required>
+                                    <mat-hint class="text-danger" *ngIf="curpInvalid">Ingrese correctamente su Clave Única de Registro de Población.</mat-hint>
+                                </mat-form-field>
+
+                                <!-- Email -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Correo Electrónico</mat-label>
+                                    <input matInput type="email" placeholder="a@b.c" formControlName="email" required>
+                                    <mat-hint class="text-danger" *ngIf="emailInvalid">Ingrese un correo electrónico válido.</mat-hint>
+                                </mat-form-field>
+                                
+                                <!-- Password -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Contraseña</mat-label>
+                                    <input matInput type="text" placeholder="********" [type]="hide ? 'password' : 'text'" formControlName="password" required autocomplete="off">
+                                    <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                        <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                                    </button>
+                                    <mat-hint class="text-danger" *ngIf="passwordInvalid">
+                                        <p *ngIf="passwordInvalid">Escriba una contraseña, caracteres permitidos: @ % #</p>
+                                        <p *ngIf="passwordLength">La contraseña debe ser de minímo 8 a 32 caracteres.</p>
+                                    </mat-hint>                                    
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-8 col-md-4 mx-auto text-center mt-5">
+                                <button mat-raised-button type="submit" class="btn abcars-background-color px-4 py-2 rounded-pill text-dark" [disabled]="form.invalid || spinner">                                    
+                                    <span *ngIf="!spinner">Registrarme</span>
+                                    <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                                </button>                                                                                          
+                                <p class="form-text mt-3">¿Ya tienes cuenta? <a class="abcars-color-hover text-decoration-none" [routerLink]="['/auth/iniciar-sesion']">Inicia Sesión</a></p>                                
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>        
+    </div>
+</div>

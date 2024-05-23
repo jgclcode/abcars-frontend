@@ -1,0 +1,2214 @@
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-12">
+            <h4 class="fs-4 fw-bold text-truncate">Valuación de la solicitud Vender tu Auto</h4>
+            <nav *ngIf="roleActived === 1" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                    <!-- <li class="breadcrumb-item active" aria-current="page">Vende tu Auto</li> -->
+                    <li class="breadcrumb-item" [routerLink]="['/admin/appraiser/valuaciones']"> Valuaciones</li>
+                    <li class="breadcrumb-item active" aria-current="page">Editando Valuación</li>
+                </ol>
+            </nav>
+            <nav *ngIf="roleActived === 2" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                    <li class="breadcrumb-item" [routerLink]="['/admin/valuator/vende-tu-auto']"> Vende tu Auto</li>
+                    <li class="breadcrumb-item active" aria-current="page">Editando Valuación</li>
+                </ol>
+            </nav>
+            <nav *ngIf="roleActived === 3" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                    <li class="breadcrumb-item" [routerLink]="['/admin/tecval/sell_your_cars']"> Vende tu Auto</li>
+                    <li class="breadcrumb-item active" aria-current="page">Editando Valuación</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Forms Check list one hundred points -->
+    <div class="row mb-5">
+        <mat-stepper #stepper>
+            <!-- Quité la opción linear para que el formulario pueda ir a la siguiente pestaña -->
+            <!-- Customer information -->
+            <mat-step *ngIf="roleActived === 2 || roleActived === 3" [stepControl]="generalDataForm" errorMessage="La información es requerida.">
+                <form [formGroup]="generalDataForm">
+                    <!-- (ngSubmit)="onGeneralData()" -->
+                    <ng-template matStepLabel>Información Cliente</ng-template>
+
+                    <div class="col-12">
+                        <h3 class="fw-light text-truncate">
+                            Información del cliente y Distribuidor.
+                            <i class="fas fa-level-down-alt"></i>
+                        </h3>
+
+                        <!-- General Data -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Client's name -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre del cliente</mat-label>
+                                    <input matInput type="text" placeholder="Nombre del cliente" formControlName="name" required>
+                                    <mat-hint *ngIf="nameInvalid">Complete su(s) nombre(s).</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Client's lastname -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Apellidos del cliente</mat-label>
+                                    <input matInput type="text" placeholder="Apellidos del cliente" formControlName="surname" required>
+                                    <mat-hint *ngIf="surnameInvalid">Complete sus apellidos.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Client's phone -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Número de Teléfono</mat-label>
+                                    <input matInput type="tel" placeholder="1234567890" formControlName="phone" #phone (keyup)="maxLengthCheck(phone)" maxlength="10" required>
+                                    <mat-hint *ngIf="phoneLength">Su número debe ser de 10 dígitos, verifique.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Car dealer -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Distribuidor</mat-label>
+                                    <!-- <input matInput type="text" placeholder="Nombre del distribuidor" formControlName="distributor" required> -->
+                                    <mat-select placeholder="Seleccione el distribuidor" formControlName="distributor" required>
+                                        <mat-option value="ABP">ABP</mat-option>
+                                        <mat-option value="ABP Zacatelco">ABP zacatelco</mat-option>
+                                        <mat-option value="Vecsa pachuca">Vecsa pachuca</mat-option>
+                                        <mat-option value="ABCars">ABCars</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="distributorInvalid">Complete el nombre del distribuidor.</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <hr>
+
+                        <div class="row">
+                            <h3 class="fw-light text-truncate">
+                                Valuación e información del auto.
+                                <i class="fas fa-level-down-alt"></i>
+                            </h3>
+
+                            <!-- General Data -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Origin Country -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>País de origen</mat-label>
+                                    <!-- <input matInput type="text" placeholder="México" formControlName="origin_country" (keyup)="convertMayus($event)" required> -->
+                                    <mat-select placeholder="Seleccione país de origen" formControlName="origin_country" required>
+                                        <mat-option value="china">China</mat-option>
+                                        <mat-option value="estados_unidos">Estados Unidos</mat-option>
+                                        <mat-option value="japon">Japón</mat-option>
+                                        <mat-option value="india">India</mat-option>
+                                        <mat-option value="alemania">Alemania</mat-option>
+                                        <mat-option value="mexico">México</mat-option>
+                                        <mat-option value="corea_del_sur">Corea del Sur</mat-option>
+                                        <mat-option value="brasil">Brasil</mat-option>
+                                        <mat-option value="espana">España</mat-option>
+                                        <mat-option value="francia">Francia</mat-option>
+                                        <mat-option value="canada">Canadá</mat-option>
+                                        <mat-option value="rusia">Rusia</mat-option>
+                                        <mat-option value="tailandia">Tailandia</mat-option>
+                                        <mat-option value="reino_unido">Reino Unido</mat-option>
+                                        <mat-option value="indonesia">Indonesia</mat-option>
+                                        <mat-option value="republica_checa">República Checa</mat-option>
+                                        <mat-option value="turquia">Turquía</mat-option>
+                                        <mat-option value="eslovaquia">Eslovaquia</mat-option>
+                                        <mat-option value="iran">Irán</mat-option>
+                                        <mat-option value="italia">Italia</mat-option>
+                                        <mat-option value="polonia">Polonia</mat-option>
+                                        <mat-option value="malasia">Malasia</mat-option>
+                                        <mat-option value="belgica">Bélgica</mat-option>
+                                        <mat-option value="sudafrica">Sudáfrica</mat-option>
+                                        <mat-option value="argentina">Argentina</mat-option>
+                                        <mat-option value="taiwan">Taiwán</mat-option>
+                                        <mat-option value="rumania">Rumania</mat-option>
+                                        <mat-option value="hungria">Hungría</mat-option>
+                                        <mat-option value="australia">Australia</mat-option>
+                                        <mat-option value="uzbekistan">Uzbekistán</mat-option>
+                                        <mat-option value="portugal">Portugal</mat-option>
+                                        <mat-option value="suecia">Suecia</mat-option>
+                                        <mat-option value="austria">Austria</mat-option>
+                                        <mat-option value="eslovenia">Eslovenia</mat-option>
+                                        <mat-option value="colombia">Colombia</mat-option>
+                                        <mat-option value="ucrania">Ucrania</mat-option>
+                                        <mat-option value="paises_bajos">Países Bajos</mat-option>
+                                        <mat-option value="pakistan">Pakistán</mat-option>
+                                        <mat-option value="egipto">Egipto</mat-option>
+                                        <mat-option value="filipinas">Filipinas</mat-option>
+                                        <mat-option value="marruecos">Marruecos</mat-option>
+                                        <mat-option value="venezuela">Venezuela</mat-option>
+                                        <mat-option value="vietnam">Vietnam</mat-option>
+                                        <mat-option value="ecuador">Ecuador</mat-option>
+                                        <mat-option value="bielorrusia">Bielorrusia</mat-option>
+                                        <mat-option value="serbia">Serbia</mat-option>
+                                        <mat-option value="finlandia">Finlandia</mat-option>
+                                        <mat-option value="nigeria">Nigeria</mat-option>
+                                        <mat-option value="chile">Chile</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="origincountryInvalid">Escriba el país de orígen del vehículo.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Transmission -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Transmisión</mat-label>
+                                    <mat-select placeholder="Seleccionar una transmision" formControlName="transmission" required>
+                                        <mat-option value="automatico">Automático</mat-option>
+                                        <mat-option value="manual">Manual</mat-option>
+                                        <mat-option value="cvt">CVT</mat-option>
+                                        <mat-option value="dsg">DSG</mat-option>
+                                        <mat-option value="otros">Otros</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="transmissionInvalid">Seleccione la transmisión.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Engine Suction -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Aspiración del Motor</mat-label>
+                                    <mat-select placeholder="Seleccionar tipo de aspiración" formControlName="engine_suction" required>
+                                        <mat-option value="normal">Normal</mat-option>
+                                        <mat-option value="turbo">Turbo</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="enginesuctionInvalid">Seleccione el tipo de aspiración.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Start Stop -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Start-stop</mat-label>
+                                    <mat-select placeholder="¿Tiene start-stop?" formControlName="start_stop" required>
+                                        <mat-option value="yes">Si</mat-option>
+                                        <mat-option value="no">No</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="startstopInvalid">¿Tecnología Start-Stop?</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Valuation date -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Fecha de valuación</mat-label>
+                                    <input matInput [matDatepicker]="datepicker" formControlName="valuation_date" #inputdate (dateChange)="dateChangeEmitter($event)" required>
+                                    <mat-datepicker-toggle matSuffix [for]="datepicker"></mat-datepicker-toggle>
+                                    <mat-datepicker #datepicker></mat-datepicker>
+
+                                    <mat-hint *ngIf="dateInvalid">Especifique la fecha de la valuación.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                
+                                <!-- VIN -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>VIN</mat-label>
+                                    <input matInput type="text" placeholder="00000000000000000X" formControlName="vin" #vin (keyup)="maxLengthCheck(vin)" maxlength="17" (keyup)="convertMayus($event)" required>
+                                    <mat-hint *ngIf="vinInvalid">Escriba el vin de su vehículo.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Car brand -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Marca</mat-label>
+                                    <mat-select placeholder="Seleccionar una Marca" formControlName="brand" required>
+                                        <mat-option *ngFor="let brand of brands" (click)="getModels(brand.id)" value="{{ brand.id }}">{{ brand.name | titlecase }}</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="brandInvalid">Seleccione una marca.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Model -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Modelo</mat-label>
+                                    <mat-select placeholder="Seleccionar un Modelo" formControlName="model" required>
+                                        <mat-option *ngFor="let model of models" value="{{ model.id }}">{{ model.name | titlecase }}</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="modelInvalid">Seleccione un modelo.</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Version -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Versión</mat-label>
+                                    <input matInput type="text" placeholder="LTZ" formControlName="version" required>
+                                    <mat-hint *ngIf="versionInvalid">Escriba la versión de su vehículo.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Year -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Año</mat-label>
+                                    <mat-select placeholder="Seleccione el año del vehículo" formControlName="year" required>
+                                        <mat-option *ngFor="let year of years" value="{{ year }}">{{ year }}</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="yearInvalid">Seleccione un año.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Mileage -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Kilometraje</mat-label>
+                                    <input matInput type="number" placeholder="0000000" min="1" max="9999999999" formControlName="mileage" #mileage (keyup)="maxLengthCheck(mileage)" maxlength="10" required>
+                                    <!-- (change)="onSubmit()" -->
+                                    <mat-hint *ngIf="mileageInvalid">Escriba el kilometraje de su vehículo.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Color -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Color</mat-label>
+                                    <input matInput type="text" placeholder="Color" formControlName="color" required>
+                                    <!-- (change)="onSubmit()" -->
+                                    <mat-hint *ngIf="colorInvalid">Proporcione el color del vehículo.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- License Plate -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Placa</mat-label>
+                                    <input matInput type="text" placeholder="0000000" formControlName="plates" #plate (keyup)="maxLengthCheck(plate)" maxlength="7" (keyup)="convertMayus($event)">
+                                    <!-- (change)="onSubmit()"  required-->
+                                    <!-- <mat-hint *ngIf="plateInvalid">Proporcione el número de placa del vehículo.</mat-hint> -->
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Cylinder number -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Cilindros</mat-label>
+                                    <mat-select placeholder="Selecciona el número de cilindros" formControlName="cilindres" required>
+                                        <!-- (selectionChange)="onSubmit()" -->
+                                        <mat-option value="ninguno">Ninguno</mat-option>
+                                        <mat-option value="3">3</mat-option>
+                                        <mat-option value="4">4</mat-option>
+                                        <mat-option value="5">5</mat-option>
+                                        <mat-option value="6">6</mat-option>
+                                        <mat-option value="8">8</mat-option>
+                                        <mat-option value="12">12</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="cylinderInvalid">Proporcione el número de cilindros del vehículo</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Engine Type -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Tipo de motor</mat-label>
+                                    <input matInput type="number" placeholder="1.0 o 2.5" formControlName="engine_type" min="0" required> <!-- #breakeDD (keyup)="maxLengthCheck(breakeDD)" maxlength="2" -->
+                                    <!-- (change)="onSubmit()" -->
+                                    <mat-hint *ngIf="engineInvalid">Complete el tipo de motor.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Appraiser technician combo -->
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <!-- Car brand -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre del Tecnico</mat-label>
+                                    <mat-select placeholder="Seleccione el tecnico" formControlName="appraiserTechnician" (selectionChange)="onMyChange()" required>
+                                        <mat-option *ngFor="let appraiserTechnician of appraiserTechnicians"  value="{{ appraiserTechnician.id }}">{{ appraiserTechnician.name | titlecase }} {{ appraiserTechnician.surname | titlecase }}</mat-option> <!-- (click)="getModels(brand.id)" -->
+                                    </mat-select>
+                                    <mat-hint *ngIf="appraiserTechnicianInvalid">Seleccione un tecnico.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <button *ngIf="btn_save" mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark" (click)="onGeneralData()" [disabled]="generalDataForm.invalid"> <!-- (click)="onSubmit()" -->
+                            Guardar
+                        </button>
+
+                        <button *ngIf="btn_follow" mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2"> <!-- (click)="onMechanicalElectronic()" -->
+                            Siguiente
+                        </button>
+
+                        <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark mx-2" (click)="openInternalPictureForm()">
+                            Foto Interior
+                        </button>
+
+                        <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark mx-2" (click)="openExternalPictureForm()">
+                            Foto Exterior
+                        </button>
+
+                        <!-- <button mat-button type="submit" class="btn abcars-background-color rounded-pill text-dark" [disabled]="generalDataForm.invalid" >
+                            Guardar
+                        </button> -->
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Mechanical and Electrical -->
+            <mat-step *ngIf="roleActived === 2 || roleActived === 3" [stepControl]="mechanicElectricForm" errorMessage="La información es requerida.">
+                <form [formGroup]="mechanicElectricForm" (ngSubmit)="onMechanicalElectronic()">
+                    <!-- (ngSubmit)="onSubmit()" -->
+                    <ng-template matStepLabel>Mecánica y Eléctrica</ng-template>
+
+                    <div class="col-12">
+                        <!-- Mechanical and Electrical Points -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Vehicle scan -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Escaneo de vehículo.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq1" required>
+                                                <!-- (selectionChange)="onSubmit()" -->
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq1Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <h3 class="fw-light text-truncate">
+                                        Detectar códigos de motor.
+                                        <i class="fas fa-level-down-alt"></i>
+                                    </h3>
+                                    <!-- Engine codes -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sensores (sensores reversa, punto ciego, proximidad, etc.).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq2" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq2Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <!-- Warning tone meters -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Medidores/tonos de aviso.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq3" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq3Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Ignition and engine stability -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Encendido y estabilidad motor.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq4" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq4Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Engine operation -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Funcionamiento del motor/desempeño/aceleración.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq5" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq5Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Automatic / manual transmission -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Transmisión automático/manual (funcionamiento correcto).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq6" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq6Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Traction control -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Control de tracción (operación).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq7" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq7Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Brakes / abs -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Frenos/abs (operación, sensación pedal, función ABS).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq8" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq8Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Direction alignment and balancing -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Dirección/alineación y balanceo (a 80 km/operación, ruidos, vibración).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq9" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq9Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Chassis / alignment -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Chasis/alineación (ruido/vibración/aspereza).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq10" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq10Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Transfer case -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Caja de transferencia (operación, F/RWD, 4W, AWD).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq11" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq11Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Cruise control -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Control de crucero (aspera, aceleración, desaceleración, cancelar).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq12" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq12Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Speedometer -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Velocímetro/tacómetro y odómetro.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq13" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq13Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Heater / air conditioner -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Calentador/aire acondicionado (soplador, controles, eficiencia).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq14" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq14Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Telescopic steering wheel -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Volante de dirección telescópico y de altura.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq15" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq15Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Horn -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Claxon.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq16" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq16Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Wiper washer -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Limpiaparabrisas/chisgueteros y plumas (Estado físico y funcionamiento).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq17" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq17Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Pedal settings -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Ajustes de pedales/volante.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq18" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq18Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Visual inspection -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Inspección visual (fugas evidentes, piezas o estampas faltantes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq19" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq19Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Engine cooling system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de enfriamiento del motor/radiador/mangueras (fugas).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq20" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq20Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Direction system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de dirección (bomba, cremallera, columna, motor, fugas, operación).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq21" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq21Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Electric system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema eléctrico (batería, alternador, arnés, cables, computadoras, etc.).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq22" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq22Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Braking system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de frenos (cilindro, bomba, booster de freno, líneas, calipers, discos).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq23" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq23Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Ignition system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de encendido (marcha, bujías, bobinas, condición de enrutamiento).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq24" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq24Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Fuel system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de combustible (bomba, líneas, fugas, conexiones, funcionamiento).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq25" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq25Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Compressor -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Compresor a/ac (polea, correa, funcionamiento, eficiencia, controles).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq26" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq26Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Filter inspection -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Inspección de filtros.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq27" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq27Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Hose inspection -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Inspección de mangueras.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq28" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq28Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Belt inspection -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Inspección de bandas.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq29" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq29Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Battery test -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Prueba de batería.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq30" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq30Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Compression test -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Prueba de compresión/fugas y degradación de aceite motor.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq31" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq31Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Check catalyst status -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Verificar estado de catalizador/sensores de oxígeno/emisiones.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq32" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq32Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Efficiency test -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Prueba de eficiencia de a/ac y carga si es necesario.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq33" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq33Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Visual -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Visual (cuerpo, parte inferior del cuerpo, debajo de la carrocería).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq34" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq34Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Frame -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Marco (signos de reparación/daños).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq35" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq35Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Exhaust system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de escape sin daños.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq36" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq36Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Brake pads -->
+                                    <h3 class="fw-light text-truncate">
+                                        Pastillas de freno, balatas (condición).
+                                        <i class="fas fa-level-down-alt"></i>
+                                    </h3>
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Espesor > 6mm frenos disco > 2mm tambor de espesor.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq37" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq37Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Brake measurements DD -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Derecha Delantera (DD)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" min="0" formControlName="breakedd"  required> <!-- #breakeDD (keyup)="maxLengthCheck(breakeDD)" maxlength="2" -->
+                                            <!-- (change)="onSubmit()" -->
+                                            <mat-hint *ngIf="breakeDDInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Brake measurements ID -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Izquierda Delantera (ID)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" min="0" formControlName="breakeid" required>
+                                            <mat-hint *ngIf="breakeIDInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Brake measurements IT -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Izquierda Trasera (IT)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" min="0" formControlName="breakeit" required>
+                                            <mat-hint *ngIf="breakeITInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Brake measurements DT -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Derecha Trasera (DT)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" min="0" formControlName="breakedt" required>
+                                            <mat-hint *ngIf="breakeDTInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <!-- Drum discs, calipers -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Discos, pinzas, calipers tambores (condición y dimensiones, rectificar si es necesario).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq38" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq38Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Hydraulic brake -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Freno hidráulico (nivel, líneas, mangueras).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq39" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq39Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Tires -->
+                                    <h3 class="fw-light text-truncate">
+                                        Neumáticos.
+                                        <i class="fas fa-level-down-alt"></i>
+                                    </h3>
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Profundidad 8/32 o mayor, marca, tipo, tamaño, IGUALES las 5.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq40" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq40Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Depth measurement DD -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Profundidad Derecha Delantera (DD)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" formControlName="depthdd" min="0" required> <!-- #depthDD (keyup)="maxLengthCheck(depthDD)" maxlength="2" -->
+                                            <!-- (change)="onSubmit()" -->
+                                            <mat-hint *ngIf="depthDDInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Depth measurement ID -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Profundidad Izquierda Delantera (ID)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" formControlName="depthid" min="0" required>
+                                            <mat-hint *ngIf="depthIDInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Depth measurement IT -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Profundidad Izquierda Trasera (IT)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" formControlName="depthit" min="0" required> 
+                                            <mat-hint *ngIf="depthITInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Depth measurement DT -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Profundidad Derecha Trasera (DT)mm</mat-label>
+                                            <input matInput type="number" placeholder="1.5 o 7.0" formControlName="depthdt" min="0" required>
+                                            <mat-hint *ngIf="depthDTInvalid">Complete el valor en mm.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <!-- Steel or alloy wheels -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Ruedas de acero o aleación originales según modelo y versión.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq41" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq41Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- shock absorbers -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Amortiguadores (operación, fugas, etc.).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq42" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq42Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Spring / stabilizer bars -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Resorte/barras estabilizadoras.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq43" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq43Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Engine mounts -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Soportes motor/caja/escape (condición, montaje, bujes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq44" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq44Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car steering / link -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Dirección/enlace (la barra de dirección/terminales, la articulación).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq45" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq45Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Engine compartment -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Compartimiento del motor (acabado, el aislamiento, las calcomanías).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq46" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq46Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Engine -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Motor (condición, funcionamiento, sin fugas ni golpes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq47" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq47Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Transmission -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Transmisión (condición, funcionamiento, sin fugas ni golpes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq48" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq48Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Transfer case -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Caja de transferencia (condición, funcionamiento, sin fugas ni golpes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq49" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq49Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Mounting, shafts -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Montaje, ejes (condición, funcionamiento, sin fugas y golpes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq50" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq50Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Differential -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Diferencial (condición, funcionamiento, sin fugas y golpes).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="meq51" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="meq51Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <pre>{{mechanicElectricForm.getRawValue() | json }}</pre> -->
+                    <div class="col-12 col-sm-12 col-md-6">
+                        <div class="row">
+                            <!-- Commentary  -->
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Comentarios.</mat-label>
+                                    <textarea matInput placeholder="Agregar comentario" formControlName="commentaryMechanical"></textarea>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperPrevious class="btn abcars-background-color-black rounded-pill">
+                            Regresar
+                        </button>
+
+                        <button mat-button type="submit" class="btn abcars-background-color rounded-pill text-dark mx-2" [disabled]="mechanicElectricForm.invalid || spinner">                                    <!--  || existsForeingReview" -->
+                            <!-- <span *ngIf="!spinner">Guardar</span> -->
+                            <span *ngIf="!spinner">{{ saveUpdateMech ? 'Actualizar' : 'Guardar' }}</span>
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                        </button>
+
+                        <button mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2"> <!-- (click)="onMechanicalElectronic()" -->
+                            Siguiente
+                        </button>
+
+                        <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark mx-2" (click)="openSparePartsForm()">
+                            Agregar Refacciones
+                        </button>
+                    </div>
+
+                </form>
+            </mat-step>
+
+            <!-- Exterior Review -->
+            <mat-step *ngIf="roleActived === 2 || roleActived === 3" [stepControl]="extReviewForm" errorMessage="La información es requerida.">
+                <form [formGroup]="extReviewForm" (ngSubmit)="extReviewSubmit()">
+                    <ng-template matStepLabel>Revisión Exterior</ng-template>
+
+                    <div class="col-12">
+                        <!-- Exterior Review Points -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <h3 class="fw-light text-truncate" [ngClass]="{ 
+                                        'd-none': vesumo                                                
+                                    }">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Vehículo ha sufrido modificaciones.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="condition" (selectionChange)="vehicleHasModifications()" required>
+                                                <mat-option value="si">Si</mat-option>
+                                                <mat-option value="no">No</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="conditionInvalid">Seleccione una opción</mat-hint>
+                                        </mat-form-field>
+                                    </h3>
+
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline" required [ngClass]="{ 
+                                            'd-none': invalidFields                                                
+                                        }">
+                                            <mat-label>A) Carrocería.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req1" [disabled]="reqDisabled('req1')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req1Invalid">Seleccione una opción para carrocería.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car chassis -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline" [ngClass]="{ 
+                                            'd-none': invalidFields                                                
+                                        }">
+                                            <mat-label>B) Chasis.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req2" required [disabled]="reqDisabled('req2')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req2Invalid">Seleccione una opción para Chasis.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car sports kits -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline" [ngClass]="{ 
+                                            'd-none': invalidFields                                                
+                                        }">
+                                            <mat-label>C) Kits deportivos.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req3" required [disabled]="reqDisabled('req3')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req3Invalid">Seleccione una opción para Kits deportivos.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car performance chips -->
+                                    <div class="col ps-5">
+                                        <mat-form-field appearance="outline" [ngClass]="{ 
+                                            'd-none': invalidFields                                                
+                                        }">
+                                            <mat-label>D) Chips de desempeño u otros.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req4" required [disabled]="reqDisabled('req4')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req4Invalid">Seleccione una opción para Chips de desempeño.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <!-- Car right side door -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Costado derecho y alineación de puertas.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req5" required [disabled]="reqDisabled('req5')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req5Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Car left side door -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Costado izquierdo y alineación de puertas.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req6" required [disabled]="reqDisabled('req6')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req6Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car front fender -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Defensa delantera (fascia, protectores, molduras, alineación, acabado).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req7" required [disabled]="reqDisabled('req7')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req7Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car hood -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cofre (acabado, brisa, decoloración, granizo, pintura original, alineación).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req8" required [disabled]="reqDisabled('req8')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req8Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car roof -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Toldos (rieles, capote).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req9" required [disabled]="reqDisabled('req9')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req9Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car rear bumper -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Defensa trasera (fascia, protectores, molduras, alineación, acabado, caja, emblemas, etc.).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req10" required [disabled]="reqDisabled('req10')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req10Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Gas cap -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tapa de gasolina.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req11" required [disabled]="reqDisabled('req11')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req11Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Trunk lid -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tapa de cajuela/caja/bedliner (acabado, brisa, decoloración, granizo, pintura original).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req12" required [disabled]="reqDisabled('req12')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req12Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Trunk  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cajuela (llanta de refacción, herramientas, gato, red de carga, etc.).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req13" required [disabled]="reqDisabled('req13')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req13Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Rims and wheels  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Rines y ruedas/cubierta de neumáticos/biseles/tapones (rasguños, picaduras).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req14" required [disabled]="reqDisabled('req14')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req14Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car glass  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cristal (golpes, rasguños, picaduras, estrellado, originalidad).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req15" required [disabled]="reqDisabled('req15')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req15Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car running boards  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Estribos (Fijos o eléctricos).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req16" required [disabled]="reqDisabled('req16')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req16Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Rear view mirrors  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Retrovisores (Espejo, carcasa).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req17" required [disabled]="reqDisabled('req17')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req17Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Antenna  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Antena.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req18" required [disabled]="reqDisabled('req18')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req18Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Seals, rubbers, door gaskets  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sellos, gomas, empaques de puertas.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req19" required [disabled]="reqDisabled('req19')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req19Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Doors, locks  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Puertas/Cerraduras.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req20" required [disabled]="reqDisabled('req20')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req20Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Exterior lights  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Luces exteriores (DRL, bajas, altas, freno, reversa, emergencia, direccionales, espejo).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req21" required [disabled]="reqDisabled('req21')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req21Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Alarm  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Alarma (operativos, a distancia).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="req22" required [disabled]="reqDisabled('req22')">
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="req22Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6">
+                                <div class="row">
+                                    <!-- Commentary  -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Comentarios.</mat-label>
+                                            <textarea matInput placeholder="Agregar comentario" formControlName="commentary"></textarea>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperPrevious class="btn abcars-background-color-black rounded-pill">
+                            Regresar
+                        </button>
+
+                        <button mat-button type="submit" class="btn abcars-background-color rounded-pill text-dark mx-2"> <!-- [disabled]="extReviewForm.invalid || extReviewSpinner || existsForeingReview" -->                                    
+                            <span *ngIf="!extReviewSpinner">{{ dataExt ? 'Actualizar' : 'Guardar'}}</span>
+                            <span *ngIf="extReviewSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                        </button>
+
+                        <button mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2">
+                            Siguiente
+                        </button>
+
+                        <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark mx-2" (click)="openPaintingWorksForm()">
+                            Agregar HyP
+                        </button>
+                    </div>
+
+                </form>
+            </mat-step>
+
+            <!-- Interior Review -->
+            <mat-step *ngIf="roleActived === 2 || roleActived === 3" [stepControl]="intReviewForm" errorMessage="La información es requerida.">
+                <form [formGroup]="intReviewForm" (ngSubmit)="onIntReviewSubmit()">
+                    <!-- (ngSubmit)="onSubmit()" -->
+                    <ng-template matStepLabel>Revisión Interior</ng-template>
+
+                    <div class="col-12">
+                        <!-- Interior Review Points -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Remote opening -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Apertura remota (funcional).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq1" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq1Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Parking break -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Freno de estacionamiento.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq2" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq2Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Seats, child safety anchor -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Asientos, anclaje de seguridad para niños.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq3" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq3Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Belts -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cinturones.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq4" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq4Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Crystals -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cristales.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq5" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq5Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Sunroof -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Quemacocos (operativos, condiciones, sin entradas de agua/aire).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq6" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq6Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Navigation system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de navegación.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq7" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq7Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Audio and DVD system -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sistema de audio y dvd.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq8" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq8Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Connectivity -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Conectividad, revisión de usb/aux/bluetooth.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq9" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq9Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Clock, thermometer -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Reloj/termómetro.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq10" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq10Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Trip computer -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Computadora de viaje.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq11" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq11Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Plugs -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Toma corriente(s) (operativo).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq12" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq12Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Car interior lights -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Luces de interior (luces de mapa, plafón, puertas, tablero, etc.).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq13" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq13Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Rear defroster -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Desempañador trasero (operacional).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq14" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq14Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Instruments panel -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Panel de instrumentos (limpieza, rasgaduras, funciones).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq15" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq15Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Rear seats -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Asientos traseros/reposacabezas (operación, estado, limpieza, rasgaduras).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq16" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq16Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Console compartment lid -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Consola/tapa del compartimiento - del/tras (funcionamiento, estado).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="iq17" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="iq17Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <pre>{{intReviewForm.getRawValue() | json }}</pre> -->
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperPrevious class="btn abcars-background-color-black rounded-pill">
+                            Regresar
+                        </button>
+
+                        <button mat-button type="submit" class="btn abcars-background-color rounded-pill text-dark mx-2" [disabled]="intReviewForm.invalid || spinner">                                    <!--  || existsForeingReview" -->
+                            <!-- <span *ngIf="!spinner">Guardar</span>  -->
+                            <span *ngIf="!spinner">{{ save_update ? 'Actualizar' : 'Guardar' }}</span>
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                        </button>
+
+                        <button mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2"> <!-- (click)="onSubmit()" -->
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <!-- Vehicle Certification -->
+            <mat-step *ngIf="roleActived === 2 || roleActived === 3" [stepControl]="vehicleCertificationForm" errorMessage="La información es requerida.">
+                <form [formGroup]="vehicleCertificationForm" (ngSubmit)="onVehicleCertificationSubmit()">
+                    <!-- (ngSubmit)="onSubmitAll()" -->
+                    <ng-template matStepLabel>Certificación de Vehículo</ng-template>
+
+                    <div class="col-12">
+                        <!-- Vehicle Certification Points -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Owner's manual -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Manual de propietario.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq1" required>
+                                                <!-- (selectionChange)="onSubmit()" -->
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq1Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Open campaigns -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Campañas abiertas.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq2" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq2Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Certifiable vehicle -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>El vehículo es certificable.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq3" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq3Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Last maintenance date -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fecha último mantenimiento comprobable.</mat-label>
+                                            <!-- <input matInput [matDatepicker]="pickerLastMaintenance" placeholder="dd/mm/yyyy" [min]="date" formControlName="dateLastMaintenance" required> -->
+                                            <input matInput [matDatepicker]="pickerLastMaintenance" placeholder="dd/mm/yyyy" formControlName="dateLastMaintenance" #dateLastMaintenance (dateChange)="lastMaintenanceEmmitter($event)" > <!-- required -->
+                                            <!-- <mat-hint *ngIf="invalidLastMaintenance">Ingrese fecha último mantenimiento.</mat-hint> -->
+                                            <mat-datepicker-toggle matSuffix [for]="pickerLastMaintenance"></mat-datepicker-toggle>
+                                            <mat-datepicker touchUi #pickerLastMaintenance></mat-datepicker>
+                                            <!-- <mat-select placeholder="Seleccione una opción" formControlName="cvq4" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select> 
+                                            <mat-hint *ngIf="cvq4Invalid">Por favor seleccione una opción.</mat-hint> -->
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Detailed exterior and interior -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Detallado exterior e interior.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq5" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq5Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Full documentation -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Documentación completa.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq6" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq6Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Battery health test -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Prueba de estado de salud de la batería.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq7" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq7Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Run open campaigns -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Realizar campañas abiertas.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq8" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq8Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Change engine oil and filter -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cambio de aceite de motor y filtro (monitor reestablecer la vida del aceite).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq9" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq9Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                <div class="row">
+                                    <!-- Inspect change filters -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Inspeccionar/cambiar filtros (de acerdo al programa del fabricante).</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq11" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq11Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <!-- Inspect and level all fluids -->
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Inspeccionar y poner a nivel todos los fluídos.</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cvq12" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cvq12Invalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                            
+                        </div>
+                    </div>
+
+                    <!-- <pre>{{vehicleCertificationForm.getRawValue() | json }}</pre> -->
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperPrevious class="btn abcars-background-color-black rounded-pill">
+                            Regresar
+                        </button>
+
+                        <button mat-button type="submit" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2" [disabled]="vehicleCertificationForm.invalid || spinner"> <!--  generalDataForm.invalid || extReviewForm.invalid || intReviewForm.invalid || mechanicElectricForm.invalid ||  -->
+                            <!-- <span *ngIf="!spinner">Enviar</span>  -->
+                            <span *ngIf="!spinner">{{ saveUpdateCert ? 'Actualizar' : 'Guardar'}}</span> 
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+        </mat-stepper>
+    </div>
+</div>

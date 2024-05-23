@@ -1,0 +1,73 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">{{ !update_shield ? 'Crear' : 'Actualizar' }} Garantia</h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin/gestor']">Overview</li>
+                            <li class="breadcrumb-item" [routerLink]="['/admin/gestor/shields']">Garantias</li>
+                            <li class="breadcrumb-item active" aria-current="page">{{ !update_shield ? 'Nuevo' : 'Actualizar' }} Garantia</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="row">
+                <div class="col-12">
+                    <!-- Title -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h1 class=fw-bold>{{ !update_shield ? 'Nuevo' : 'Actualizar' }} Garantia</h1>
+                            <span>Por favor, ingrese toda la información requerida correctamente.</span>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                                <!-- Name, surname & email -->
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Nombre</mat-label>
+                                            <input matInput type="text" placeholder="Abc" formControlName="name" required>
+                                            <mat-hint *ngIf="nameInvalid">Complete el nombre de la garantia</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-label>Imagen</mat-label>
+                                        <div class="input-group mb-3">
+                                            <input type="file" class="form-control" formControlName="path" id="path" accept="image/*" (change)="onChange($event)">
+                                        </div>
+                                        <mat-hint *ngIf="pathInvalid">Elija una imagen.</mat-hint>
+                                    </div>
+                                </div>
+
+                                <!-- Button Submit -->
+                                <div class="row">
+                                    <div class="col-12 text-end">
+                                        <button mat-raised-button type="submit" class="btn abcars-background-color px-4 rounded-pill text-dark mx-2" [disabled]="form.invalid || spinner">                                    
+                                            <span *ngIf="!spinner">{{ !update_shield ? 'Crear' : 'Actualizar' }}</span>
+                                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                                        </button>
+
+                                        <button mat-raised-button class="btn abcars-background-color-secondary px-4 rounded-pill text-dark" [routerLink]="['/admin/gestor/shields']">                                    
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

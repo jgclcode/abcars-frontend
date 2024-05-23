@@ -1,0 +1,134 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">Solicitudes de Buscame un Auto</h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                            <li class="breadcrumb-item active" aria-current="page">Buscame un Auto</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>          
+           
+            <!-- Datatable -->
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Buscar...</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="¡El camino asi es!" #input>
+                    </mat-form-field>
+                      
+                    <div class="mat-elevation-z8">
+                        <table mat-table [dataSource]="dataSource" matSort>
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="id">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.id }} </td>
+                            </ng-container>                            
+
+                            <!-- Status Column -->
+                            <ng-container matColumnDef="status">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <span class="badge rounded-pill" [ngClass]="{ 'bg-success': row.status === 'inactive', 'bg-secondary': row.status === 'active' }">
+                                        {{ (row.status === 'inactive') ? 'Atendido' : 'Buscando' }}
+                                    </span>  
+                                </td> 
+                            </ng-container>
+
+                            <!-- Brand Column -->
+                            <ng-container matColumnDef="brand">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.brand.name | titlecase }} </td>
+                            </ng-container>
+
+                            <!-- Carmodel Column -->
+                            <ng-container matColumnDef="carmodel">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.carmodel.name | titlecase }} </td>
+                            </ng-container>
+
+                            <!-- Year Column -->
+                            <ng-container matColumnDef="year">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Año</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.year }} </td>
+                            </ng-container>
+
+                            <!-- Version Column -->
+                            <ng-container matColumnDef="version">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Version</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.version | titlecase }} </td>
+                            </ng-container>
+
+                            <!-- Mileage Column -->
+                            <ng-container matColumnDef="mileage">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Kilometraje</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.mileage | number:'0.2-2' }} </td>
+                            </ng-container>
+
+                            <!-- Amount Pay Column -->
+                            <ng-container matColumnDef="amount_pay">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Presupuesto</th>
+                                <td mat-cell *matCellDef="let row">${{ row.amount_pay | number:'0.2-2' }} </td>
+                            </ng-container>
+
+                            <!-- Type Purchase Column -->
+                            <ng-container matColumnDef="type_purchase">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo de Compra</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.type_purchase | titlecase }} </td>
+                            </ng-container>
+
+                            <!-- Release Column -->
+                            <ng-container matColumnDef="release">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Método de Pago</th>
+                                <td mat-cell *matCellDef="let row"> {{ row.release | titlecase }} </td>
+                            </ng-container>
+
+                            <!-- User Column -->
+                            <ng-container matColumnDef="user">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Usuario</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-icon mat-raised-button (click)="openDialogUser(row.client)"><i class="fi fi-rr-mode-portrait"></i></mat-icon>                                    
+                                </td>
+                            </ng-container>
+
+                            <!-- Action Column -->
+                            <ng-container matColumnDef="action">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                                <td mat-cell *matCellDef="let row">
+                                    <mat-icon [matMenuTriggerFor]="menu"><i class="fi fi-rr-magic-wand"></i></mat-icon>                                    
+
+                                    <mat-menu #menu="matMenu">
+                                        <a mat-menu-item (click)="changeStatus(row, 'inactive')">
+                                            <i class="fi fi-rr-checkbox"></i>
+                                            Atendido
+                                        </a>
+
+                                        <a mat-menu-item (click)="changeStatus(row, 'active')">
+                                            <i class="fi fi-rr-search"></i>
+                                            Buscando
+                                        </a>
+                                    </mat-menu>
+                                </td>
+                            </ng-container>
+                        
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro: "{{ input.value }}"</td>
+                            </tr>
+                        </table>
+                      
+                        <mat-paginator [pageSize]="10" [length]="length" [pageIndex]="pageIndex - 1" (page)="paginationChange($event)"></mat-paginator>    
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

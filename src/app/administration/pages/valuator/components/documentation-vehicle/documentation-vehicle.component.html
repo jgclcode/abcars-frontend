@@ -1,0 +1,1237 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 "> <!-- mt-5 mb-5 -->
+            <!-- Title -->
+            <div class="row">
+                <div class="col-12 mb-2">                    
+                    <h3 class="fs-4 fw-light text-center">Check list toma seminuevos</h3> <!-- Documentación del Vehículo -->
+                    <!-- <p class="mt-2 text-center">Formatos admitidos .png, .jpg y .jpeg</p> -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Documentation -->
+    <div class="row">
+        <mat-stepper #stepper>
+            <mat-step [stepControl]="takeInformation" errorMessage="La información es requerida">
+                <form [formGroup]="takeInformation">
+                    <ng-template matStepLabel>Información de la toma</ng-template>
+                    
+                    <div class="col-12">
+                        <!-- Take car information points -->
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 class="fw-light text-truncate">
+                                            Referencia Guía Autométrica
+                                            <i class="fas fa-level-down-alt"></i>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 class="fw-light">Compra: ${{ compraGA }}</h3>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="fw-light">Venta: ${{ ventaGA }}</h3>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Contrato compra/venta firmado</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="contratoCompraVentaFirmado" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="contratoCompraVentaFirmadoInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Factura original</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="facturaOriginal" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="facturaOriginalInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Copia factura origen (Sin leyenda copia sin valor)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="copiaFacturaOrigen" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="copiaFacturaOrigenInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Copia Fiel de INE (legible y clara)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="copiaFielIne" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="copiaFielIneInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>CURP</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="curp" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="curpInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Acuse respuesta de cambio de rol</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="acuseRespuestaCambioRol" required> 
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="acuseRespuestaCambioRolInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                               
+
+                                
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tarjeta de circulación</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="tarjetaDeCirculacion" required> <!--  -->
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="tarjetaDeCirculacionInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Copia guía autométrica</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="copiaGuiaAutometrica" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="copiaGuiaAutometricaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Consulta intelimotors</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="consultaIntelimotors" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="consultaIntelimotorsInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Compra</mat-label>
+                                            <input matInput type="num" placeholder="$10,000" min="0" formControlName="compraGuiaA" [readonly]="compraGAdisabled" required>
+                                            <mat-hint *ngIf="compraGuiaAInvalid">Complete la cantidad de compra de la guía autométrica.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+    
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Venta</mat-label>
+                                            <input matInput type="num" placeholder="$10,000" min="0" formControlName="ventaGuiaA" [readonly]="ventaGAdisabled" required>
+                                            <mat-hint *ngIf="ventaGuiaAInvalid">Complete la cantidad de venta de la guía autométrica.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 class="fw-light text-truncate">
+                                            Referencia Guía Intelimotors
+                                            <i class="fas fa-level-down-alt"></i>
+                                        </h3>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <h3 class="fw-light">Compra: ${{ compraTI }}</h3>
+                                    </div>
+                                    <div class="col">
+                                        <h3 class="fw-light">Venta: ${{ ventaTI }}</h3>
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <!-- <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Consulta intelimotors</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="consultaIntelimotors" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="consultaIntelimotorsInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Compra</mat-label>
+                                            <input matInput type="num" placeholder="$10,000" min="0" formControlName="compraIntelimotors" [readonly]="compraTIdisabled" required>
+                                            <mat-hint *ngIf="compraIntelimotorsInvalid">Complete la cantidad de compra de la guía Intelimotors.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Venta</mat-label>
+                                            <input matInput type="num" placeholder="$10,000" min="0" formControlName="ventaIntelimotors" [readonly]="ventaTIdisabled" required>
+                                            <mat-hint *ngIf="ventaIntelimotorsInvalid">Complete la cantidad de venta de la guía Intelimotors.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Factura original en financiera</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="facturaOriginalFinanciera" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="facturaOriginalFinancieraInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Verificación fiscal de facturas</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="verificacionFiscalDeFacturas" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="verificacionFiscalDeFacturasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Validación INE (Consulta nominal)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="validacionIne" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="validacionIneInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Comprobante de domicilio</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="comprobanteDomicilio" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="comprobanteDomicilioInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Repuve</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="repuve" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="repuveInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Check list 100 puntos</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="checklistCienPuntos" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="checklistCienPuntosInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Copias de facturas intermedias (con endoso)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="copiasFacturasIntermediasConEndoso" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="copiasFacturasIntermediasConEndosoInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Validación de la factura por parte de la agencia (de no estar el mail de la confirmación)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="validacionFacturaParteAgencia" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="validacionFacturaParteAgenciaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Constancia de situación fiscal</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="constanciaSituacionFiscal" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="constanciaSituacionFiscalInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                
+                                
+                                <!-- <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Validación de la factura por parte de la agencia (de no estar el mail de la confirmación)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="validacionFacturaParteAgencia" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="validacionFacturaParteAgenciaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+                                
+                                <!-- <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Constancia de situación fiscal</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="constanciaSituacionFiscal" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="constanciaSituacionFiscalInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div> -->
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cambio de rol (en cd y tac)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cambioRolCdTac" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cambioRolCdTacInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Consulta transunión</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="consultaTransunion" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="consultaTransunionInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fotomultas</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="fotomultas" required > <!-- -->
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="fotomultasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Monto de la fotomulta</mat-label>
+                                            <input matInput type="num" placeholder="$10,000" min="0" formControlName="montoFotomultas"  required>
+                                            <mat-hint *ngIf="montoFotomultasInvalid">Complete la cantidad del monto de la fotomulta.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>PDI check de batería</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="pdiCheckBateria" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="pdiCheckBateriaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                 <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Adeudos por tenencias</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="adeudosTenencia" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="adeudosTenenciaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Monto adeudo por tenencia</mat-label>
+                                            <input matInput type="num" placeholder="$10,000" min="0" formControlName="montoAdeudoTenencia"  required>
+                                            <mat-hint *ngIf="montoAdeudoTenenciaInvalid">Complete la cantidad del monto de la tenencia.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tenencias originales</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="tenenciasOriginales" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="tenenciasOriginalesInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="row">
+                                            <!-- <div class="col">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Fechas tenencias</mat-label>
+                                                    <mat-select placeholder="Seleccione el año del vehículo" formControlName="agnosTenencias" required>
+                                                        <mat-option *ngFor="let year of years" value="{{ year }}">{{ year }}</mat-option>
+                                                    </mat-select>
+                                                    <mat-hint *ngIf="agnosTenenciasInvalid">Elija el año de la tenencia.</mat-hint>
+                                                </mat-form-field>
+                                            </div> -->
+                                            <h3 class="fw-light text-truncate">
+                                                Tenencias originales
+                                                <i class="fas fa-level-down-alt"></i>
+                                            </h3>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_12"  (change)="checkt12 = !checkt12">
+                                                    {{ tenencia12 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_11"  (change)="checkt11 = !checkt11">
+                                                    {{ tenencia11 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_10"  (change)="checkt10 = !checkt10">
+                                                    {{ tenencia10 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_9"  (change)="checkt9 = !checkt9">
+                                                    {{ tenencia9 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_8"  (change)="checkt8 = !checkt8">
+                                                    {{ tenencia8 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_7"  (change)="checkt7 = !checkt7">
+                                                    {{ tenencia7 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            
+                                        </div>
+                                        
+                                        <div class="row">
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_6"  (change)="checkt6 = !checkt6">
+                                                    {{ tenencia6 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_5"  (change)="checkt5 = !checkt5">
+                                                    {{ tenencia5 }}
+                                                </mat-slide-toggle>
+                                            </div>
+
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_4"  (change)="checkt4 = !checkt4">
+                                                    {{ tenencia4 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_3"  (change)="checkt3 = !checkt3">
+                                                    {{ tenencia3 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_2"  (change)="checkt2 = !checkt2">
+                                                    {{ tenencia2 }}
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-2 col-xl-2">
+                                                <mat-slide-toggle formControlName="tenencia_1"  (change)="checkt1 = !checkt1">
+                                                    {{ tenencia1 }}
+                                                </mat-slide-toggle>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2"> <!-- (click)="onMechanicalElectronic()" -->
+                            Siguiente
+                        </button>
+                    </div>
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="documentationCar" errorMessage="La información es requerida">
+                <form [formGroup]="documentationCar">
+                    <ng-template matStepLabel>Documentación de la unidad</ng-template>
+                    
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Manual del propietario</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="manualDelPropietario" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="manualDelPropietarioInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Gato</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="gato" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="gatoInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Llanta de refacción</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="llantaRefaccion" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="llantaRefaccionInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Antena</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="antena" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="antenaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Comprobante última verificación</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="comprobanteUltimaVerificacion" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="comprobanteUltimaVerificacionInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Carnet de servicio</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="carnetDeServicio" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="carnetDeServicioInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Maneral o llave de tuercas</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="maneralOLlaveDeTuercas" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="maneralOLlaveDeTuercasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Reflejantes</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="reflejantes" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="reflejantesInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Duplicado de llaves</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="duplicadoDeLlaves" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="duplicadoDeLlavesInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Baja de placas</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="bajaDePlacas" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="bajaDePlacasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Birlos de seguridad</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="birlosDeSeguridad" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="birlosDeSeguridadInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Película de seguridad</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="peliculaDeSeguridad" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="peliculaDeSeguridadInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cables pasa corriente</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="cablesPasaCorriente" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="cablesPasaCorrienteInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <h3 class="fw-light text-truncate">
+                                Fotos
+                                <i class="fas fa-level-down-alt"></i>
+                            </h3>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>No. de serie</mat-label>
+                                    <mat-select placeholder="Seleccione una opción" formControlName="numSerie" required >
+                                        <mat-option value="a1">Si</mat-option>
+                                        <mat-option value="a2">No</mat-option>
+                                        <mat-option value="a3">N/A</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="numSerieInvalid">Por favor seleccione una opción.</mat-hint>
+                                </mat-form-field>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Herramienta</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="herramienta" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="herramientaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Odómetro (kilometraje)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="odometroKilometraje" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="odometroKilometrajeInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Manual y póliza</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="manualYPoliza" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="manualYPolizaInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Llantas</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="llantas" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="llantasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Sellos de servicio</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="sellosDeServicio" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="sellosDeServicioInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Unidad (frente, trasera, costados, cajuela y cofre)</mat-label>
+                                    <mat-select placeholder="Seleccione una opción" formControlName="unidadFrenteTraseraCostadosCajuelaYCofre" required >
+                                        <mat-option value="a1">Si</mat-option>
+                                        <mat-option value="a2">No</mat-option>
+                                        <mat-option value="a3">N/A</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="unidadFrenteTraseraCostadosCajuelaYCofreInvalid">Por favor seleccione una opción.</mat-hint>
+                                </mat-form-field>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Llanta de refacción</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="llantaRefaccionFoto" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="llantaRefaccionFotoInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fotos en rampa (parte baja y daños)</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="fotosEnRampaParteBajaYDagnos" required >
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="fotosEnRampaParteBajaYDagnosInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperPrevious class="btn abcars-background-color-black rounded-pill">
+                            Regresar
+                        </button>
+                        <button mat-button type="button" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2"> <!-- (click)="onMechanicalElectronic()" -->
+                            Siguiente
+                        </button>
+                    </div>
+
+                </form>
+            </mat-step>
+
+            <mat-step [stepControl]="documentsPlateProcedures" errorMessage="La información es requerida">
+                <form [formGroup]="documentsPlateProcedures" (ngSubmit)="onSubmit()">
+                    <ng-template matStepLabel>Documentos para tramites de placas</ng-template>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Placas físicas</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="placasFisicas" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="placasFisicasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Pagos completos de tenencias</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="pagosCompletosTenencias" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="pagosCompletosTenenciasInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Factura con endosos</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="facturaConEndosos" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="facturaConEndososInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Tarjeta de circulación</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="tarjetaDeCirculacionPlates" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="tarjetaDeCirculacionPlatesInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>INE copia FIEL</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="ineCopiaFiel" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="ineCopiaFielInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h3 class="fw-light text-truncate">
+                                Para compras con liquidación
+                                <i class="fas fa-level-down-alt"></i>
+                            </h3>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Edo. cta de financiera o banco que indique el monto a liquidar</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="edoCtaFinancieraObancoIndicaMontoALiquidar" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="edoCtaFinancieraObancoIndicaMontoALiquidarInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <h3 class="fw-light text-truncate">
+                                Para personas morales
+                                <i class="fas fa-level-down-alt"></i>
+                            </h3>
+
+                            <div class="col-12 col-sm-12 col-md-4 col-lg-6 col-xl-4">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Acta constitutiva</mat-label>
+                                    <mat-select placeholder="Seleccione una opción" formControlName="actaConstitutiva" required>
+                                        <mat-option value="a1">Si</mat-option>
+                                        <mat-option value="a2">No</mat-option>
+                                        <mat-option value="a3">N/A</mat-option>
+                                    </mat-select>
+                                    <mat-hint *ngIf="actaConstitutivaInvalid">Por favor seleccione una opción.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>INE representante moral</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="ineRepresentanteMoral" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="ineRepresentanteMoralInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                                
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Poder de representante legal</mat-label>
+                                            <mat-select placeholder="Seleccione una opción" formControlName="poderRepresentanteLegal" required>
+                                                <mat-option value="a1">Si</mat-option>
+                                                <mat-option value="a2">No</mat-option>
+                                                <mat-option value="a3">N/A</mat-option>
+                                            </mat-select>
+                                            <mat-hint *ngIf="poderRepresentanteLegalInvalid">Por favor seleccione una opción.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
+                                <div class="row">
+                                    <!-- Observations -->
+                                    <div>
+                                        <h3 class="fw-light text-truncate">
+                                            Observaciones:
+                                        </h3>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Observaciones</mat-label>
+                                                <textarea rows="6" matInput placeholder="Escribe algún punto que no se haya contemplado..."  formControlName="observations"></textarea>
+                                              </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-3">
+                        <button mat-button type="button" matStepperPrevious class="btn abcars-background-color-black rounded-pill">
+                            Regresar
+                        </button>
+
+                        <button *ngIf="btn_load" mat-raised-button type="button" class="btn abcars-background-color px-5 mx-2 rounded-pill text-dark" (click)="uploadDocumentInput.click()" [disabled]="spinner">                                            
+                            <span *ngIf="!spinner">Cargar expediente</span>
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </button>
+                        <input type="file" accept=".pdf, .png, .jpg, .jpeg" class="d-none" #uploadDocumentInput (change)="uploadDocuments($event)"> <!-- (change)="uploadDocument($event, document.id)" -->
+
+                        <!-- Prueba Local -->
+                        <!-- <a href="http://abcars-backend.test/api/getpdfwatch/{{ sellyourcarID }}" target="_blank" style="text-decoration:none">
+                            <button *ngIf="btn_watch" mat-raised-button type="button" class="btn abcars-background-color px-5 mx-2 rounded-pill text-dark">
+                                Ver Expediente
+                            </button>
+                        </a>     -->
+
+                        <!-- En server -->
+                        <!-- <a href="https://abcars.mx/abcars-backend/api/getpdfwatch/{{ sellyourcarID }}" target="_blank" style="text-decoration:none"> -->
+                        <a href="{{url}}/api/getpdfwatch/{{ sellyourcarID }}" target="_blank" style="text-decoration:none">
+                            <button *ngIf="btn_watch" mat-raised-button type="button" class="btn abcars-background-color px-5 mx-2 rounded-pill text-dark">
+                                Ver Expediente
+                            </button>
+                        </a> 
+
+                        <button mat-button type="submit" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2" [disabled]="takeInformation.invalid || documentationCar.invalid || documentsPlateProcedures.invalid || spinnerEnvio"> <!-- (click)="onMechanicalElectronic()" -->
+                            <span *ngIf="!spinnerEnvio">{{ save_documents ? 'Actualizar' : 'Enviar'}} </span>
+                            <span *ngIf="spinnerEnvio" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </button>
+
+                        <button mat-button type="button" class="btn abcars-background-color-black rounded-pill" (click)="closeWindow()">
+                            Cerrar
+                        </button>
+                    </div>
+
+                </form>
+            </mat-step>
+            <!-- <div class="col-12 col-md-6 mb-3" *ngFor="let document of documents">
+                <div class="card rounded-3 mx-auto text-center h-100 w-100">
+                    <div class="card-header fw-bold">{{ document.name | titlecase }}</div>
+
+                    <div class="card-body">
+                        Picture 
+                        <img class="rounded" [src]="url + '/api/document_images/' + document.pathname" alt="Documentation - {{ document.name }}" width="99%">                            
+                        
+                        Actions
+                        <div class="mt-3">
+                            <div class="btn-group" role="group" aria-label="Basic button toggle button group">
+                                <ng-container *ngIf="document.pathname; else elseTemplate">
+                                    <button mat-raised-button type="button" class="btn abcars-background-color px-4 mx-2 rounded-pill text-dark" (click)="updateDocumentInput.click()" [disabled]="spinner">                                            
+                                        <span *ngIf="!spinner">CAMBIAR</span>
+                                        <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                    <input type="file" accept=".png, .jpg, .jpeg" class="d-none" #updateDocumentInput (change)="updateDocument(document.update_document_id!, $event)">
+                                </ng-container>
+
+                                <ng-template #elseTemplate>
+                                    <button mat-raised-button type="button" class="btn abcars-background-color px-5 mx-2 rounded-pill text-dark" (click)="uploadDocumentInput.click()" [disabled]="spinner">                                            
+                                        <span *ngIf="!spinner">SUBIR</span>
+                                        <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    </button>
+                                    <input type="file" accept=".png, .jpg, .jpeg" class="d-none" #uploadDocumentInput (change)="uploadDocument($event, document.id)">
+                                </ng-template>
+
+                                <a type="button" 
+                                    rel="noopener noreferrer"
+                                    class="btn abcars-background-btn-black px-4 py-2 rounded-pill" 
+                                    href="{{ url + '/api/document/download/' + document.pathname }}" 
+                                    download="{{ document.id }} - Documentación {{ document.name }}"
+                                    *ngIf="document.pathname"
+                                >
+                                    DESCARGAR
+                                </a>                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+        </mat-stepper>
+    </div>
+
+</div>

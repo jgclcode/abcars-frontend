@@ -1,0 +1,248 @@
+<mat-sidenav-container fullscreen>
+    <span id="moveTop"></span>
+    <!-- Navbar Assist -->
+    <!--
+    <nav #navbarPrimary class="navbar navbar-expand-lg abcars-color-nav-primary navbar-assist-index">
+        <div class="container-fluid">
+            <span class="toolbar-filler"></span>
+
+            <button mat-button class="navbar-toggler text-dark fw-normal" style="text-transform: none;" (click)="assists.toggle()">Otros Servicios <i class="fi fi-rr-headset"></i></button>                        
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <ul class="nav justify-content-end"> -->
+                    <!-- Services -->
+                    <!--
+                    <li class="nav-item">
+                        <button mat-button class="text-dark fw-normal" id="services" style="text-transform: none;" [matMenuTriggerFor]="services">Servicios <i class="fas fa-caret-down"></i></button>  -->                      
+
+                        <!-- Dropdown menu links -->
+                        <!--
+                        <mat-menu #services="matMenu">
+                            <a mat-menu-item [routerLink]="['/citas/servicio']">Agendar cita de servicio</a>
+                            <a mat-menu-item [routerLink]="['/abc/garantia-extendida']">Garantía Extendida</a>
+                            <a mat-menu-item [routerLink]="['/asistencia-vial']">Asistencia Vial</a>                            
+                        </mat-menu>
+                    </li>
+                    -->
+                    <!-- About -->
+                    <!--
+                    <li class="nav-item">
+                        <button mat-button class="text-dark fw-normal" id="about" style="text-transform: none;" [matMenuTriggerFor]="about">Acerca <i class="fas fa-caret-down"></i></button>
+                        -->
+                        <!-- Dropdown menu links -->
+                        <!--
+                        <mat-menu #about="matMenu">
+                            <a mat-menu-item [routerLink]="['/abc/acerca-de']">Acerca de ABcars.mx</a>
+                            <a mat-menu-item [routerLink]="['/abc/blog']">El ABC de los Autos</a>
+                            <a mat-menu-item [routerLink]="['/abc/empleos']">Empleos</a> -->
+                            <!-- <a mat-menu-item [routerLink]="['/abc/financiamiento']">Precalificar para Financiamiento</a> -->
+                            <!--<a mat-menu-item [routerLink]="['/abc/gana-dinero']">Gana dinero en Efectivo</a>
+                        </mat-menu>
+                    </li>
+
+                    <li class="nav-item">
+                        <button mat-button class="text-dark fw-normal" id="contact" style="text-transform: none;" [routerLink]="['/contacto']">Contacto</button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    -->
+    <!-- Navbar Navegation -->
+    <nav #navbarSecondary class="navbar navbar-expand-lg navbar-light shadow-sm p-3 navbar-navegation-index">
+        <div class="container-fluid">
+            <a class="navbar-brand px-3" [routerLink]="['']">
+                <img src="../assets/images/logo.svg" class="rounded float-start" width="150" alt="ABCars.mx">
+            </a>
+
+            <button class="navbar-toggler" type="button" mat-button (click)="sidenav.toggle()" [hidden]="sidenav.opened">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="navbar-position">
+                    <mat-nav-list role="list">
+                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                            <li class="nav-item">
+                                <a class="nav-link" id="buy-vehicle" [routerLink]="['/compra-tu-auto']">Compra un auto</a> <!-- Antes era: Elegir mi próximo auto -->
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="sell-my-vehicle" [routerLink]="['/vende-tu-auto']">Quiero vender mi auto</a>
+                            </li>
+
+                            <!--
+                            <li class="nav-item">
+                                <a class="nav-link" id="financing" [routerLink]="['/abc/financiamiento']">Precalificar para financiamiento</a>
+                            </li>
+                            -->
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="findme-vehicle" [routerLink]="['/buscame-un-auto']">¿No encontraste lo que buscabas?</a> <!-- Antes era: Búscame un auto -->
+                            </li>
+                            
+                            <li class="nav-item">
+                                <a class="nav-link" [matMenuTriggerFor]="serviceMenu" aria-expanded="false">Más servicios</a>
+                                <mat-menu #serviceMenu="matMenu">
+                                    <!-- <a mat-menu-item [routerLink]="['/mantenimiento']">Mantenimiento automotriz</a> -->
+                                    <a mat-menu-item [routerLink]="['/abc/blog']">Blog</a>
+                                    <a mat-menu-item (click)="deleteLS()" [routerLink]="['/abc/financiamiento/solicitud/credit']">Financiamiento</a>
+                                </mat-menu>
+                            </li>
+
+                            <!--<li class="nav-item">
+                                <a class="nav-link" id="findme-vehicle" [routerLink]="['/inventory']">Inventario</a>
+                            </li>-->
+
+                            <li class="nav-item" *ngIf="!auth_user">
+                                <a class="nav-link fw-bold text-dark" id="login" [routerLink]="['/auth/iniciar-sesion']">Iniciar Sesión</a>
+                            </li>
+
+                            <li *ngIf="auth_user">
+                                <div class="btn-group dropstart">
+                                    <a class="nav-link fw-bold text-dark" [matMenuTriggerFor]="customerMenu" aria-expanded="false">
+                                        <i class="far fa-user-circle"></i> Mi Cuenta
+                                    </a>
+
+                                    <mat-menu #customerMenu="matMenu">
+                                        <a mat-menu-item [routerLink]="[url_dashboard]">Dashboard</a>
+                                        <a mat-menu-item [routerLink]="['/auth/mi-cuenta/ajustes']">Mi Perfil</a>
+                                        <a mat-menu-item (click)="logout()">                                            
+                                            Cerrar Sesión
+                                            <i class="fi fi-rr-sign-out"></i>
+                                        </a>
+                                    </mat-menu>
+                                </div>
+                            </li>
+                        </ul>
+                    </mat-nav-list>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mat sidenav Assist -->
+    <mat-sidenav #assists mode="over" position="end">
+        <mat-toolbar>
+            <a class="navbar-brand" [routerLink]="['']">
+                <img src="../assets/images/logo.svg" class="rounded float-start" width="150" alt="ABCars.mx">
+            </a>
+        </mat-toolbar>
+
+        <mat-nav-list>
+            <h2 class="mt-2 mb-2 px-3">Otros Servicios</h2>
+            <hr />
+
+            <!-- Links Menu -->
+            <div class="mx-3">
+                <mat-list>
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi fi-rr-time-twenty-four"></i></mat-icon>
+                        <div mat-line [routerLink]="['/citas/servicio']">Agendar cita de servicio</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi-rr-shield-check"></i></mat-icon>
+                        <div mat-line [routerLink]="['/abc/garantia-extendida']">Garantía Extendida</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi-rr-comments"></i></mat-icon>
+                        <div mat-line [routerLink]="['/asistencia-vial']">Asistencia Vial</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi fi-rr-ticket"></i></mat-icon>
+                        <div mat-line [routerLink]="['/abc/gana-dinero']">Gana dinero en efectivo</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi fi-rr-info"></i></mat-icon>
+                        <div mat-line [routerLink]="['/abc/acerca-de']">Acerca de ABcars.mx</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi fi-rr-edit"></i></mat-icon>
+                        <div mat-line [routerLink]="['/abc/blog']">El ABC de los autos</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi fi-rr-briefcase"></i></mat-icon>
+                        <div mat-line [routerLink]="['/abc/empleos']">Empleos</div>
+                    </mat-list-item>
+
+                    <mat-list-item (click)="assists.toggle()">
+                        <mat-icon mat-list-icon><i class="fi fi-rr-phone-call"></i></mat-icon>
+                        <div mat-line [routerLink]="['/contacto']">Contacto</div>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Mat sidenav Navegation -->
+    <mat-sidenav #sidenav mode="over" class="menu_sidenav">
+        <mat-toolbar>
+            <a class="navbar-brand" [routerLink]="['']">
+                <img src="../assets/images/logo.svg"  width="150" alt="ABCars.mx">
+            </a>
+        </mat-toolbar>
+
+        <mat-nav-list>
+
+            <!-- Links Menu -->
+            <div class="mx-3">
+                <mat-list>
+                    <mat-list-item class="menu_sidevar" (click)="sidenav.toggle()">
+                        <div  mat-line [routerLink]="['/compra-tu-auto']">Mi próximo auto</div>
+                        <img class="menu_icon_sidevar" src="../assets/icons/iconoElegirMiProximoAuto.svg" alt="icono mi proximo auto">
+                    </mat-list-item>
+
+                    <mat-list-item class="menu_sidevar" (click)="sidenav.toggle()">
+                        <div mat-line [routerLink]="['/vende-tu-auto']">Vender mi auto</div>
+                        <img class="menu_icon_sidevar" src="../assets/icons/iconoVenderMiAuto.svg" alt="icono quiero vender mi auto">
+                    </mat-list-item>
+
+                    <mat-list-item class="menu_sidevar" (click)="sidenav.toggle()">
+                        <div mat-line [routerLink]="['/abc/financiamiento']">Pre-financiamiento</div>
+                        <img class="menu_icon_sidevar" src="../assets/icons/financiamiento.svg" alt="icono quiero vender mi auto">
+                    </mat-list-item>
+
+                    <mat-list-item class="menu_sidevar" (click)="sidenav.toggle()">
+                        <div mat-line [routerLink]="['/buscame-un-auto']">Búscame un auto</div>
+                        <img class="menu_icon_sidevar" src="../assets/icons/buscar auto.svg" alt="icono buscame un auto">
+                    </mat-list-item>
+
+                    <mat-list-item class="menu_sidevar" (click)="sidenav.toggle()" *ngIf="!auth_user">
+                        <div mat-line [routerLink]="['/auth/iniciar-sesion']">Iniciar Sesión</div>
+                        <img class="menu_icon_sidevar" src="../assets/icons/iconoIniciarSesion.svg" alt="icono iniciar Sesión">
+                    </mat-list-item>
+
+                    <mat-list-item *ngIf="auth_user" [matMenuTriggerFor]="customerMenu">
+                        <div mat-line class="fw-bold text-dark">Mi Cuenta</div>
+                        <mat-icon mat-list-icon><i class="far fa-user-circle"></i></mat-icon>
+
+                        <mat-menu #customerMenu="matMenu">
+                            <a mat-menu-item (click)="sidenav.toggle()" [routerLink]="[url_dashboard]">Dashboard</a>
+                            <a mat-menu-item (click)="sidenav.toggle()" [routerLink]="['/auth/mi-cuenta/ajustes']">Mi Perfil</a>
+                            <a mat-menu-item (click)="sidenav.toggle()" (click)="logout()">
+                                Cerrar Sesión
+                                <i class="fi fi-rr-sign-out"></i>
+                            </a>
+                        </mat-menu>
+                    </mat-list-item>
+                </mat-list>
+            </div>
+        </mat-nav-list>
+    </mat-sidenav>
+
+    <!-- Router Outlet -->
+    <div class="router-background">
+        <router-outlet></router-outlet>
+    </div>
+
+    <!-- Footer -->
+    <div #footer>
+        <app-footer></app-footer>
+    </div>
+</mat-sidenav-container>

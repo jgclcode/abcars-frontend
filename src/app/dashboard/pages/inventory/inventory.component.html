@@ -1,0 +1,75 @@
+<p>inventory works!</p>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mark">
+      <th mat-header-cell *matHeaderCellDef> Marca </th>
+      <td mat-cell *matCellDef="let element"> {{element.mark}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="model">
+      <th mat-header-cell *matHeaderCellDef> Modelo </th>
+      <td mat-cell *matCellDef="let element"> {{element.model}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="vim">
+      <th mat-header-cell *matHeaderCellDef> Vim </th>
+      <td mat-cell *matCellDef="let element"> {{element.vim}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="status">
+        <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</th>
+        <td mat-cell *matCellDef="let row" class="px-2 td__mm">
+            <span class="badge rounded-pill" [ngClass]="{
+                'bg-secondary'        : row.status === 'stand_by' || row.status === 'pre_approved',
+                'bg-primary'          : row.status === 'valued_standBy_parts' || row.status === 'to_valued',
+                'bg-warning text-dark': row.status === 'valued' || row.status === 'buy_offer',
+                'bg-success'          : row.status === 'ready_to_buy' || row.status === 'buy'  || row.status === 'pre_preparation' || row.status === 'preparation' || row.status === 'readyForSale',
+                'bg-danger'           : row.status === 'reject' || row.status === 'rejected'
+            }">
+
+                {{ 
+                    (row.status === 'stand_by') ? 'En espera' :
+                    (row.status === 'pre_approved') ? 'Proceder' :
+                    (row.status === 'reject') ? 'Rechazado' :
+                    (row.status === 'rejected') ? 'Rechazado' :
+                    (row.status === 'valued_standBy_parts') ? 'Listo p/valuar' :
+                    (row.status === 'to_valued') ? 'Listo p/valuar' :
+                    (row.status === 'valued') ? 'Valuado' :
+                    (row.status === 'buy_offer') ? 'Expediente completo' :
+                    (row.status === 'ready_to_buy') ? 'Pendiente de pago' :
+                    (row.status === 'buy') ? 'Comprado' :
+                    (row.status === 'pre_preparation') ? 'Pendiente reacondicionar' :
+                    (row.status === 'preparation') ? 'En preparación' :
+                    (row?.check_list === null) ? '-----' :
+                    (row?.check_list?.status === 'reviewed') ? 'Valorado' :
+                    (row?.check_list?.status === 'quoted') ? 'Cotizado' :
+                    (row?.check_list?.status === 'bought') ? 'Comprado' :
+                    (row?.check_list?.status === 'rejected') ? 'Rechazado' :
+                    (row?.check_list?.status === 'preparation') ? 'Preparado' : 'L.P. Venta'
+                }} 
+            </span>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="preparation">
+        <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>En Preparación</th>
+        <td mat-cell *matCellDef="let row" class="px-2 td__mm">
+        </td>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+        <th class="th__table" mat-header-cell *matHeaderCellDef>Acciones</th>
+        <td mat-cell *matCellDef="let row" class="px-2 td__mm">
+            <input type="button" value="Accion">
+        </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>

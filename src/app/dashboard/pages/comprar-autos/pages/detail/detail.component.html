@@ -1,0 +1,536 @@
+<div class="container">
+
+    <div class="row">
+        
+        <!-- Vehicles -->
+        <div class="row"> 
+            <ng-container *ngIf="(!vehicle); else elseTemplate">
+                <div class="col-12">
+                    <div class="sk-cube-grid">
+                        <div class="sk-cube sk-cube1"></div>
+                        <div class="sk-cube sk-cube2"></div>
+                        <div class="sk-cube sk-cube3"></div>
+                        <div class="sk-cube sk-cube4"></div>
+                        <div class="sk-cube sk-cube5"></div>
+                        <div class="sk-cube sk-cube6"></div>
+                        <div class="sk-cube sk-cube7"></div>
+                        <div class="sk-cube sk-cube8"></div>
+                        <div class="sk-cube sk-cube9"></div>
+                    </div>
+                </div>
+            </ng-container>
+
+            <ng-template #elseTemplate>
+
+                <div class="row button-container-dos">
+                    <div class="d-xl-none">
+                        <div class="mobile-fixed">
+                            <div class="pull-left">
+                                <span style="font-size:medium;" class="ellipsis">{{vehicle.carmodel.brand.name}}</span>
+                                <b style="font-size:medium;" class="ellipsis">{{vehicle.carmodel.name}}</b>
+                            </div>
+                            <div class="col-12 pull-rigth" *ngIf="!priceOffer">
+                                <b style="font-size:medium;">Compra por: <span class="fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span></b>
+                            </div>
+                            <div class="pull-rigth" *ngIf="priceOffer">
+                                <!-- <b style="font-size:medium;">Compra por: <span class="fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span></b> -->
+                                <b style="font-size:medium;">Compra por: <span class="fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.priceOffer | number:'.2-2') : '' }}</span></b>
+                            </div>
+                            <!-- <div class="pull-rigth" *ngIf="priceOffer">
+                                <div style="margin-top: 25px; margin-right: 8px;">
+                                    <b style="font-size:medium;">Bono de: <span class="fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.price - vehicle.priceOffer! | number:'.2-2') : '' }}</span></b>
+                                </div>
+                            </div> -->
+                            <div class="pull-rigth" *ngIf="vehicle.priceBonus">
+                                <div style="margin-top: 25px; margin-right: 8px;">
+                                    <b style="font-size:medium;">Mas bono de: <span class="fw-bold abcars-color">${{ vehicle.priceBonus| number:'.2-2' : '' }}</span></b>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Breadcrumb & Share -->
+                <div class="row">
+                    <!-- Breadcrumb -->
+                    <div class="col-12 mt-5">
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a class="fw-bold text-dark text-decoration-none" [routerLink]="['/compra-tu-auto']">
+                                        <i class="fas fa-arrow-left"></i> Volver a resultados
+                                    </a>
+                                </li>
+        
+                                <li class="breadcrumb-item" aria-current="page">
+                                    <p class="text-truncate" [routerLink]="['/compra-tu-auto/' + pathStockBrand]">
+                                        {{ vehicle != undefined ? (vehicle.carmodel.brand.name | titlecase) : ''}}
+                                    </p>
+                                </li>
+        
+                                <li class="breadcrumb-item" aria-current="page">
+                                    <p class="text-truncate" [routerLink]="['/compra-tu-auto/' + pathStockCarmodel]">
+                                        {{ vehicle != undefined ? (vehicle.carmodel.name | titlecase) : ''}}
+                                    </p>
+                                </li>
+
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+        
+                <!-- Pictures & Details -->
+                <div class="row marginContentLeft">
+                    <!-- Pictures -->
+                    <div class="col-sm-12 col-md-12 col-lg-12 col-xl-7 mb-3">
+                        <!--Prueba Swiper Thumbs-->
+                        <div class="row row-thumb">
+                            <div class="col-12 col-12-swiper-thumbs">
+                                <div class="swiper-container my-swiper-thumbs-1">
+                                    <div class="swiper-wrapper my-swiper-wrapper-thumbs-1">
+                                        <div class="swiper-slide my-swiper-slide-thumbs-1" *ngFor="let image of imagesForSlider">
+                                            <div class="swiper-zoom-container">
+                                                <img class="img-swiper-thumbs-1" [src]="image.path" />
+                                                <div id="img-2" style="background:url('{{image.path}}')"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-carousel-th">
+                            <div class="col-12 mt-1">
+                                <div class="swiper-container my-swiper-thumbs-2">
+                                    <div class="swiper-wrapper my-swiper-wrapper-thumbs-2">
+                                        <div class="swiper-slide my-swiper-slide-thumbs-2" *ngFor="let image of imagesForSlider">
+                                            <img class="img-swiper-thumbs-2" [src]="image.path" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="row row-carousel-btns">-->
+                                <button class="prevBtn ms-2" id="btn_previous_thumb">
+                                    <img class="img-btn-carousel" src="../../assets/icons/flecha_carrusel_izq.svg" alt="Flecha Anterior">
+                                </button>
+                                <button class="nextBtn me-2" id="btn_next_thumb">
+                                    <img class="img-btn-carousel" src="../../assets/icons/flecha_carrusel_der.svg" alt="Flecha Siguiente">
+                                </button>
+                            <!--</div>-->
+                        </div>
+
+                        <div class="d-xl-none mt-3 mb-3">
+                            <div class="row marginContentLeft button-container">
+                                <div class="col-6">
+                                    <ng-container *ngIf="route">
+                                        <span class="badge rounded-pill" style="background: rgb(254, 143, 0);">Apartado</span>
+                                    </ng-container>
+                                </div>
+                                <h1>{{ vehicle != undefined ? (vehicle.name) : ''}}</h1>
+                                <div class="row marginContentLeft" *ngIf="!priceOffer">
+                                    <div class="col-12">
+                                        <p class="fw-light">Compra por:</p>
+                                        <span class="fs-4 fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span> <!-- vehicle.salePrice -->
+                                    </div>
+                                </div>
+                                
+                                <div class="row marginContentLeft" *ngIf="priceOffer">
+                                    <div class="col-12">
+                                        <p class="fw-light">Compra por:</p>
+                                        <!-- <span class="fs-4 fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span>  -->
+                                        <span class="fs-4 fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.priceOffer| number:'.2-2') : '' }}</span> 
+                                    </div>
+                                </div>
+                                
+                                <!-- <div class="row marginContentLeft" *ngIf="priceOffer">
+                                    <div class="col-12">
+                                        <p class="fw-light">Bono de:</p>
+                                        <span class="fs-4 fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.price - vehicle.priceOffer! | number:'.2-2') : '' }}</span>
+                                    </div>
+                                </div> -->
+
+                                <div class="row marginContentLeft" *ngIf="vehicle.priceBonus">
+                                    <div class="col-12" > <!--style="margin-top: 25px; margin-right: 8px;"-->
+                                        <p class="fw-light">Mas bono de:</p>
+                                        <span class="fs-4 fw-bold abcars-color">${{ vehicle.priceBonus| number:'.2-2' : '' }}</span>
+                                    </div>
+                                </div>
+                                
+                                <div *ngIf="!route" class="col-12 mt-3 mb-4">                        
+                                    <div class="accordion my-margin-accordion my-arrow" id="accordionExample">
+                                        <div *ngIf="(userId); else elseButton" class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="false" 
+                                                (click)="saveVehicleLS()" [routerLink]="['/abc/financiamiento/solicitud/credit/'+vin+'/'+userId]"> <!-- data-bs-target="#collapseTwo" aria-controls="collapseTwo"-->
+                                                    SOLICITAR CRÉDITO
+                                                </div>
+                                            </h2>
+                                        </div>
+                                        <ng-template #elseButton>
+                                            <div class="accordion-item">
+                                                <h2 class="accordion-header" id="headingOne">
+                                                    <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="false" 
+                                                    (click)="saveVehicleLS()" [routerLink]="['/abc/financiamiento/solicitud/credit/'+vin]"> <!-- data-bs-target="#collapseTwo" aria-controls="collapseTwo"-->
+                                                        SOLICITAR CRÉDITO
+                                                    </div>
+                                                </h2>
+                                            </div>
+                                        </ng-template>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingTwo">
+                                                <a style="text-decoration: none;" href="https://api.whatsapp.com/send?phone=2221263726&text=Me gustaría información de éste vehículo: {{ pageVehicle }}" target="_blank">
+                                                    <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="false"> <!-- data-bs-target="#collapseTwo" aria-controls="collapseTwo"-->
+                                                        <!-- <img src="../../../../../../assets/icons/whatsapp.png" class="icono"> -->
+                                                        <img src="assets/whatsapp-icon.png" class="icono" alt="WhatsApp">
+                                                        WHATSAPP
+                                                    </div>
+                                                </a>
+                                            </h2>
+                                        </div>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingThree">
+                                                <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false"
+                                                [routerLink]="['/solicitud-offer/'+vin]">
+                                                    HAZ UNA OFERTA
+                                                </div>
+                                            </h2>
+                                        </div>
+                                        <!-- <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingFour">
+                                                <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false"
+                                                [routerLink]="['/solicitud-set-aside/'+vin]">
+                                                APÁRTAME
+                                                </div>
+                                            </h2>
+                                        </div> -->
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingFive">
+                                                <div [matMenuTriggerFor]="menu">
+                                                    <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false">
+                                                        <!-- <img src="../../../../../../assets/icons/share.png" class="ima" style="margin-right: 4px; width: 15px;"> -->
+                                                        COMPARTIR
+                                                    </div>
+                                                    <mat-menu #menu="matMenu">
+                                                        <a mat-menu-item class="text-decoration-none text-dark" href="https://api.whatsapp.com/send?text=Te comparto este vehículo en ABCars.mx {{ pageVehicle }}" target="_blank">
+                                                            <img src="../../../../../../assets/icons/whatsapp.png" class="icono">
+                                                            WhatsApp
+                                                        </a>
+                        
+                                                        <a mat-menu-item class="text-decoration-none text-dark" href="https://www.facebook.com/sharer/sharer.php?u={{ pageVehicle }}" target="_blank">
+                                                            <img src="../../../../../../assets/icons/facebook.png" class="icono">                        
+                                                            Facebook
+                                                        </a>
+                        
+                                                        <a mat-menu-item [cdkCopyToClipboard]="pageVehicle" (click)="openSnackBarCopy()">
+                                                            <img src="../../../../../../assets/icons/copiar.png" class="icono">
+                                                            <span>Copiar al portapapeles</span>
+                                                        </a>
+                                                    </mat-menu>
+                                                </div>
+                                            </h2>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border: 1px solid #707070;">
+                        <div class="row marginContentLeft" *ngIf="shields.length > 0">
+                            <div class="col-12 mb-4">
+                                <!-- <h2 class="fw-bold fs-3 mb-3">Garantías</h2> -->
+                                <h6 class="fw-bold fs-5 mb-4">A este vehículo se le pueden aplicar una de las siguientes promociones:</h6>
+                                <div class="row "> <!--text-center-->
+                                    <div [ngClass]="[shields.length == 1 ? 'col-12 col-md-12 col-xl-12 mb-3' : 'col-4 col-md-4 col-xl-4 mb-3']" *ngFor="let shield of shields">
+                                        <!-- <img class="rounded-start" src="{{ baseUrl }}/api/shields/imagen/{{ shield.path }}" width="80%" alt="{{ shield.name }}" /> -->
+                                        <p class="fs-6 fw-bold abcars-color">✓ {{ shield.name }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="accordion my-margin-accordion" id="accordionSection">
+                            <div class="accordion-item">
+                                <h6 class="accordion-header fw-bold fs-5" id="headingSectionOne">
+                                    <button class="accordion-button  fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSectionOne"  aria-expanded="true" aria-controls="collapseSectionOne">
+                                        Detalle
+                                    </button>
+                                </h6>
+                                <div id="collapseSectionOne" class="accordion-collapse collapse show" aria-labelledby="headingSectionOne" data-bs-parent="#accordionSection">
+                                    <div class="accordion-body">
+                                        <p style="margin: 0 0 0px" *ngFor="let description of descriptions"> {{ description }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <h6 class="accordion-header fw-bold fs-5" id="headingSectionTwo">
+                                    <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSectionTwo" aria-expanded="false" aria-controls="collapseSectionTwo">
+                                        Características
+                                    </button>
+                                </h6>
+                                <div id="collapseSectionTwo" class="accordion-collapse collapse" aria-labelledby="headingSectionTwo" data-bs-parent="#accordionSection">
+                                    <div class="accordion-body">
+                                        <div class="row" style="margin-left: -10px;">
+                                            <div class="container">
+                                                <div class="row marginContentLeft row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-lg-3">
+                                                    <!-- Brand -->
+                                                    <div class="col">                            
+                                                        <div class="details-bg">
+                                                            <img class="rounded-circle" src="assets/icons/abcars-icons/details-vehicle/marca.png" width="32" height="32" alt="Icon Brand Vehicle" />
+                                                            <span class="detail-text">Marca</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.carmodel.brand.name | titlecase) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                        
+                                                    <!-- Color Externo -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/pantone.png" width="32" height="32" alt="Icon Color Vehicle" />
+                                                            <span class="detail-text">Color exterior</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.colorExt | titlecase) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Cylinders -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/piston.png" width="32" height="32" alt="Icon Cylinders Vehicle" />
+                                                            <span class="detail-text">Cilindros</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.cylinders) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Year -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/calendario.png" width="32" height="32" alt="Icon Year Vehicle" />
+                                                            <span class="detail-text">Año</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.yearModel) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Mileage -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/camino.png" width="32" height="32" alt="Icon Mileage Vehicle" />
+                                                            <span class="detail-text">Kilometraje</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.km | number) : '' }} km</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Carline -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img class="rounded-circle" src="assets/icons/abcars-icons/details-vehicle/carroceria.png" width="32" height="32" alt="Icon Carline Vehicle" />
+                                                            <span class="detail-text">Carrocería</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.vehiclebody.name | titlecase) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- price -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/dolar.png" width="32" height="32" alt="Icon Carline Vehicle" />
+                                                            <span class="detail-text">Precio</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.price | number) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Location -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/ubicacion.png" width="32" height="32" alt="Icon Location Vehicle" />
+                                                            <span class="detail-text">Ubicación</span>
+                                                            <span class="detail-content fw-bold">{{ locationVeh != undefined ? (locationVeh):(vehicle.branch.state.name | titlecase) }}</span>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Transmission -->
+                                                    <div class="col">
+                                                        <div class="details-bg">                                
+                                                            <img src="assets/icons/abcars-icons/details-vehicle/transmision.png" width="32" height="32" alt="Icon Transmission Vehicle" />
+                                                            <span class="detail-text">Transmisión</span>
+                                                            <span class="detail-content fw-bold">{{ vehicle != undefined ? (vehicle.transmission | titlecase) : '' }}</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <hr style="border: 1px solid #707070; margin-top: 10px;">
+
+                        <!-- Disclaimer -->
+                        <div class="row marginContentLeft">                
+                            <div class="col-12 mb-4">
+                                <h2 class="fw-bold fs-3">Legales</h2>
+                                <div class="legal">
+                                    <p>Los precios mostrados aplican en M.N. e incluyen I.V.A. aplica para compras de contado y crédito (sujeto de aprobación).
+                                    <p>La compra de vehículos a cuenta, está sujeta a la revisión visual y mecánica dispuesta por Abcars y el acuerdo de ambas partes (comprador y vendedor).</p>
+                                    <p>El pago mejorando cualquier oferta de Agencia aplica en M.N. e incluirá I.V.A. y se realizará considerando ofertas de compra presentadas por el vendedor y que por escrito testifiquen a través de un documento certificado (sello) que fueron expedidas por empresas dedicadas a la comercialización de vehículos usados en México y que tengan una antigüedad no mayor a 20 días con respecto a la fecha de presentación. Consulta más detalles con tu asesor.</p>
+                                    <p>Vigencia al {{ legalDate | date:'longDate':'':'es' }}.</p>
+                                    <p>Derivado de las pruebas de manejo en los vehículos el kilometraje puede variar.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- Main Details Vehicle -->
+                    <div class="d-none d-xl-block col-xl-5 mb-3">
+                        <!-- Flag reserved -->
+                        <div #divZoom id="div-zoom" class="div-zoom-no-active"></div>
+                        <!-- Reserved & Button Shared -->
+                        <div class="row marginContentLeft button-container">
+                            <div class="col-6">
+                                <ng-container *ngIf="route">
+                                    <span class="badge rounded-pill" style="background: rgb(254, 143, 0);">Apartado</span>
+                                </ng-container>
+                            </div>
+                            <h1>{{ vehicle != undefined ? (vehicle.name) : ''}}</h1>
+                            <div class="row marginContentLeft" *ngIf="!priceOffer">
+                                <div class="col-12">
+                                    <p class="fw-light">Compra por:</p>
+                                    <span class="fs-4 fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span> <!-- vehicle.salePrice -->
+                                </div>
+                            </div>
+                            
+                            <div class="row marginContentLeft" *ngIf="priceOffer">
+                                <div class="col-12">
+                                    <p class="fw-light">Compra por:</p>
+                                    <span class="fs-4 fw-bold abcars-offer"><del>${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</del></span>
+                                </div>
+                            </div>
+                            
+                            <!-- <div class="row marginContentLeft" *ngIf="priceOffer">
+                                <div class="col-12">
+                                    <p class="fw-light">Compra por:</p>
+                                    <span class="fs-4 fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span> 
+                                </div>
+                            </div>
+                            
+                            <div class="row marginContentLeft" *ngIf="priceOffer">
+                                <div class="col-12">
+                                    <p class="fw-light">Bono de:</p>
+                                    <span class="fs-4 fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.price - vehicle.priceOffer! | number:'.2-2') : '' }}</span>
+                                </div>
+                            </div> -->
+                            
+                            <div class="row marginContentLeft" *ngIf="priceOffer">
+                                <div class="col-12">
+                                    <p class="fw-light">Precio de oferta:</p>
+                                    <span class="fs-4 fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.priceOffer | number:'.2-2') : '' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="row marginContentLeft" *ngIf="vehicle.priceBonus">
+                                <div class="col-12" >
+                                    <p class="fw-light">Mas bono de:</p>
+                                    <span class="fs-4 fw-bold abcars-color">${{ vehicle.priceBonus| number:'.2-2' : '' }}</span>
+                                </div>
+                            </div>
+                            
+                            <div *ngIf="!route" class="col-12 mt-3 mb-4">                        
+                                <div class="accordion my-margin-accordion my-arrow" id="accordionExample">
+                                    <div *ngIf="(userId); else elseButton" class="accordion-item">
+                                        <h2 class="accordion-header" id="headingOne">
+                                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="false" 
+                                            (click)="saveVehicleLS()" [routerLink]="['/abc/financiamiento/solicitud/credit/'+vin+'/'+userId]"> <!-- data-bs-target="#collapseTwo" aria-controls="collapseTwo"-->
+                                                SOLICITAR CRÉDITO
+                                            </div>
+                                        </h2>
+                                    </div>
+                                    <ng-template #elseButton>
+                                        <div class="accordion-item">
+                                            <h2 class="accordion-header" id="headingOne">
+                                                <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="false" 
+                                                (click)="saveVehicleLS()" [routerLink]="['/abc/financiamiento/solicitud/credit/'+vin]"> <!-- data-bs-target="#collapseTwo" aria-controls="collapseTwo"-->
+                                                    SOLICITAR CRÉDITO
+                                                </div>
+                                            </h2>
+                                        </div>
+                                    </ng-template>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingTwo">
+                                            <a style="text-decoration: none;" href="https://api.whatsapp.com/send?phone=2221263726&text=Me gustaría información de éste vehículo: {{ pageVehicle }}" target="_blank">
+                                                <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse"  aria-expanded="false"> <!-- data-bs-target="#collapseTwo" aria-controls="collapseTwo"-->
+                                                    <!-- <img src="../../../../../../assets/icons/whatsapp.png" class="icono"> -->
+                                                    <img src="assets/whatsapp-icon.png" class="icono" alt="WhatsApp">
+                                                    WHATSAPP
+                                                </div>
+                                            </a>
+                                        </h2>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingThree">
+                                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false"
+                                            [routerLink]="['/solicitud-offer/'+vin]">
+                                                HAZ UNA OFERTA
+                                            </div>
+                                        </h2>
+                                    </div>
+                                    <!-- <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingFour">
+                                            <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false"
+                                            [routerLink]="['/solicitud-set-aside/'+vin]">
+                                            APÁRTAME
+                                            </div>
+                                        </h2>
+                                    </div> -->
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header" id="headingFive">
+                                            <div [matMenuTriggerFor]="menu">
+                                                <div class="accordion-button collapsed" type="button" data-bs-toggle="collapse" aria-expanded="false">
+                                                    <!-- <img src="../../../../../../assets/icons/share.png" class="ima" style="margin-right: 4px; width: 15px;"> -->
+                                                    COMPARTIR
+                                                </div>
+                                                <mat-menu #menu="matMenu">
+                                                    <a mat-menu-item class="text-decoration-none text-dark" href="https://api.whatsapp.com/send?text=Te comparto este vehículo en ABCars.mx {{ pageVehicle }}" target="_blank">
+                                                        <img src="../../../../../../assets/icons/whatsapp.png" class="icono">
+                                                        WhatsApp
+                                                    </a>
+                    
+                                                    <a mat-menu-item class="text-decoration-none text-dark" href="https://www.facebook.com/sharer/sharer.php?u={{ pageVehicle }}" target="_blank">
+                                                        <img src="../../../../../../assets/icons/facebook.png" class="icono">                        
+                                                        Facebook
+                                                    </a>
+                    
+                                                    <a mat-menu-item [cdkCopyToClipboard]="pageVehicle" (click)="openSnackBarCopy()">
+                                                        <img src="../../../../../../assets/icons/copiar.png" class="icono">
+                                                        <span>Copiar al portapapeles</span>
+                                                    </a>
+                                                </mat-menu>
+                                            </div>
+                                        </h2>
+                                    </div>
+                                </div>
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <!-- Others vehicles -->
+                <div class="row marginContentLeft">
+                    <div class="col-12 mb-5">
+                        <h2 class="fw-bold fs-3 mb-3">Vehículos Similares</h2>
+                        <div class="row row-carousel">
+                            <div class="swiper my-swiper-v">
+                                <div class="swiper-wrapper my-swiper-wrapper-v">
+                                    <div class="swiper-slide my-swiper-slide-v" *ngFor="let vehicle of recommended_vehicle">
+                                        <c-vender-autos-vehicle class="pic" [vehicle]="vehicle" [routerLink]="['/compra-tu-auto/detail', vehicle.vin ]"></c-vender-autos-vehicle>
+                                    </div>
+                                </div>   
+                            </div>
+                            <!--<div class="row row-carousel-btns">-->
+                                <button class="prevBtn" id="btn_previous_v">
+                                    <img class="img-btn-carousel" src="../../assets/icons/flecha_carrusel_izq.svg" alt="Flecha Anterior">
+                                </button>
+                
+                
+                                <button class="nextBtn" id="btn_next_v">
+                                    <img class="img-btn-carousel" src="../../assets/icons/flecha_carrusel_der.svg" alt="Flecha Siguiente">
+                                </button>
+                            <!--</div>-->
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </div>
+    </div>
+
+    <app-sticky-whatsapp-detail></app-sticky-whatsapp-detail>
+</div>

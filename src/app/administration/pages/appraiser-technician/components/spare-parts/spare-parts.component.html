@@ -1,0 +1,157 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3 mb-3">
+            <!-- Title -->
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <h1 class="text-center fw-bold">Solicitud de Refacciones</h1>
+                </div>
+            </div>
+
+            <!-- Add Spare Part -->
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">                        
+                        <span class="fw-bold">Agregar Refacción</span>                        
+                    </h4>
+                      
+                    <form [formGroup]="form" (ngSubmit)="addSparePart()">
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Name -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Nombre de la Refacción</mat-label>
+                                    <input matInput type="text" formControlName="name" placeholder="Refacción..." minlength="1" maxlength="80" required>
+                                    <mat-hint *ngIf="nameInvalid">Escribir el nombre de la Refacción.</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <!-- Amount -->
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Piezas (Cantidad)</mat-label>
+                                    <input matInput type="number" formControlName="amount" placeholder="1" min="1" minlength="1" maxlength="2" #amount (keyup)="maxLengthCheck(amount)" required>
+                                    <mat-hint *ngIf="amountInvalid">Ingrese la cantidad de piezas.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <!-- Time -->
+                            <div class="col-12 col-lg-6">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Tiempo (Horas)</mat-label>
+                                    <input matInput type="number" formControlName="hours" min="0" placeholder="1 o 0.3" required>
+                                    <mat-hint *ngIf="hoursInvalid">Ingrese el número de horas.</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 mt-3 text-center">
+                                <button mat-button type="submit" class="btn abcars-background-color rounded-pill text-dark" [disabled]="form.invalid">
+                                    Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Request Spare Parts -->
+            <div class="row">
+                <div class="col-12 mt-2 mb-3">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                      <span class="fw-bold">Solicitud de Refacciones</span>
+                      <span class="badge bg-primary rounded-pill">{{ spare_parts_quote.length }}</span>
+                    </h4>
+                    
+                    <!-- List -->
+                    <ng-container *ngIf="spare_parts_quote.length === 0; else elseTemplate">
+                        <div class="alert alert-info text-center" role="alert">                            
+                            Aún no has agregado ninguna refaccion a solicitar.
+                        </div>
+                    </ng-container>
+
+                    <ng-template #elseTemplate>                        
+                        <div class="overflow-auto" style="max-height: 250px;">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let part of spare_parts_quote; let i = index">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">{{ part.name }}</div>
+                                        <small class="text-muted mx-2">Cantidad: {{ part.amount }} pza(s)</small>
+                                        <small class="text-muted">Ensamble: {{ part.hours }} hrs(s)</small>
+                                    </div>
+
+                                    <span class="badge bg-danger rounded-pill p-2" (click)="deletePart(i)"><i class="fi fi-rr-cross-circle"></i></span>
+                                </li>
+                            </ol>
+                        </div>
+                    </ng-template>
+
+                    <div class="card p-2">
+                        <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark" (click)="onSubmit()" [disabled]="spare_parts_quote.length === 0 || spinner">                            
+                            <span *ngIf="!spinner">Solicitar</span>
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Orders Spare Parts -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">                        
+                        <span class="fw-bold">Refacciones Solicitadas</span>                        
+                    </h4>
+
+                    <ng-container *ngIf="spare_parts.length === 0; else elseTemplateSpareOrders">
+                        <div class="alert alert-info text-center" role="alert">                            
+                            Sin refacciones solicitadas actualmente.
+                        </div>
+                    </ng-container>
+
+                    <ng-template #elseTemplateSpareOrders>
+                        <div class="overflow-auto" style="max-height: 250px;">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let part of spare_parts; let i = index">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">{{ part.name }}</div>
+                                        <small class="text-muted mx-2">Cantidad: {{ part.amount }} pza(s)</small>
+                                        <small class="text-muted">Ensamble: {{ part.hours }} hrs(s)</small>
+                                    </div>
+
+                                    <span class="badge rounded-pill" [ngClass]="{ 
+                                            'bg-success': part.status === 'approved',
+                                            'bg-primary': part.status === 'pre approved',
+                                            'bg-secondary': part.status === 'on hold',
+                                            'bg-danger': part.status === 'rejected'
+                                        }">
+                                        {{
+                                            (part.status === 'approved') ? 'Autorizado' : 
+                                            (part.status === 'pre approved') ? 'Pre-Autorizado' : 
+                                            (part.status === 'on hold') ? 'En Espera' : 'Rechazado'
+                                        }}
+                                    </span>
+                                </li>
+                            </ol>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+        
+            <!-- Close Button Sheet -->
+            <div class="row float-end">
+                <div class="col-12 mt-5">
+                    <button mat-button type="button" class="btn abcars-background-color-black rounded-pill" (click)="closeBottomSheet()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

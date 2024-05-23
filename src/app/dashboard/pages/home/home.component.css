@@ -1,0 +1,185 @@
+.chip-list {
+    width: 100%;
+}
+
+mat-slider {
+    width: 100%;
+}
+
+.mdc-card {
+    border-radius: 30px !important;
+}
+
+.banner-header {
+    /*background: url('/assets/images/abcars-images/banner.jpg');*/
+    background: linear-gradient(to top,  #7C8183 0%,#7C8183 30%,#ffffff 30%,#ffffff 100%);
+    padding-top: 5%;
+    /*padding-bottom: 5%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;*/
+}
+
+.logo{
+    margin: 10px 50px !important; 
+    margin-top:10px !important;
+}
+mat-card {
+    box-shadow: none !important;
+}
+
+.heading-bottom {
+    position: relative;
+}
+
+.heading-bottom::before {
+    content: "";
+    position: absolute;
+    left: 90%;
+    bottom: -5px;
+    height: 4px;
+    width: 50px;
+    background: var(--abcars-color);
+}
+
+.font-promo{
+    background: url('/assets/images/abcars-images/FONDO-02.png');
+    padding-top: 5%;
+    padding-bottom: 5%;    
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+
+}
+.letras{
+    height:calc(100%/2);
+    position: relative;
+    top: 0;
+    width: calc(100%/2);
+
+}
+.reloj{
+    height:calc(100%/3);
+    position: relative;
+    width: calc(100%/3)
+}
+
+@media (max-width: 700px) {
+    .header-title {
+        margin-top: 50px;
+    }
+}
+.container_1{
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.carousel-html-content .carousel-cell .card{
+    background: #EEB838;
+    border: none;
+    border-radius: 70px;
+}
+.carousel-html-content-marcas .carousel-cell .card{
+    border: none;
+}
+.btn_explorarAutos{
+    background: #1057DB;
+    color: white;
+    border-radius: 70px;
+}
+.icon_explorarAutos{
+    width: 25px;
+    height: 25px;
+    margin-left: -3px;
+    margin-top: -4px;
+}
+    
+.my-swiper-brands {
+    width: auto;
+    height: 100px;
+    overflow: hidden;
+    object-fit: cover;
+}
+swiper-slide{
+    width: 100px!important;
+}
+swiper-slide .card {
+    border: none;
+    object-fit: cover;
+    width:100%;
+    height:100%;
+}
+swiper-slide .card .card-body{
+    padding: 10px;
+    object-fit: cover; 
+    width:100%;
+    height:100%;
+    
+}
+swiper-slide .card .card-body img{
+    width:100%;
+    height:100%;
+    position: relative;
+    object-fit: contain;
+    
+}
+/*.div-btns-carousel{
+    margin-top: auto;
+    margin-bottom: auto;
+    object-fit: cover;
+    display: flex;
+    flex-wrap: nowrap;
+    position: absolute;
+    justify-content: space-between;
+    z-index: 2;
+}*/
+#btn_previous,
+#btn_previous_promo{
+    position: left;
+}
+#btn_next,
+#btn_next_promo{
+    position: right;
+}
+#btn_previous,
+#btn_next,
+#btn_previous_promo,
+#btn_next_promo{
+    z-index: 2;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    outline: none; 
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #ffffff;
+    opacity: 0.7;
+}
+
+.row-carousel-btns{
+    position:absolute;
+    justify-content: space-between;
+    padding-right: 0;
+}
+.row-carousel{
+    position: relative;
+    align-items: center;
+}
+.my-swiper-promo{
+    height: 370px;
+    overflow: hidden;
+    object-fit: cover;
+}
+.my-swiper-wrapper-promo{
+    display: flex;
+    height: 100%;
+    transition-timing-function: linear!important;
+}
+.my-swiper-slide-promo{
+    min-width: 250px!important;
+}
+.img-btn-carousel{
+    width:100%;
+    height:100%;
+}

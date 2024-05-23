@@ -1,0 +1,70 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="row">
+                        <div class="col-12">
+                            <h1 class="fw-light">Disfruta <span class="fw-bold">todos los beneficios</span> que te ofrece nuestra <span class="fw-bold">Área de Servicio</span>
+                                <p class="fw-light fs-5">La mejor manera de conservartu vehículo en perfectas condiciones.</p>
+                            </h1>                                                        
+
+                            <button mat-raised-button type="button" class="btn abcars-background-color px-5 py-2 mt-4 rounded-pill text-dark    "
+                                [routerLink]="['/citas/servicio']">                                    
+                                AGENDAR CITA                 
+                            </button>
+                        </div>
+
+                        <div class="col-12 mt-4">
+                            <carousel class="carousel-html-content" [cellWidth]="200" [height]="290">
+                                <div class="carousel-cell">
+                                    <div class="card h-100" [routerLink]="['/citas/servicio']"> 
+                                        <div class="text-center">
+                                            <img class="card-img-top w-75 mx-auto" src="assets/icons/abcars-icons/icon-1.svg" alt="Icon 1">                                
+                                            <p class="fw-normal fs-4">Agendar cita</p>
+                                            <p class="fw-normal fs-4">de servicio</p>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="carousel-cell">
+                                    <div class="card h-100" [routerLink]="['/abc/garantia-extendida']">
+                                        <div class="text-center mx-auto">
+                                            <img class="card-img-top w-75" src="assets/icons/abcars-icons/icon-2.svg" alt="Icon 2">
+                                            <p class="fw-normal fs-4">Garantía</p>
+                                            <p class="fw-normal fs-4">extendida</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="carousel-cell">
+                                    <div class="card h-100" [routerLink]="['/asistencia-vial']">
+                                        <div class="text-center mx-auto">
+                                            <img class="card-img-top w-75" src="assets/icons/abcars-icons/icon-3.svg" alt="Icon 3">
+                                            <p class="fw-normal fs-4">Asistencia</p>
+                                            <p class="fw-normal fs-4">Vial</p>
+                                        </div>
+                                    </div>
+                                </div>
+            
+                                <div class="carousel-cell">
+                                    <div class="card h-100" [routerLink]="['/abc/gana-dinero']">
+                                        <div class="text-center mx-auto">
+                                            <img class="card-img-top w-75" src="assets/icons/abcars-icons/icon-4.svg" alt="Icon 4">                                
+                                            <p class="fw-normal fs-4">Gana dinero</p>
+                                            <p class="fw-normal fs-4">en efectivo</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </carousel>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 mt-5">
+                    <img class="img-fluid" src="assets/images/abcars-images/service-home.png" alt="Área de Servicio Imagen">
+                </div>        
+            </div>
+        </div>
+    </div>
+</div>

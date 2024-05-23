@@ -1,0 +1,28 @@
+<br>
+<div class="container button">
+  <div class="row">
+    <div class="col-10">
+      <a class="fw-bold m-4 mt-5  text-dark text-decoration-none " [routerLink]="['/admin/pictures/reportPhoto']">
+        <i class="fas fa-arrow-left"></i> volver
+      </a>
+    </div>
+    <div class="col-2">
+      <a mat-raised-button mat-button class="abcars-background-color"  [routerLink]="['/admin/pictures/design']"> <i class="fas fa-camera-retro"></i> SubirFoto </a>
+    </div>
+  </div>
+</div>
+    <div *ngIf="data" class="container py-5">
+      <div class="row">
+        <!-- <h1 class="fw-bold"> Nombre: {{name}} <br> Vin: {{vin}}</h1> -->
+        <h1>Fotografías para editar</h1>
+        <h1 class="fw-bold">Vin: {{vin}}</h1>
+        <div class="row col-12 col-md-4 col-lg-4 mt-2 mb-2" *ngFor="let image of data">
+          <div class="col">
+            <div class="card ">
+              <img src="{{ baseUrl }}/api/getSetImage/{{image.path}}/{{vin}}" alt="imagen">
+            </div>
+          </div>
+          <br>
+        </div>
+      </div>
+    </div>

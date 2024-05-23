@@ -1,0 +1,42 @@
+<div class="container">
+    <div class="row py-3">
+        <div class="col-12">
+            <h2 class="fw-bold text-center">Imagenes vista 360°</h2>
+        </div>
+    </div>
+
+    <!-- Pictures -->
+    <div class="row" *ngIf="this.data.images.length > 0">
+        <div class="col-12 content-carousel">
+            <carousel [height]="400" [counter]="true" [cellsToShow]="1" [objectFit]="'cover'" [arrowsOutside]="false" [images]="imagesForSlider" class="picture-carousel">
+            </carousel>
+        </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+        <div class="col-12">
+            <h2 class="fw-bold text-center">Subir imagenes</h2>
+
+            <div class="input-group mb-3">
+                <input type="file" class="form-control" #images multiple>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button Submit -->
+    <div class="row">
+        <div class="col-12 text-center">
+
+            <button mat-raised-button type="submit" class="btn abcars-background-color px-4 rounded-pill text-dark mx-2" (click)="sendImages()" [disabled]="spinner">                                    
+                <span *ngIf="!spinner">Subir</span>
+                <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+            </button>
+
+            <button mat-mini-fab color="accent" aria-label="Borrar imagenes" (click)="deleteImages()">
+                <mat-icon>delete</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

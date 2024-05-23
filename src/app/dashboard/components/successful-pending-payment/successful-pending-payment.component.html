@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mx-auto mt-5 mb-3">
+            <h1 class="fw-bold">Felicidades has realizado tu apartado con éxito, pago pendiente o en progreso</h1>
+            <!-- <img class="rounded mx-auto d-block" width="350" src="assets/icons/saved-process.svg" alt="Process Successful" /> -->
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-4 mb-4">
+            <!-- <h2 class="fw-bold fs-3 mb-3">Pago Pendiente o en Progreso</h2> -->
+            <div class="row">
+                <div class="col-12">
+                    <section class="example-container mat-elevation-z8" tabindex="0">
+                        <table mat-table [dataSource]="dataSource">
+                            <div>
+                                <div class="fl__date">
+                                    <ng-container matColumnDef="id_reference" sticky>
+                                        <div style="width: 50px;">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>ID referencia</th>
+                                            <td data-titulo="id" class="fw-bold td__table" mat-cell *matCellDef="let row">{{ row.resp_pending_id }}</td>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container matColumnDef="name" sticky>
+                                        <div style="width: 50px;">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Auto</th>
+                                            <td data-titulo="auto" class="td__table" mat-cell *matCellDef="let row">{{ row.resp_pending_title }}</td>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container matColumnDef="pay" sticky>
+                                        <div style="width: 50px;">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Pago de Apartado</th>
+                                            <td data-titulo="pago" class="td__table" mat-cell *matCellDef="let row">{{ row.resp_pending_totalPay | currency }}</td>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container matColumnDef="status" sticky>
+                                        <div style="width: 50px;">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Status del pago</th>
+                                            <td data-titulo="estatus" class="td__table" mat-cell *matCellDef="let row">{{ row.resp_pending_status }}</td>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container matColumnDef="status_detail" sticky>
+                                        <div style="width: 50px;">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Detalles del pago</th>
+                                            <td data-titulo="detalle" class="td__table" mat-cell *matCellDef="let row">{{ row.resp_pending_status_detail }}</td>
+                                        </div>
+                                    </ng-container>
+                                    
+                                </div>
+                            </div>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                        </table>
+                    </section>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 mx-auto mt-5">
+                    <div class="text-center">
+                        <p class="fs-5 fw-light">Verifica tu Ticket y descárgalo</p>
+                        <iframe [src]="getUrl() | safePay " allow="payment" width="100%" height="600px" frameborder="0"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

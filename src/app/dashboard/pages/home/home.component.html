@@ -1,0 +1,316 @@
+<!-- Header -->
+<div class="container-fluid">
+    <div class="row bg-dark banner-header">        
+       <div class="col-12 col-md-10 text-center mx-auto header-title">
+           <div class="row">
+               <div class="col-12 col-sm-12 col-lg-5 text-end">
+                   <h1 class="fs-2 text-start">
+                       <span class="abcars-color">SEMINUEVOS</span> <span class="fw-bold"> garantizados y 
+                       certificados de marca</span>                                    
+                       <!-- Nuestra <span class="fw-bold">Garantía y Asistencia</span>
+                           hace de tu próximo auto <span class="fw-bold">una Gran Experiencia</span> -->
+                   </h1>
+               </div>
+
+               <div class="col-12 col-sm-10 col-lg-7 text-center mx-auto mt-3">
+                   <img class="img-fluid" src="assets/images/abcars-images/X5-2_1.png" alt="BMW X5">
+               </div>
+           </div>
+       </div>
+   </div>
+</div>
+
+<!-- Next container -->
+<div class="container">
+
+   <!-- Promotions ABCars -->
+   <div class="row">
+       <div class="col-12 mt-3">
+           <!--<h1 class="fs-3 fw-bold text-center">Promociones</h1>-->
+           <!--<h5 class="fs-5 fw-light text-center">Vehículos con promociones existentes</h5>-->
+           <!--<div class="container_1">
+               <img class="img-fluid reloj" src="assets/images/abcars-images/RELOJ-02.png">
+               <img class="img-fluid letras" src="assets/images/abcars-images/LETRAS-02.png">
+           </div>       -->
+            <div class="row mx-auto">
+                <div class="col-12 col-sm-12 col-lg-5">
+                    <p class="text-start fw-normal mt-5 mb-1 text-black fs-5 fw-bold">SEMINUEVOS EN PROMOCIÓN </p>
+                </div>
+            </div>     
+
+           <!--Carousel Promotions -->
+           <div class="row mx-auto mt-3">
+               <div class="col-12"> <!--[cellWidth]="300" [height]="480"-->
+                   <!--<carousel class="carousel-html-content" [cellWidth]="250" [height]="370">
+                       <div class="carousel-cell" *ngFor="let vehicle of randomVehicles">
+                           <c-vender-autos-vehicle class="pic" [routerLink]="['/compra-tu-auto/detail', vehicle.vin]" [vehicle]="vehicle"></c-vender-autos-vehicle>
+                       </div>
+                   </carousel>-->
+                   <div class="row row-carousel">
+                        <div class="swiper my-swiper-promo">
+                            <div class="swiper-wrapper my-swiper-wrapper-promo">
+                                <div class="swiper-slide my-swiper-slide-promo" *ngFor="let vehicle of randomVehicles">
+                                    <c-vender-autos-vehicle class="pic" [routerLink]="['/compra-tu-auto/detail', vehicle.vin]" [vehicle]="vehicle"></c-vender-autos-vehicle>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row row-carousel-btns">
+                            <button id="btn_previous_promo">
+                                <img class="img-btn-carousel" src="/assets/icons/flecha_carrusel_izq.svg" alt="Flecha Anterior">
+                            </button>
+                            <button id="btn_next_promo">
+                                <img class="img-btn-carousel" src="/assets/icons/flecha_carrusel_der.svg" alt="Flecha Siguiente">
+                            </button>
+                        </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+       <div class="row mt-3 mb-5 mx-auto">
+            <div class="col-12">
+                <button mat-raised-button class="btn_explorarAutos" [routerLink]="['/compra-tu-auto']">
+                    Explorar más autos
+                    <img class="icon_explorarAutos" src="/assets/icons/explorar_mas_autos_icon.svg" alt="Explorar Autos Icon">
+                </button>
+            </div>  
+       </div>
+   </div>
+
+   <!-- Premieres without leaving home and Sell your car -->
+   <!--<div class="row">
+       <div class="col-12 col-md-12 col-lg-6 mt-3 mb-4">
+           <mat-card class="card abcars-background-card-home">
+               <mat-card-title-group>
+                 <mat-card-title class="fw-light fw-4 py-5 card-tittle-home">Estrenar sin salir de casa</mat-card-title>
+                 <img src="assets/images/abcars-images/recurso-4.png" width="70%" alt="Estrenar sin salir de casa">
+               </mat-card-title-group>
+
+               <mat-card-content>
+                   <div class="mx-auto text-center">
+                       <button type="button" [routerLink]="['compra-tu-auto']" mat-raised-button class="abcars-background-color px-4 py-2 mt-4 rounded-pill text-dark">
+                           Ver Inventario
+                       </button>
+                   </div>  
+               </mat-card-content>
+           </mat-card>
+       </div>
+
+       <div class="col-12 col-md-12 col-lg-6 mt-3 mb-3">
+           <mat-card class="card abcars-background-card-home">
+               <mat-card-title-group>
+                 <mat-card-title class="fw-light fw-4 py-5 card-tittle-home">Vende tu auto rápido, fácil y seguro.</mat-card-title>
+                 <img src="assets/images/abcars-images/recurso-3.png" width="52%" alt="Vende tu auto rápido, fácil y seguro">
+               </mat-card-title-group>
+
+               <mat-card-content>
+                   <div class="mx-auto text-center">
+                       <button type="button" [routerLink]="['vende-tu-auto']" mat-raised-button class="abcars-background-color px-4 py-2 mt-4 rounded-pill text-dark">
+                           Contactar Valuador
+                       </button>
+                   </div>            
+               </mat-card-content>
+           </mat-card>
+       </div>
+   </div>-->
+
+   <!-- Promotions ABCars 
+   <div class="row">
+       <div class="col-12 mt-3">
+           <h1 class="fs-3 fw-bold text-center">Promociones</h1>
+           <h5 class="fs-5 fw-light text-center">Vehículos con promociones existentes</h5>
+
+            Carousel Promotions 
+           <div class="row mx-auto mt-3">
+               <div class="col-12">
+                   <carousel class="carousel-html-content" [cellWidth]="300" [height]="480">
+                       <div class="carousel-cell" *ngFor="let vehicle of randomVehicles">
+                           <c-vender-autos-vehicle [routerLink]="['/compra-tu-auto/detail', vehicle.vin]" [vehicle]="vehicle"></c-vender-autos-vehicle>
+                       </div>
+                   </carousel>
+               </div>
+           </div>
+       </div>
+   </div> -->
+
+   <!-- Experience ABCars -->
+   <div class="row mx-auto">
+       <div class="col mt-5 mb-5">
+           <div class="row">
+               <!-- Image -->
+               <div class="col-12 col-md-4 col-sm-12 col-lg-5">                    
+                   <h1 class=" text-start fs-4">
+                       Al comprar en <span class="fw-bold"> ABcars.mx </span> obtienes:                    
+                       <span class="fw-bold">"Seguridad y Plusvalia que van contigo".</span>
+                   </h1>
+               </div>
+               <div class="col-12 col-sm-6 col-lg-7 text-end">
+                    <img class="img-fluid" src="assets/images/abcars-images/banner_2.png" alt="BMW X5">
+               </div>
+           </div>
+           <!-- Carousel Experience -->
+           <div class="col-12 mt-5">
+                <div class="row">
+                    <div class="col-11 mx-auto px-auto mt-3 mb-5">
+                        <carousel class="carousel-html-content" [cellWidth]="240" [height]="245">
+                            <div class="carousel-cell">
+                                <div class="card h-100 mx-3"> 
+                                    <div class="text-center">
+                                        <img class="card-img-top w-50 h-50 mx-auto mt-3 mb-4" src="assets/icons/abcars-icons/icon-1_1.svg" alt="Icon 1">                                
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">Cada vehículo</p>
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">es revisado <span class="fw-bold">legal y</span></p>
+                                        <p class="text-center fw-normal mb-1 text-white fs-6 fw-bold">mecánicamente</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="carousel-cell">
+                                <div class="card h-100 mx-3">
+                                    <div class="text-center">
+                                        <img class="card-img-top w-50 h-50 mx-auto mt-3 mb-4" src="assets/icons/abcars-icons/icon-2_2.svg" alt="Icon 2">
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">Lo que nos permite</p>
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">ofrecerte hasta <span class="fw-bold">14</span></p>
+                                        <p class="text-center fw-normal mb-1 text-white fs-6 fw-bold">meses de garantía</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="carousel-cell">
+                                <div class="card h-100 mx-3">
+                                    <div class="text-center">
+                                        <img class="card-img-top w-50 h-50 mx-auto mt-3 mb-4" src="assets/icons/abcars-icons/icon-3_3.svg" alt="Icon 3">
+                                        <p class="text-center fw-normal mb-1 text-white fs-6 fw-bold">Mantenimientos y</p>
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">reparaciones mecánicas</p>
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">a precio preferencial</p>
+                                    </div>
+                                </div>
+                            </div>
+                        
+                            <div class="carousel-cell">
+                                <div class="card h-100 mx-3">
+                                    <div class="text-center">
+                                        <img class="card-img-top w-50 h-50 mx-auto mt-3 mb-4" src="assets/icons/abcars-icons/icon-4_4.svg" alt="Icon 4">                                
+                                        <p class="text-center fw-normal mb-1 text-white fs-6 fw-bold">Descuentos exclusivos</p>                                
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">en cuidado y corrección</p>                                
+                                        <p class="text-center fw-normal mb-1 text-white fs-6">estética</p>                                
+                                    </div>
+                                </div>
+                            </div>
+                        </carousel>
+                    </div>
+                </div>
+            </div>
+            <!-- Carousel Marcas -->
+            <div class="col-12 mt-5">
+                <div class="row">
+                    <div class="col-12 col-sm-12 col-lg-5">
+                        <p class="text-start fw-normal mb-1 text-black fs-5 fw-bold">Marcas más vendidas: </p>
+                    </div>
+                </div>
+                <!--<div class="row">
+                    <carousel class="carousel-html-content-marcas" [cellWidth]="100" [height]="90">
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/BMW-marca-1.png" alt="BMW">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/Mini-marca-1.png" alt="Mini">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/chevrolet-marca-1.png" alt="Chevrolet">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/mercedes_benz-marca-1.png" alt="Mercedes Benz">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/AUDI-marca-1.png" alt="Audi">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/honda-marca-1.png" alt="Honda">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/toyota-marca-1.png" alt="Toyota">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/mazda-marca-1.png" alt="Mazda">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/nissan-marca-1.png" alt="Nissan">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/hyundai-marca-1.png" alt="Hyundai">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="carousel-cell">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <img class="mx-auto my-auto" src="assets/images/abcars-images/marcas/volkswagen-marca-1.png" alt="Volkswagen">
+                                </div>
+                            </div>
+                        </div>
+                    </carousel>
+                </div>-->
+            </div>
+            <div class="col-12 mt-1">
+                <div class="row row-carousel">
+                    <swiper-container class="my-swiper-brands">
+                        <!--<swiper-wrapper>-->
+                            <swiper-slide *ngFor="let img of brandImages">
+                                <div class="card h-100">
+                                    <div class="card-body text-center">
+                                        <img class="mx-auto my-auto" [src]="img.src" [alt]="img.alt" />
+                                    </div>
+                                </div>
+                            </swiper-slide>
+                        <!--</swiper-wrapper>-->
+                    </swiper-container>
+                    <div class="row row-carousel-btns">
+                        <button id="btn_previous">
+                            <img class="img-btn-carousel" src="/assets/icons/flecha_carrusel_izq.svg" alt="Flecha Anterior">
+                        </button>
+                        <button id="btn_next">
+                            <img class="img-btn-carousel" src="/assets/icons/flecha_carrusel_der.svg" alt="Flecha Siguiente">
+                        </button>
+                    </div>
+                </div>
+            </div>
+       </div>
+   </div>
+</div>

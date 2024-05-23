@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+.details-bg {
+  align-items: center;
+  background: rgb(255, 253, 253);
+  border-radius: 8px;    
+  display: flex;  
+  padding: 15px;
+}
+
+.detail-text {
+  padding: 0px 8px;
+}
+
+.detail-content {
+  margin-left: auto;
+}

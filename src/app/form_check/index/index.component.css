@@ -1,0 +1,47 @@
+.card {
+    margin-bottom: 20px;
+    cursor: pointer;
+
+  }
+  
+  @media (max-width: 768px) {
+    .card {
+      margin-bottom: 40px;
+    }
+  }
+
+  img{
+    width: 40%;
+    display: block;
+    margin: auto;
+  }
+  
+  a{
+    text-decoration: none;
+    color: black;
+    text-align: center;
+  }
+
+
+  .card {
+    border-radius: 4px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05);
+    transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
+    }
+
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .12), 0 4px 8px rgba(0, 0, 0, .06);
+  }
+
+  .hom{
+    padding-top: 50px; padding-bottom: 50px;
+
+  }
+  
+
+  @media (min-width: 768px) {
+    .hom {
+      padding-top: 150px; padding-bottom: 150px;
+        }
+  }

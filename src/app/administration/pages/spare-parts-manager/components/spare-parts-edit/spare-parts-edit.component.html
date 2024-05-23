@@ -1,0 +1,181 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">Autorizar Refacciones - Hojalatería y Pintura </h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                            <li class="breadcrumb-item" [routerLink]="['/admin/pmanager/vehicles']" aria-current="page">Vender tu Auto</li>
+                            <li class="breadcrumb-item active" aria-current="page">Autorizar</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+           
+            <!-- HYP & Spare -->
+            <div class="row">
+                <div class="col-12 mt-3 mb-3">
+                    <mat-accordion class="example-headers-align" multi>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>Hojalatería y Pintura</mat-panel-title>
+                            </mat-expansion-panel-header>
+                      
+                            <table mat-table [dataSource]="dataSourcePW">
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                    <td class="fw-bold" mat-cell *matCellDef="let row">{{ row.id }}</td>
+                                </ng-container>
+    
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.name | titlecase }}</td>
+                                </ng-container>
+    
+                                <!-- Price Column -->
+                                <ng-container matColumnDef="price">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Precio</th>
+                                    <td mat-cell *matCellDef="let row">$ {{ row.amount | number:'0.2-2' }}</td>
+                                </ng-container>
+    
+                                <!-- Status Column -->
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <span class="badge rounded-pill" [ngClass]="{ 
+                                            'bg-success': row.status === 'approved', 
+                                            'bg-primary': row.status === 'pre approved',
+                                            'bg-secondary': row.status === 'on hold',
+                                            'bg-danger': row.status === 'rejected'
+                                        }">
+                                            {{ 
+                                                (row.status === 'approved') ? 'Autorizado' :
+                                                (row.status === 'pre approved') ? 'Pre-Autorizado' :
+                                                (row.status === 'on hold') ? 'En Espera' : 'Rechazado'
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Actions Column -->
+                                <ng-container matColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-icon [matMenuTriggerFor]="menu"><i class="fi fi-rr-magic-wand"></i></mat-icon>                                    
+    
+                                        <mat-menu #menu="matMenu">
+                                            <a mat-menu-item (click)="approvedHYP(row.id, 'approved')">
+                                                <i class="fi fi-rr-check"></i>
+                                                Autorizar
+                                            </a>
+
+                                            <a mat-menu-item (click)="approvedHYP(row.id, 'rejected')">
+                                                <i class="fi fi-rr-cross-circle"></i>
+                                                Rechazar
+                                            </a>
+                                        </mat-menu>
+                                    </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsPW"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsPW;"></tr>
+                            </table>
+                        </mat-expansion-panel>
+                      
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>Refacciones</mat-panel-title>
+                            </mat-expansion-panel-header>
+                        
+                            <table mat-table [dataSource]="dataSource">
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                    <td class="fw-bold" mat-cell *matCellDef="let row">{{ row.id }}</td>
+                                </ng-container>
+    
+                                <!-- Name Column -->
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.name | titlecase }}</td>
+                                </ng-container>
+    
+                                <!-- Amount Column -->
+                                <ng-container matColumnDef="amount">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cantidad</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.amount }} pza(s)</td>
+                                </ng-container>
+    
+                                <!-- Hours Column -->
+                                <ng-container matColumnDef="hours">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Horas</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.hours }} hr(s)</td>
+                                </ng-container>
+    
+                                <!-- Type Part Column -->
+                                <ng-container matColumnDef="type_part">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo Pieza</th>
+                                    <td mat-cell *matCellDef="let row">         
+                                        <span class="badge rounded-pill" [ngClass]="{ 
+                                            'bg-success': row.type_part === 'original', 
+                                            'bg-primary': row.type_part === 'generic',
+                                            'bg-warning': row.type_part === 'used'
+                                        }">
+                                            {{ 
+                                                (row.type_part === 'original') ? 'Original' : 
+                                                (row.type_part === 'generic') ? 'Generica' : 
+                                                (row.type_part === 'used') ? 'Usada' : 'S/S'
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Status Column -->
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <span class="badge rounded-pill" [ngClass]="{ 
+                                            'bg-success': row.status === 'approved', 
+                                            'bg-primary': row.status === 'pre approved',
+                                            'bg-secondary': row.status === 'on hold',
+                                            'bg-danger': row.status === 'rejected'
+                                        }">
+                                            {{ 
+                                                (row.status === 'approved') ? 'Autorizado' :
+                                                (row.status === 'pre approved') ? 'Pre-Autorizado' :
+                                                (row.status === 'on hold') ? 'En Espera' : 'Rechazado'
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+    
+                                <!-- Actions Column -->
+                                <ng-container matColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <mat-icon [matMenuTriggerFor]="menu"><i class="fi fi-rr-magic-wand"></i></mat-icon>                                    
+    
+                                        <mat-menu #menu="matMenu">
+                                            <a mat-menu-item (click)="openEditSparePart(row)">
+                                                <i class="fi fi-rr-pencil"></i>
+                                                Editar
+                                            </a>
+                                        </mat-menu>
+                                    </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

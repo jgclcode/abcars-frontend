@@ -1,0 +1,49 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center mx-auto mt-5 mb-5">
+            <h1 class="fw-bold">Felicidades has realizado tu pago de apartado.</h1>
+            <img class="rounded mx-auto d-block" width="350" src="assets/icons/saved-process.svg" alt="Process Successful" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12 mt-4 mb-4">
+            <h2 class="fw-bold fs-3 mb-3">Detalles</h2>
+            <div class="row" style="margin-left: -10px;">
+                <div class="container">
+                    <div class="row marginContentLeft row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 g-lg-3">
+                        <div class="col">
+                            <div class="details-bg">
+                                <span class="detail-text">Id Referencia</span>
+                                <span class="detail-content fw-bold">{{ resp_id }}</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="details-bg">
+                                <span class="detail-text">Auto</span>
+                                <span class="detail-content fw-bold">{{ resp_title }}</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="details-bg">
+                                <span class="detail-text">Monto pagado</span>
+                                <span class="detail-content fw-bold">${{ resp_totalPay }}.00</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="details-bg">
+                                <span class="detail-text">Status de pago</span>
+                                <span class="detail-content fw-bold">{{ resp_status }}</span>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="details-bg">
+                                <span class="detail-text">Detalles del status</span>
+                                <span class="detail-content fw-bold">{{ resp_status_detail }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

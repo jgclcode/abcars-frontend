@@ -1,0 +1,147 @@
+<!-- <div class="card shadow-sm h-100 card-element">
+    Tag of choice vehicle
+    <div class="tag-choice" *ngIf="priceOffer">
+        <span class="badge rounded-pill" style="background: rgb(254, 143, 0);">¡¡En Promoción!!</span>
+    </div>
+
+    <img class="card-img-top"  [src]="vehicle_image" width="300" alt="{{ vehicle.name | titlecase }}">
+
+    <div class="card-body">
+        <div class="row">
+            <div class="me-auto text-truncate">                
+                <h2 class="fw-bold text-truncate">{{ vehicle.carmodel.brand.name| titlecase }} {{ vehicle.carmodel.name| titlecase }}</h2>                
+                <span class="text-muted fw-light">{{ vehicle.name | titlecase }}</span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="me-auto text-truncate text-muted fw-light">
+                <span>{{ vehicle.yearModel }} </span><i class="fas fa-angle-right"></i>
+                <span> {{ vehicle.km | number:'.2-2'}} km </span><i class="fas fa-angle-right"></i>
+                <span> {{ vehicle.transmission | titlecase }}</span>
+            </div>
+        </div>
+
+        <div class="row" *ngIf="!priceOffer">
+            <span class="fw-light">
+                Comprar por
+                <span class="fw-bold text-end float-end">${{ vehicle.salePrice | number:'.2-2' }}</span>
+            </span>
+        </div>
+        
+        <div class="row" *ngIf="priceOffer">
+            <span class="fw-light">
+                Precio de oferta
+                <span class="fw-bold text-end float-end">${{ vehicle.priceOffer | number:'.2-2' }}</span>
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="fw-light text-truncate">
+                Ubicado en
+                <div class="text-end float-end">
+                    <svg class="bi" width="1em" height="1em"><use xlink:href="#geo-fill"/></svg> 
+                    <span class="fw-bold">{{ vehicle.branch.state.name | titlecase }}</span>
+                </div>
+            </span>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="row" class="abcars-color-hover">
+            <a class="fs-6 abcars-color-hover text-decoration-none" [routerLink]="['/compra-tu-auto/detail', vehicle.vin ]">
+                Ver este vehículo
+                <i class="fas fa-arrow-right"></i>            
+            </a>
+        </div>
+    </div>
+</div> -->
+
+<div class="card  bg-body rounded h-100 card-element" style="padding-bottom: 14px; border: -0.5px solid"> <!-- shadow style="width: 18rem;"-->
+    
+    <div class="price-container">
+        <div > <!--class="cover-image"-->
+            <img [src]="vehicle_image" class="card-img-top fade-in-image" width="300" alt="{{ vehicle.name | titlecase }}">
+        </div>
+        
+        <div class="price-align">
+            <div class="price" *ngIf="!priceOffer">
+                ${{ vehicle.salePrice | number:'.2-2' }}
+            </div>
+            
+            <div class="price" *ngIf="shield || vehicle.priceBonus">
+                ${{ vehicle.salePrice | number:'.2-2' }}
+                <div class="my-tag">
+                    <div class="tag-choice" *ngIf="shield || vehicle.priceBonus">
+                        <span class="badge rounded-pill price-promo" style="background: #EEB838;">¡PROMOCIÓN!</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="price" *ngIf="priceOffer">
+                ${{ vehicle.priceOffer | number:'.2-2' }}
+                <!-- ${{ vehicle.price | number:'.2-2' }} -->
+                <div class="my-tag">
+                    <div class="tag-choice" *ngIf="priceOffer">
+                        <span class="badge rounded-pill price-promo" style="background: #1057DB;">¡EN LIQUIDACIÓN!</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="card-body font-generic">
+            <div class="row">
+                <div class="col-12">
+                    <!-- <p class="card-text">Disponible</p> -->
+                    <!-- <p class="card-text text-truncate">{{ vehicle.name | titlecase }}</p> -->
+                    <p class="card-text" style="font-weight: 700; font-size: larger;">{{ vehicle.carmodel.brand.name| titlecase }} {{ vehicle.carmodel.name | titlecase }}</p>
+                    <p class="card-text" style="font-size: medium;">{{ vehicle.km | number }} km • {{ vehicle.yearModel }} • {{ vehicle.branch.state.name }}</p>
+                    <div class="divider mt-2 mb-2"></div>
+                    <!-- <p>{{ vehicle.price }} {{ vehicle.priceOffer }}</p> -->
+                    <!-- <p *ngIf="bono">Bono de: <span class="fs-6 fw-bold abcars-color"> ${{ bono | number:'.2-2' }}</span></p> -->
+                    <p *ngIf="vehicle.shields.length > 0">Aplica una de las siguientes promos: <br> <span *ngFor="let shield of vehicle.shields" class="fs-6 fw-bold abcars-color">✓ {{ shield.name }} </span></p>
+                    <!-- <div *ngIf="vehicle.shields.length > 0">
+                        <p>Aplica una de las siguientes promos:</p>
+                        <span *ngFor="let shield of vehicle.shields" class="fs-6 fw-bold abcars-color">
+                            <p>✓ {{ shield.name }}</p>
+                        </span>
+                    </div> -->
+                    <!-- <p class="card-text" style="font-weight: 700; font-size: larger;">Promociones:</p> -->
+                    <!-- <p class="card-text">{{ vehicle.transmission | titlecase }}</p> -->
+                    <!-- <p class="card-text">Año: {{ vehicle.yearModel }}</p> -->
+                    <!-- <p class="card-text">Ubicación: {{ vehicle.branch.state.name | titlecase }}</p> -->
+                </div>
+                <!-- <div class="col-2 center_360" (click)="sendVehicleToParent( $event )" *ngIf="vehicle.vehicle_360_images != null && vehicle.vehicle_360_images.length > 0">
+                    <p>
+                        <mat-icon>360</mat-icon>    
+                    </p> 
+                    <p>    
+                        Ver 360°
+                    </p> 
+                </div> -->
+            </div>                
+    </div>
+
+    <!-- <div class="view-deep-container">
+        <div class="view-deep">
+            <div class="view">
+                 <a href="/"> margin-top: -4px; margin-right: 53px;
+                    <p style="font-weight: bold; font-size: var(--price-title); margin-top: 7px; margin-left: 12px;">Ver este vehículo
+                        <span >
+                            <img src="../../../../../assets/icons/acercarse 1.svg" alt="" style="width: 30px;
+                            height: 30px !important;
+                            margin-bottom: 3px;">
+                        </span>
+                    </p>
+                 </a>
+            </div>
+            <div class="deep"></div>
+        </div>
+    </div> -->
+
+    <div class="tag-choice" *ngIf="choice">
+        <span class="badge rounded-pill" style="background: rgb(254, 143, 0);">¡APARTADO!</span>
+    </div>
+
+</div>

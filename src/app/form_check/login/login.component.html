@@ -1,0 +1,36 @@
+<!-- <p>login works!</p> -->
+<div class="container">
+  <div class="containerauto">
+  
+     <!--  <div class="row">
+          <img src="https://abcars.mx/assets/images/logo.svg"
+            style="margin: auto ; display: block;  width:250px; height:100px" class="d-inline-block align-top" alt="">
+          <hr>
+        </div> -->
+      <a class="fw-bold text-dark text-decoration-none"  [routerLink]="['/formulario_inspeccion']">
+          <i class="fas fa-arrow-left"></i> volver
+      </a>
+      <div class="containerImg">
+          <img src="../../../assets/images/uuu.png" style="width: 450px; display: block; margin: auto; z-index: 1;" alt="">
+       </div>
+      <div class="containerImg">
+           <img src="../../../assets/images/banner_circulos.png" style="width: 450px; display: block; margin: auto; margin-top: -325px;"  alt="">
+      </div>
+  
+      <div class="body">
+      
+          <div class="login">
+              <img [src]="" alt="" width="50%" height="80%">
+              <div class="container-login">
+                  <mat-form-field class="ancho input">
+                      <mat-label class=" ">Ingresa el Vin:</mat-label>
+                      <input class="" matInput [(ngModel)]="codigVIN" >
+                    </mat-form-field>
+                    <br>
+                    
+              </div>
+              <button (click)="ingresar()"   mat-raised-button mat-button class="abcars-background-color">Revisar</button>
+          </div>
+      </div>    
+  </div>
+  </div>

@@ -1,0 +1,12 @@
+.info-text {
+    font-weight: 700;
+    font-size: 24px;
+  }
+
+.image_box {            
+    width: 100%;
+    padding: 1rem;      
+    position:relative; 
+    height: 500px;    
+    backface-visibility: hidden;      
+  }

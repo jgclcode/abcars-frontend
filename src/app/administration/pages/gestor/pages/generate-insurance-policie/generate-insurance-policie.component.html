@@ -1,0 +1,298 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">Generar Póliza de garantía</h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin/gestor']">Overview</li>
+                            <li class="breadcrumb-item active" aria-current="page">Generar Póliza de garantía</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="row">
+                <div class="col-8">
+                    <!-- Title -->
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h1 class=fw-bold>Generar Póliza de garantía</h1>
+                            <span>Por favor, ingrese toda la información requerida correctamente.</span>
+                            <hr />
+                        </div>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Vigencia de garantía</mat-label>
+                                            <input matInput type="date" placeholder="Vigencia de garantía" formControlName="warranty_period" required>
+                                            <mat-hint *ngIf="fieldInvalid('warranty_period')">Ingresa la vigencia de garantía</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Lugar de firma</mat-label>
+                                            <input matInput type="text" placeholder="Lugar de firma" formControlName="signature_place" required>
+                                            <mat-hint *ngIf="fieldInvalid('signature_place')">Ingresa el lugar de firma</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <h2 class=fw-bold>Vigencia</h2>
+                                    <hr/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fecha de inicio GM</mat-label>
+                                            <input matInput type="date" placeholder="Fecha de inicio GM" formControlName="start_date_gm" required>
+                                            <mat-hint *ngIf="fieldInvalid('start_date_gm')">Ingresa la fecha de inicio GM</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fecha de fin de G de marca</mat-label>
+                                            <input matInput type="date" placeholder="Fecha de fin de G de marca" formControlName="ending_date_gm" required>
+                                            <mat-hint *ngIf="fieldInvalid('ending_date_gm')">Ingresa la fecha de fin de G de marca</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fecha de inicio GE</mat-label>
+                                            <input matInput type="date" placeholder="Fecha de inicio GE" formControlName="start_date_ge" required>
+                                            <mat-hint *ngIf="fieldInvalid('start_date_ge')">Ingresa la fecha de inicio GE</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Fecha de fin de G extendida</mat-label>
+                                            <input matInput type="date" placeholder="Fecha de fin de G extendida" formControlName="ending_date_ge" required>
+                                            <mat-hint *ngIf="fieldInvalid('ending_date_ge')">Ingresa la fecha de fin de G extendida</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <h2 class=fw-bold>Datos del comprador</h2>
+                                    <hr/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Nombre</mat-label>
+                                            <input matInput type="text" placeholder="Nombre" formControlName="name" required>
+                                            <mat-hint *ngIf="fieldInvalid('name')">Ingresa el nombre del comprador</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Apellidos</mat-label>
+                                            <input matInput type="text" placeholder="Apellidos" formControlName="surname" required>
+                                            <mat-hint *ngIf="fieldInvalid('surname')">Ingresa los apellidos del comprador</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Dirección</mat-label>
+                                            <input matInput type="text" placeholder="Dirección" formControlName="address" required>
+                                            <mat-hint *ngIf="fieldInvalid('address')">Ingresa la dirección del comprador</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Municipio</mat-label>
+                                            <input matInput type="text" placeholder="Municipio" formControlName="municipality" required>
+                                            <mat-hint *ngIf="fieldInvalid('municipality')">Ingresa el municipio</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>RFC</mat-label>
+                                            <input matInput type="text" placeholder="RFC" formControlName="rfc" required>
+                                            <mat-hint *ngIf="fieldInvalid('rfc')">Ingresa el rfc del comprador</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Estado</mat-label>
+                                            <input matInput type="text" placeholder="Estado" formControlName="state" required>
+                                            <mat-hint *ngIf="fieldInvalid('state')">Ingresa el estado</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Telefono</mat-label>
+                                            <input matInput type="number" placeholder="Telefono" formControlName="phone" required>
+                                            <mat-hint *ngIf="fieldInvalid('phone')">Ingresa el teléfono del comprador</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>CP</mat-label>
+                                            <input matInput type="text" placeholder="CP" formControlName="cp" required>
+                                            <mat-hint *ngIf="fieldInvalid('cp')">Ingresa el código postal</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Correo</mat-label>
+                                            <input matInput type="email" placeholder="correo" formControlName="email" required>
+                                            <mat-hint *ngIf="fieldInvalid('email')">Ingresa el correo electronico</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 text-center">
+                                    <h2 class=fw-bold>Datos del vehículo</h2>
+                                    <hr/>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Marca</mat-label>
+                                            <input matInput type="text" placeholder="Marca" formControlName="brand" required>
+                                            <mat-hint *ngIf="fieldInvalid('brand')">Ingresa la marca del vehículo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Kilometraje</mat-label>
+                                            <input matInput type="number" placeholder="kilometraje" formControlName="km" required>
+                                            <mat-hint *ngIf="fieldInvalid('km')">Ingresa el km del vehículo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Modelo</mat-label>
+                                            <input matInput type="text" placeholder="Modelo" formControlName="model" required>
+                                            <mat-hint *ngIf="fieldInvalid('model')">Ingresa el modelo del vehículo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Cilindros</mat-label>
+                                            <input matInput type="number" placeholder="cilindros" formControlName="cylinder" required>
+                                            <mat-hint *ngIf="fieldInvalid('cylinder')">Ingresa los cilindros del vehículo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Año modelo</mat-label>
+                                            <input matInput type="number" placeholder="Año modelo" formControlName="model_year" required>
+                                            <mat-hint *ngIf="fieldInvalid('model_year')">Ingresa año del modelo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Mátricula</mat-label>
+                                            <input matInput type="text" placeholder="Mátricula" formControlName="tuition" required>
+                                            <mat-hint *ngIf="fieldInvalid('tuition')">Ingresa la matricula del vehículo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Vin</mat-label>
+                                            <input matInput type="text" placeholder="Vin" formControlName="vin" required>
+                                            <mat-hint *ngIf="fieldInvalid('vin')">Ingresa el vin del vehículo</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-6">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Kilometraje ultimo servicio</mat-label>
+                                            <input matInput type="number" placeholder="Kilometraje ultimo servicio" formControlName="km_last_service" required>
+                                            <mat-hint *ngIf="fieldInvalid('km_last_service')">Ingresa kilometraje del ultimo servicio</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Kilometraje proximo servicio</mat-label>
+                                            <input matInput type="number" placeholder="Kilometraje proximo servicio" formControlName="km_next_service" required>
+                                            <mat-hint *ngIf="fieldInvalid('km_next_service')">Ingresa kilometraje del proximo servicio</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <!-- Button Submit -->
+                                <div class="row">
+                                    <div class="col-12 text-end">
+                                        <button mat-raised-button type="submit" class="btn abcars-background-color px-4 rounded-pill text-dark mx-2" [disabled]="form.invalid || spinner">                                    
+                                            <span *ngIf="!spinner">Guardar</span>
+                                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                                        </button>
+
+
+                                        <a [href]="pdfUrl" *ngIf="existsPolicy" mat-raised-button class="btn abcars-background-color px-4 rounded-pill text-dark mx-2" (click)="redirect()">Imprimir Póliza de garantía</a>
+
+                                        <button mat-raised-button type="submit" class="btn abcars-background-color-secondary px-4 rounded-pill text-dark" [routerLink]="['/admin/gestor/insurance-policies']">                                    
+                                            Cancelar
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-4">
+                    <pre>
+                        formulario: {{ form.valid }}
+                    </pre>
+                    <pre>
+                        {{ form.value | json }}
+                    </pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

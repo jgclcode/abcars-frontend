@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3 mb-3">
+            <!-- Title -->
+            <div class="row">
+                <div class="col-12 mb-5">
+                    <h1 class="text-center fw-bold">Solicitud HyP</h1>
+                </div>
+            </div>
+
+            <!-- HyP Add -->
+            <div class="row">
+                <div class="col-12 mb-3">
+                    <h4 class="d-flex justify-content-betwee align-items-center mb-3">
+                        <span class="fw-bold">Agregar HyP</span>
+                    </h4>
+
+                    <form [formGroup]="formPaintingWorks" > <!-- (ngSubmit)="addPaintingWorks()" -->
+                        <div class="row">
+                            <div class="col-12">
+                                <!-- Painting works description -->
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Descripción del daño</mat-label>
+                                    <input matInput type="text" formControlName="name" placeholder="Descripción del daño..." minlength="1" maxlength="150" required>
+                                    <mat-hint *ngIf="nameDescriptionInvalid">Describa el daño del auto.</mat-hint>
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-12 col-lg-4">
+                                <!-- Damage cost -->
+                                <mat-form-field appearance="outline">
+                                    <input matInput type="number" placeholder="$000000" min="0" max="9999999999" formControlName="amount" #amount maxlength="10" required>
+                                    <mat-label>Costo del daño: <span> ${{ amount.value | number:'.2-2' }}</span></mat-label>
+                                    <mat-hint *ngIf="amountInvalid">Proporcione la cantidad.</mat-hint>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="col-12 col-md-8">
+                                <!-- Damage image -->
+                                <p class="mb-1">Imagen/Foto del daño</p>
+
+                                <div>
+                                    <input type="file" class="text-center" accept=".png, .jpg, .jpeg" formControlName="picture" (change)="damageImage($event)" required>
+                                </div>
+                                <mat-hint class="text-danger" *ngIf="imgDamageInvalid">Ingrese la imagen/foto correspondiente</mat-hint>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Request description and damage picture list -->
+            <div class="row">
+                <div class="col-12 mt-2 mb-3">
+
+                    <div class="card p-2">
+                        <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark" (click)="onSubmit()" [disabled]="formPaintingWorks.invalid || spinner">
+                            <span *ngIf="!spinner">Solicitar</span>
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </button>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- Orders Painting Works -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="fw-bold">Conceptos HyP Solicitados</span>
+                    </h4>
+                    <ng-container *ngIf="painting_works.length === 0; else elseTemplateHyP">
+                        <div class="alert alert-info text-center" role="alert">
+                            Sin descripciones HyP solicitadas
+                        </div>
+                    </ng-container>
+
+                    <ng-template #elseTemplateHyP>
+                        <div class="overflow-auto" style="max-height: 250px;">
+                            <ol class="list-group list-group-numbered">
+                                <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let work of painting_works; let i = index">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">{{ work.name}}</div>
+                                        <small class="text-muted mx-2">${{ work.amount }}</small>
+                                        <small class="text-muted">Image Path: {{ work.img_damage }}</small>
+                                        <img class="rounded" [src]="url + '/api/painting_works_images/' + work.img_damage" alt="HyP - {{ work.name }}" width="99%">
+                                    </div>
+
+                                    <span class="badge rounded-pill" [ngClass]="{
+                                        'bg-success': work.status === 'approved', 
+                                        'bg-primary': work.status === 'pre approved',
+                                        'bg-secondary': work.status === 'on hold',
+                                        'bg-danger': work.status === 'rejected'
+                                        }">
+                                        {{
+                                            (work.status === 'approved') ? 'Autorizado' :
+                                            (work.status === 'pre approved') ? 'Pre-Autorizado' :
+                                            (work.status === 'on hold') ? 'En Espera' : 'Rechazado'
+                                        }}
+                                    </span>
+                                </li>
+                            </ol>
+                        </div>
+                    </ng-template>
+                </div>
+            </div>
+            <!-- Close Button Sheet -->
+            <div class="row float-end">
+                <div class="col-12 mt-5">
+                    <button mat-button type="button" class="btn abcars-background-color-black rounded-pill" (click)="closeBottomSheet()">
+                        Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

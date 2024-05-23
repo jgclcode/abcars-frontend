@@ -1,0 +1,54 @@
+<div class="container">
+    <h1 class="fw-bold">Cliente</h1>
+    
+    <div class="row">
+        <mat-list>
+            <mat-list-item>                            
+                <div mat-line class="fw-bold">Nombre</div>
+                <div mat-line>{{ client.user?.name | titlecase }} {{ client.user?.surname | titlecase }}</div>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item>                            
+                <div mat-line class="fw-bold">Correo Electrónico</div>
+                <div mat-line>
+                    <a class="abcars-color-hover text-decoration-none" href="mailto:{{ client.user?.email }}">{{ client.user?.email }}</a>
+                </div>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item>                            
+                <div mat-line class="fw-bold">1.º Teléfono</div>
+                <div mat-line>
+                    <a class="abcars-color-hover text-decoration-none" href="tel:+{{ client.phone1 }}">{{ client.phone1 }}</a>
+                </div>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item>                            
+                <div mat-line class="fw-bold">2.º Teléfono</div>
+                <div mat-line>
+                    <a class="abcars-color-hover text-decoration-none" href="tel:+{{ client.phone2 }}">{{ client.phone2 }}</a>
+                </div>
+            </mat-list-item>
+
+            <mat-divider></mat-divider>
+
+            <mat-list-item>                            
+                <div mat-line class="fw-bold">Género</div>
+                <div mat-line>{{ (client.user?.gender === 'm') ? 'Hombre' : 'Mujer' | titlecase }}</div>
+            </mat-list-item>
+        </mat-list>
+    </div>
+
+    <div class="row float-end">
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close type="button" class="btn abcars-background-color rounded-pill text-dark">
+                Cerrar
+            </button> 
+        </div>
+    </div>      
+</div>

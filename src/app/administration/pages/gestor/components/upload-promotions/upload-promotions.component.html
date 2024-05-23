@@ -1,0 +1,34 @@
+<div class="container">
+    <div class="row py-3">
+        <div class="col-11">
+            <h2 class="fw-bold text-center">Subir promociones con csv</h2>
+        </div>
+        <div class="col-1 py-1">
+            <mat-icon (click)="alertInfo()"><i class="fi fi-rr-info"></i></mat-icon>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <form [formGroup]="formFile" (ngSubmit)="onSubmit()">
+
+                <div>
+                    <div mat-line>
+                        <input type="file" formControlName="file" class="form-control" id="picture" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" (change)="getFile($event)">
+                    </div>
+                    <mat-hint *ngIf="fileInvalid">Elije un archivo csv</mat-hint>
+                </div>
+
+                <br>
+
+                <div class="d-grid gap-2 col-12 mx-auto">
+                    <button type="submit" class="btn abcars-background-color rounded-pill text-dark" [disabled]="formFile.invalid">
+                        <i class="fas fa-upload"></i>
+                        Enviar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

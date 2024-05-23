@@ -1,0 +1,12 @@
+
+@media (max-width: 768px) {
+    .table {
+      margin-bottom: 40px;
+    }
+  }
+.container{
+  margin-top: 20px;
+}
+h1{
+  text-align: center;
+}

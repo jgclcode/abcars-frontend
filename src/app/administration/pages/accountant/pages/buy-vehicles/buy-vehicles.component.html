@@ -1,0 +1,122 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">Valuaciones</h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                            <li class="breadcrumb-item active" aria-current="page">Valuaciones</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <!-- Search Input -->
+            <div class="row">
+                <div class="col-12">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Buscar...</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Emma Stone" #input>
+                    </mat-form-field>
+                </div>
+            </div>
+            <!-- Datatable -->
+            <div class="row">
+                <div class="col-12">
+                    <section class="example-container mat-elevation-z8" tabindex>
+                        <table mat-table [dataSource]="dataSource" matSort>
+                            <!-- ID Column -->
+                            <ng-container matColumnDef="id" sticky>
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                <td data-titulo="id" class="fw-bold td__table" mat-cell *matCellDef="let row">{{ row.id }}</td>
+                            </ng-container>
+                            <!-- Client Name column -->
+                            <ng-container matColumnDef="clientName">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre(s)</th>
+                                <td data-titulo="nombre" class="td__table" mat-cell *matCellDef="let row">{{ row.client_sale.user.name }}</td>
+                            </ng-container>
+                            <!-- Client Surname column -->
+                            <ng-container matColumnDef="clientSurname">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Apellido(s)</th>
+                                <td data-titulo="apellido" class="td__table" mat-cell *matCellDef="let row">{{ row.client_sale.user.surname }}</td>
+                            </ng-container>
+                            <!-- Brand name column -->
+                            <ng-container matColumnDef="brandName">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+                                <td data-titulo="marca" class="td__table" mat-cell *matCellDef="let row">{{ row.brand.name }}</td>
+                            </ng-container>
+                            <!-- Model name column -->
+                            <ng-container matColumnDef="modelName">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</th>
+                                <td data-titulo="modelo" class="td__table" mat-cell *matCellDef="let row">{{ row.carmodel.name }}</td>
+                            </ng-container>
+                            <!-- Vin column -->
+                            <ng-container matColumnDef="vin">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>VIN</th>
+                                <td data-titulo="vin" class="td__table" mat-cell *matCellDef="let row">{{ row.vin }}</td>
+                            </ng-container>
+
+                            <!-- Year column -->
+                            <ng-container matColumnDef="year">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Año</th>
+                                <td data-titulo="año" class="td__table" mat-cell *matCellDef="let row">{{ row.year }}</td>
+                            </ng-container>
+                            <!-- Final Offer column -->
+                            <ng-container matColumnDef="finalOffer">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Oferta Final</th>
+                                <td class="td__table" mat-cell *matCellDef="let row">$ {{ row.check_list.final_offer | number:'0.0-2' }}</td> <!-- new_offer  -->
+                            </ng-container>
+                            <!-- Estimated payment date -->
+                            <ng-container matColumnDef="estimatedPayment">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef>Pago estimado</th>
+                                <td mat-cell *matCellDef="let row" class="px-2 td__mm">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Fecha de pago estimado</mat-label>
+                                        <input matInput [matDatepickerFilter]="myFilter"[matDatepicker]="picker" [min]="minDate" [max]="maxDate" #estimatedPaymentDate (dateChange)="onSubmit(row.id, $event)">
+                                        {{ row.estimated_payment_date }}
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </td>
+                            </ng-container>
+                            <!-- Column status -->
+                            <ng-container matColumnDef="status">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef>Status</th>
+                                <td mat-cell *matCellDef="let row" class="px-2 td__mm">
+                                    <span class="badge rounded-pill " [ngClass]="{
+                                        'bg-success': row.status === 'buy',
+                                        'bg-danger': row.status === 'ready_to_buy' 
+                                    }">
+                                        {{ (row.status === 'buy') ? 'Comprado' : 'Listo p/comprar' }}
+                                    </span>
+                                </td>
+                            </ng-container>
+                            <!-- Actions Column -->
+                            <ng-container matColumnDef="actions">
+                                <th class="th__table" mat-header-cell *matHeaderCellDef>Acciones</th>
+                                <td mat-cell *matCellDef="let row" class="px-2 td__mm">
+                                    <mat-icon *ngIf="row.status === 'ready_to_buy'" [matMenuTriggerFor]="menu"><i class="fi fi-rr-magic-wand"></i></mat-icon>                                    <!-- readyForSale -->
+                                    <mat-menu #menu="matMenu">
+                                        <a mat-menu-item (click)="acquireVehicle(row.id)">
+                                            <i class="fi fi-rr-shopping-cart-add"></i>
+                                            Adquirir Vehículo
+                                        </a>
+                                    </mat-menu>
+                                </td>
+                            </ng-container>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No hay datos que coincidan con la busqueda: "{{ input.value }}"</td>
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSize]="10" [length]="length" [pageIndex]="pageIndex - 1" (page)="paginationChange($event)"></mat-paginator>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

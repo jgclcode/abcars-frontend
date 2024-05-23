@@ -1,0 +1,22 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1>Caracteristicas del Servicio</h1>
+            <ul>
+                <li *ngFor="let feature of features">
+                    <span class="badge rounded-pill" [ngClass]="{ 
+                        'bg-success': feature.status === 'done', 
+                        'bg-danger': feature.status === 'denied',
+                        'bg-secondary': feature.status === 'na'
+                    }">
+                        {{ 
+                            (feature.status === 'done') ? 'Realizado' :
+                            (feature.status === 'denied') ? 'Denegado ' : 'N/A'
+                        }}
+                    </span>
+                    {{ feature.name }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

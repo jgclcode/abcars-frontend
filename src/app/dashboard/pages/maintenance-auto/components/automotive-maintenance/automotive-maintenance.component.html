@@ -1,0 +1,183 @@
+<!-- <p>automotive-maintenance works!</p> -->
+<div class="container">
+    <!-- <section>
+        <div class="row mb-2">
+            <div class="image_box">
+                <img src="assets/images/abcars-images/abcars_mechanic.png" alt="imagen" class="image_car_mechanic">  Antes era image_car-->
+                <!-- <img src="assets/images/abcars-images/rectangle.svg" alt="imagen" class="footer_image_car"> 
+            </div>            
+        </div>
+    </section> -->
+    <section class="section_form mt-3">
+        <!-- Form -->
+        <div class="row">
+            <div class="col-12">
+                <div class="text-center">
+                    <h1 class="fs-1 fw-bold">Mantenimiento automotriz</h1>
+                    <h5 class="fs-4 fw-bold aaa">Proporciona la información requerida para continuar con el proceso de mantenimiento a tu auto.</h5>
+                </div>
+
+                <!-- Forms Client and Vehicle -->
+                <div class="row mt-5 mb-5">
+                    <!-- <app-sell-your-car></app-sell-your-car> -->
+                    <form [formGroup]="form" >    <!--(ngSubmit)="onSubmit()"-->
+                        <div class="col-12">
+                            <!-- Name, Father Lastname and Mother Lastname -->
+                            <div class="row mb-2">
+                                <!-- Name -->
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Nombre(s)</mat-label>
+                                        <input matInput type="text" placeholder="Christian" formControlName="name" required>
+                                        <mat-hint *ngIf="nameInvalid">Complete su nombre(s).</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                    
+                                <!-- Father and Mother Lastname -->
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Apellidos</mat-label>
+                                        <input matInput type="text" placeholder="Bale" formControlName="surname" required>
+                                        <mat-hint *ngIf="surnameInvalid">Complete sus apellidos.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                    
+                            <!-- Email and Phone -->
+                            <div class="row">
+                                <!-- Email -->
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Correo Electrónico</mat-label>
+                                        <input matInput type="email" placeholder="a@b.c" formControlName="email" required>
+                                        <mat-hint *ngIf="emailInvalid">Escriba un correo electrónico válido.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                    
+                                <!-- Phone -->
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Número de Teléfono</mat-label>
+                                        <input matInput type="tel" placeholder="1234567890" formControlName="phone" #phone (keyup)="maxLengthCheck(phone)" maxlength="10" required>
+                                        <mat-hint *ngIf="phoneLength">Su número debe ser de 10 dígitos, verifique.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <div class="col-12">
+                            <!-- Brand, Model and Year -->
+                            <div class="row mb-2">
+                                <!-- Brands -->
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Marca</mat-label>
+                                        <mat-select placeholder="Seleccionar una Marca" formControlName="brand" required>
+                                            <mat-option *ngFor="let brand of brands"  value="{{ brand.id }}">{{ brand.name | titlecase }}</mat-option> <!--(click)="getModels(brand.id)"-->
+                                        </mat-select>
+                                        <mat-hint *ngIf="brandInvalid">Seleccione una marca.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                    
+                                <!-- Model -->
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Modelo</mat-label>
+                                        <!-- <mat-select placeholder="Seleccionar un Modelo" formControlName="model" required>
+                                            <mat-option *ngFor="let model of models" value="{{ model.id }}">{{ model.name | titlecase }}</mat-option>
+                                        </mat-select> -->
+                                        <input matInput type="text" placeholder="Ingresar modelo del auto" formControlName="model" required>
+                                        <mat-hint *ngIf="modelInvalid">Ingrese modelo del auto.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                    
+                                <!-- Year -->
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Año</mat-label>
+                                        <mat-select placeholder="Seleccione el año del vehículo" formControlName="year" required>
+                                            <mat-option *ngFor="let year of years" value="{{ year }}">{{ year }}</mat-option>
+                                        </mat-select>
+                                        <mat-hint *ngIf="yearInvalid">Seleccione un año.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                    
+                            <!-- Date and Time -->
+                            <div class="row">
+                                <!-- Date -->
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Fecha de Cita</mat-label>
+                                        <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date" required>
+                                        
+                                        <mat-hint *ngIf="!dateInvalid">DD/MM/YYYY</mat-hint>
+                                        <mat-hint *ngIf="dateInvalid">Asigne la fecha de su cita.</mat-hint>
+                    
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                    
+                                <!-- Hour -->
+                                <div class="col-12 col-md-6">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Hora de Cita</mat-label>
+                                        <input matInput type="time" formControlName="hour" format="hh:mm" min="09:00" max="18:00" step="900" required>
+                                        <mat-hint *ngIf="hourInvalid">Asigne la hora de su cita.</mat-hint>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+
+                            <!-- User Exclusive -->
+                            <div class="row">
+                                <div class="col-12  mt-4">
+                                    <h4 class="heading-4 horizontal_line mb-4"><span>Exclusivo clientes</span></h4>
+
+                                    <!-- VIN Code -->
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Código</mat-label>
+                                                <input matInput type="text" placeholder="Proporcione el código/VIN" formControlName="vin_code" #vin (keyup)="maxLengthVin(vin)" (keyup)="convertMayus($event)" maxlength="17">
+                                                <mat-hint *ngIf="codeVinInvalid">El código esta incompleto, verifíquelo por favor.</mat-hint>
+                                            </mat-form-field>
+                                        </div>
+                                        
+                                        <div class="col-12 col-md-6">
+                                            <p>* El código solicitado está situado en el marco de la puerta del conductor.</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                    
+                            <div class="row">
+                                <div class="col-6">
+                                    <mat-checkbox formControlName="checkbox" required>
+                                        Acepto <a class="fw-bold abcars-color-hover text-decoration-none" [routerLink]="['/externals/privacidad-de-uso']">Aviso</a>,
+                                        <a class="fw-bold abcars-color-hover text-decoration-none" [routerLink]="['/externals/terminos-y-condiciones']">Términos y Condiciones</a>.
+                                    </mat-checkbox>
+                                </div>
+                                <div class="col-6 text-end">                        
+                                    <button mat-button type="submit" class="btn abcars-background-color-blue rounded-pill mx-2 px-3" [disabled]="form.invalid || spinner">
+                                        <span *ngIf="!spinner">Enviar</span>
+                                        <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- <section>
+        <div class="row">
+            <div class="image_box">
+                <img src="assets/images/abcars-images/pngfind.svg" alt="imagen" class="image_car">                
+            </div>            
+        </div>
+    </section>   -->
+</div>

@@ -1,0 +1,148 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">    
+    <div class="col-12">
+        <!-- Name, Father Lastname and Mother Lastname -->
+        <div class="row mb-2">
+            <!-- Name -->
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Nombre(s)</mat-label>
+                    <input matInput type="text" placeholder="Christian" formControlName="name" required>
+                    <mat-hint *ngIf="nameInvalid">Complete su nombre(s).</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- Father and Mother Lastname -->
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Apellidos</mat-label>
+                    <input matInput type="text" placeholder="Bale" formControlName="surname" required>
+                    <mat-hint *ngIf="surnameInvalid">Complete sus apellidos.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Email and Phone -->
+        <div class="row">
+            <!-- Email -->
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Correo Electrónico</mat-label>
+                    <input matInput type="email" placeholder="a@b.c" formControlName="email" required>
+                    <mat-hint *ngIf="emailInvalid">Escriba un correo electrónico válido.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- Phone -->
+            <div class="col-12 col-md-6">
+                <mat-form-field appearance="outline">
+                    <mat-label>Número de Teléfono</mat-label>
+                    <input matInput type="tel" placeholder="1234567890" formControlName="phone" #phone (keyup)="maxLengthCheck(phone)" maxlength="10" required>
+                    <mat-hint *ngIf="phoneLength">Su número debe ser de 10 dígitos, verifique.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12">
+        <!-- Brand, Model and Year -->
+        <div class="row mb-2">
+            <!-- Brands -->
+            <div class="col-12 col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Marca</mat-label>
+                    <mat-select placeholder="Seleccionar una Marca" formControlName="brand" required>
+                        <mat-option *ngFor="let brand of brands" (click)="getModels(brand.id)" value="{{ brand.id }}">{{ brand.name | titlecase }}</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="brandInvalid">Seleccione una marca.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- Model -->
+            <div class="col-12 col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Modelo</mat-label>
+                    <mat-select placeholder="Seleccionar un Modelo" formControlName="model" required>
+                        <mat-option *ngFor="let model of models" value="{{ model.id }}">{{ model.name | titlecase }}</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="modelInvalid">Seleccione un modelo.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- Year -->
+            <div class="col-12 col-md-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Año</mat-label>
+                    <mat-select placeholder="Seleccione el año del vehículo" formControlName="year" required>
+                        <mat-option *ngFor="let year of years" value="{{ year }}">{{ year }}</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="yearInvalid">Seleccione un año.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- Mileage -->
+            <div class="col-12 col-sm-12 col-md-3 col-lg-3 col-xl-3">
+                <mat-form-field appearance="outline">
+                    <mat-label>Kilometraje</mat-label>
+                    <input matInput type="number" placeholder="0000000" min="1" max="9999999999" formControlName="mileage" #mileage (keyup)="maxLengthCheck(mileage)" maxlength="10" required>
+                    <!-- (change)="onSubmit()" -->
+                    <mat-hint *ngIf="mileageInvalid">Escriba el kilometraje de su vehículo.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <!-- Date and Time -->
+        <div class="row">
+            <!-- Date -->
+            <div [ngClass]="[process ? 'col-12 col-md-4' : 'col-12 col-md-6']">
+                <mat-form-field appearance="outline">
+                    <mat-label>Fecha de Cita</mat-label>
+                    <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="date" required>
+                    
+                    <mat-hint *ngIf="!dateInvalid">DD/MM/YYYY</mat-hint>
+                    <mat-hint *ngIf="dateInvalid">Asigne la fecha de su cita.</mat-hint>
+
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <!-- Hour -->
+            <div [ngClass]="[process ? 'col-12 col-md-4' : 'col-12 col-md-6']">
+                <mat-form-field appearance="outline">
+                    <mat-label>Hora de Cita</mat-label>
+                    <input matInput type="time" formControlName="hour" format="hh:mm" min="09:00" max="18:00" step="900" required>
+                    <mat-hint *ngIf="hourInvalid">Asigne la hora de su cita.</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <!-- Subsidiary -->
+            <div *ngIf="process" class="col-12 col-md-4">
+                <mat-form-field appearance="outline">
+                    <mat-label>Sucursal</mat-label>
+                    <mat-select placeholder="Seleccione la sucursal" formControlName="subsidiary" required>
+                        <mat-option value="puebla">Puebla</mat-option>
+                        <mat-option value="tlaxcala">Tlaxcala</mat-option>
+                        <mat-option value="pachuca">Hidalgo</mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="subsidiaryInvalid">Elija la sucursal.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-6">
+                <mat-checkbox *ngIf="process" formControlName="checkbox" required>
+                    Acepto <a class="fw-bold abcars-color-hover text-decoration-none" [routerLink]="['/externals/privacidad-de-uso']">Aviso</a>,
+                    <a class="fw-bold abcars-color-hover text-decoration-none" [routerLink]="['/externals/terminos-y-condiciones']">Términos y Condiciones</a>.
+                </mat-checkbox>
+            </div>
+            <div class="col-6 text-end">                        
+                <button mat-button type="submit" class="btn abcars-background-color-blue rounded-pill mx-2 px-3" [disabled]="form.invalid || spinner">
+                    <span *ngIf="!spinner">Enviar</span>
+                    <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,254 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">Historial de Citas</h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                            <li class="breadcrumb-item" [routerLink]="['/admin/aftersales/citas-servicio']">Citas de Servicio</li>
+                            <li class="breadcrumb-item active" aria-current="page">Historial de Citas</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div> 
+
+            <!-- Select Service and set features -->
+            <div class="row">
+                <div class="col-12 mt-3 mb-3">
+                    <mat-accordion class="example-headers-align" multi>
+                        <!-- Quote Services Client -->
+                        <mat-expansion-panel [expanded]="step >= 0">
+                            <mat-expansion-panel-header>
+                                <mat-panel-title class="fw-bold">Citas de Servicio pendientes del Cliente</mat-panel-title>
+                            </mat-expansion-panel-header>
+                            
+                            <div class="shadow">
+                                <table mat-table [dataSource]="dataSource" matSort>
+                                    <!-- ID Column -->
+                                    <ng-container matColumnDef="id">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+                                    </ng-container>
+        
+                                    <!-- Brand Column -->
+                                    <ng-container matColumnDef="brand">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.brand.name | titlecase }}</td>
+                                    </ng-container>
+        
+                                    <!-- Model Column -->
+                                    <ng-container matColumnDef="carmodel">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.carmodel.name | titlecase }}</td>
+                                    </ng-container>
+        
+                                    <!-- VIN Column -->
+                                    <ng-container matColumnDef="vin">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>VIN</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.vin }}</td>
+                                    </ng-container>
+
+                                    <!-- Service Column -->
+                                    <ng-container matColumnDef="service">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Servicio</th>
+                                        <td mat-cell *matCellDef="let row">{{ (row.services[0]) ? row.services[0].name : '' }}</td>
+                                    </ng-container>
+        
+                                    <!-- Status Column -->
+                                    <ng-container matColumnDef="status">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <span class="badge rounded-pill" [ngClass]="{ 
+                                                'bg-success': row.status === 'successful', 
+                                                'bg-secondary': row.status === 'progress',
+                                                'bg-danger': row.status === 'rejected'
+                                            }">
+                                                {{ 
+                                                    (row.status === 'successful') ? 'Atendido' :
+                                                    (row.status === 'progress') ? 'En Espera' : 'Rechazado'
+                                                }}
+                                            </span>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- Quote Date Column -->
+                                    <ng-container matColumnDef="quoteDate">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Cita de Servicio</th>
+                                        <td mat-cell *matCellDef="let row">{{ row.quoteDate | date:'dd MMMM, yyyy' }}</td>
+                                    </ng-container>
+                                                        
+                                    <!-- Action Column -->
+                                    <ng-container matColumnDef="actions">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                                        <td mat-cell *matCellDef="let row">
+                                            <button type="button" mat-button class="btn abcars-background-color rounded-pill" (click)="getFeatures(row)">
+                                                <i class="fi fi-rr-cursor-finger"></i>
+                                            </button>
+                                        </td>
+                                    </ng-container>
+        
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                </table>
+
+                                <mat-paginator [pageSize]="10" [length]="lengthPending" [pageIndex]="pageIndexPending - 1" (page)="paginationChangePending($event)"></mat-paginator>    
+                            </div>
+                        </mat-expansion-panel>
+        
+                        <!-- Select services to Vehicle -->
+                        <mat-expansion-panel [expanded]="step >= 1" (opened)="setStep(1)" [disabled]="step !== 1">
+                            <mat-expansion-panel-header>
+                              <mat-panel-title class="fw-bold">Especificar Servicios</mat-panel-title>
+                            </mat-expansion-panel-header>
+        
+                            <form (ngSubmit)="onSubmit()" [formGroup]="form">
+                                <div class="row">
+                                    <div class="col-12 col-md-5">
+                                        <h2 class="text-center fw-bold">{{ (titleFeatures) ? titleFeatures : '' }}</h2>
+    
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <mat-form-field appearance="outline" *ngIf="serviceID <= 3">
+                                                    <mat-label>KM P/ ingreso a Servicio</mat-label>
+                                                    <input type="number" matInput formControlName="incomeService" required>
+                                                    <mat-hint>Ingresar km/p ingreso a servicio.</mat-hint>
+                                                </mat-form-field>
+    
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Fecha de Ingreso</mat-label>
+                                                    <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" formControlName="admissionDate" required>                                                    
+                                                    <mat-hint>Seleccionar fecha de ingreso</mat-hint>
+                                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                                    <mat-datepicker #picker></mat-datepicker>
+                                                  </mat-form-field>
+    
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Km de Ingreso</mat-label>
+                                                    <input type="number" matInput formControlName="incomeKM" required>
+                                                    <mat-hint>Ingresar km de ingreso</mat-hint>
+                                                </mat-form-field>
+    
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Nº de Orden</mat-label>
+                                                    <input matInput [value]="order" disabled>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+    
+                                    <div class="col-12 col-md-7">
+                                        <mat-form-field appearance="outline" *ngFor="let feature of features">
+                                            <mat-label>{{ feature.name }}</mat-label>
+                                            <mat-select>
+                                                <mat-option (click)="addFeature('done', feature.id)" value="done">Realizado</mat-option>
+                                                <mat-option (click)="addFeature('denied', feature.id)" value="denied">Denegado</mat-option>
+                                                <mat-option (click)="addFeature('na', feature.id)" value="na">N/A</mat-option>
+                                            </mat-select>
+    
+                                            <mat-icon matTooltip="{{ feature.name }}" matSuffix>
+                                                <i class="fi fi-rr-exclamation"></i>
+                                            </mat-icon>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                            </form>
+                        
+                            <mat-action-row>
+                              <button type="button" mat-button color="warn" (click)="prevStep()">Regresar</button>
+                              <button type="submit" mat-button color="primary" (click)="onSubmit()" [disabled]="form.invalid || spinner || features_add.length < features.length">Guardar Servicio</button>
+                            </mat-action-row>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+
+            <hr>
+
+            <!-- History Client Quotes -->
+            <div class="row">
+                <div class="col-12 mt-3 mb-3">
+                    <mat-accordion class="example-headers-align">
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                              <mat-panel-title class="fw-bold">Historial de Citas de Servicio</mat-panel-title>
+                            </mat-expansion-panel-header>
+        
+                            <table mat-table [dataSource]="dataSourceSF" matSort>
+                                <!-- ID Column -->
+                                <ng-container matColumnDef="id">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.id }}</td>
+                                </ng-container>
+    
+                                <!-- Brand Column -->
+                                <ng-container matColumnDef="brand">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Marca</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.brand.name | titlecase }}</td>
+                                </ng-container>
+    
+                                <!-- Model Column -->
+                                <ng-container matColumnDef="carmodel">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Modelo</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.carmodel.name | titlecase }}</td>
+                                </ng-container>
+    
+                                <!-- VIN Column -->
+                                <ng-container matColumnDef="vin">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>VIN</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.vin }}</td>
+                                </ng-container>
+
+                                <!-- Service Column -->
+                                <ng-container matColumnDef="service">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Servicio</th>
+                                    <td mat-cell *matCellDef="let row">{{ (row.services[0]) ? row.services[0].name : '' }}</td>
+                                </ng-container>
+    
+                                <!-- Status Column -->
+                                <ng-container matColumnDef="status">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <span class="badge rounded-pill" [ngClass]="{ 
+                                            'bg-success': row.status === 'successful', 
+                                            'bg-secondary': row.status === 'progress',
+                                            'bg-danger': row.status === 'rejected'
+                                        }">
+                                            {{ 
+                                                (row.status === 'successful') ? 'Atendido' :
+                                                (row.status === 'progress') ? 'En Espera' : 'Rechazado'
+                                            }}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- Quote Date Column -->
+                                <ng-container matColumnDef="quoteDate">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Cita de Servicio</th>
+                                    <td mat-cell *matCellDef="let row">{{ row.quoteDate | date:'dd MMMM, yyyy' }}</td>
+                                </ng-container>
+                                                    
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Acciones</th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <button type="button" mat-button class="btn abcars-background-color rounded-pill" (click)="getFeaturesByQuote(row.id)">
+                                            <i class="fi fi-rr-cursor-finger"></i>
+                                        </button>
+                                    </td>
+                                </ng-container>
+    
+                                <tr mat-header-row *matHeaderRowDef="displayedColumnsSF"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumnsSF;"></tr>
+                            </table>
+
+                            <mat-paginator [pageSize]="10" [length]="lengthSuccess" [pageIndex]="pageIndexSuccess - 1" (page)="paginationChangeSuccess($event)"></mat-paginator>    
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

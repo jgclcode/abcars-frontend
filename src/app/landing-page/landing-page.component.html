@@ -1,0 +1,79 @@
+<div>
+    <img src="./../../assets/images/landing.jpg" alt="landing" id="landing">
+</div>
+<div class="content">
+    <h2>Información de contacto</h2>
+    <hr>
+    <form [formGroup]="form"  #myForm="ngForm" (ngSubmit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-6 col-sm-12">
+                <mat-form-field>
+                    <mat-label>Nombre</mat-label>
+                    <input matInput type="text" formControlName="name" required>
+                    <mat-hint class="text-danger" *ngIf="nameInvalid">Complete su nombre(s).</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-md-6 col-sm-12">
+                <mat-form-field>
+                    <mat-label>Apellido</mat-label>
+                    <input matInput type="text" formControlName="lastName" required>
+                    <mat-hint class="text-danger" *ngIf="surnameInvalid">Complete sus apellidos.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-sm-12">
+                <mat-form-field>
+                    <mat-label>Número telefónico</mat-label>
+                    <input matInput type="tel" #phone (keyup)="maxLengthCheck(phone)" maxlength="10" formControlName="phone" required>     
+                    <mat-hint class="text-danger" *ngIf="phoneInvalid">Ingrese un número telefónico válido.</mat-hint>                                                                 
+                </mat-form-field>
+            </div>
+            <div class="col-md-8 col-sm-12">
+                <mat-form-field>
+                    <mat-label>Correo electrónico</mat-label>
+                    <input matInput type="email" formControlName="email" required>
+                    <mat-hint class="text-danger" *ngIf="emailInvalid">Ingrese un correo electrónico válido.</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <h2>¡Gracias por confirmar su visita!</h2>
+        <hr>
+    
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <mat-form-field>
+                    <mat-label>Fecha de la cita</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="date" required>                    
+                    <mat-hint class="text-danger" *ngIf="dateInvalid">Ingrese una fecha correcta.</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>                    
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <mat-form-field>
+                    <input matInput type="time" formControlName="time">
+                    <mat-hint class="text-danger" *ngIf="timeInvalid">Ingrese una hora correcta.</mat-hint>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-12 col-md-6">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Seleccione la sucursal de su preferencia.</mat-label>
+                    <mat-select #fontSize formControlName="filial">
+                        <mat-option value="Zacatelco">Zacatelco</mat-option>
+                        <mat-option value="Puebla">Puebla</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-8 col-md-4 mx-auto text-center mt-5">
+                <button mat-raised-button type="submit" class="btn px-4 py-2 btn-color" [disabled]="form.invalid || spinner">                                    
+                    <span *ngIf="!spinner">Agendar</span>
+                    <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                </button>                                                                                                          
+            </div>
+        </div>
+    </form>    
+</div>

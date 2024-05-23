@@ -1,0 +1,36 @@
+<div class="container" > <!--style="background-image: url('../../../../../../assets/images/Recurso 1-100.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center; background-attachment: fixed;"-->
+    <!-- Banner -->
+    <div class="row">
+        <div class="col-12">
+            <img src="assets/images/abcars-images/banner_prueba_2.jpg"    class="img-fluid mt-3" alt="Banner ABCars"> <!--width="100%"-->
+        </div>
+    </div>
+    <!-- Promotion ABCars -->
+    <div class="row">
+        <div class="col-12 mt-3">
+            <!-- <div class="text-center">
+                <img src="../../../../../../assets/images/RELOJ-02.png" width="200" alt="reloj_oferta_abcars">
+                <img src="../../../../../../assets/images/LETRAS-02.png" width="200" alt="reloj_oferta_abcars">
+            </div> -->
+        
+            <!-- Promotions -->
+                <div class="row">
+                    <!-- <div class="row mx-auto mt-3"> -->
+                        <!-- <div class="col-12"> -->
+                            <div [ngClass]="[status ? 'col-12 col-sm-12 col-md-6 col-xl-4 mt-2 mb-2' : 'col-12 col-sm-12 col-md-6 col-xl-4 mt-2 mb-2']" *ngFor=" let vehicle of vehiclePromos">
+                                <c-vender-autos-vehicle [vehicle]="vehicle" [routerLink]="['/compra-tu-auto/detail', vehicle.vin ]"></c-vender-autos-vehicle>
+                            </div>
+                        <!-- </div> -->
+                    <!-- </div> -->
+                </div>
+                <!-- Pagination -->
+                <div class="row">
+                    <div class="col-12">
+                        <mat-paginator [length]="length" [pageSize]="pageSize" [pageIndex]="pageIndex - 1" aria-label="Select page" (page)="paginationChange($event)" #paginador>
+                        </mat-paginator>
+                    </div>
+                </div>
+
+        </div>
+    </div>
+</div>

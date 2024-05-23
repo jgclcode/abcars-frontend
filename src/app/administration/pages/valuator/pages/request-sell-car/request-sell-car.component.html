@@ -1,0 +1,395 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5">
+            <div class="text-center">
+                <h1 class="fs-2 fw-bold">Cotización de la solicitud Vender tu Auto</h1>
+                <h5 class="fs-5 fw-light">Realiza la cotización del Auto Solicitado.</h5>
+                <nav *ngIf="roleActived === 1" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                        <li class="breadcrumb-item" [routerLink]="['/admin/valuator/vende-tu-auto']"> Vende tu Auto</li>
+                        <li class="breadcrumb-item active" aria-current="page">Cotización</li>
+                    </ol>
+                </nav>
+                <nav *ngIf="roleActived === 2" style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                        <li class="breadcrumb-item" [routerLink]="['/admin/pmanager/vehicles']"> Vender tu Auto</li>
+                        <li class="breadcrumb-item active" aria-current="page">Cotización</li>
+                    </ol>
+                </nav>
+            </div>
+
+            <!-- Form Car Quotation  -->
+            <div class="row mt-5 mb-5">
+                <mat-stepper linear #stepper>
+                    <!-- Quotation -->
+                    <mat-step [stepControl]="quotationForm" errorMessage="La información es requerida.">
+                        <form [formGroup]="quotationForm" (ngSubmit)="onSubmit()"> 
+                            <ng-template matStepLabel>Cotización</ng-template>
+
+                            <div class="col-12">
+                                <!-- Service button -->
+                                <div class="mt-3 text-end">
+                                    <button mat-button type="button" class="btn abcars-background-color rounded-pill text-dark" (click)="openBottomSheetRating()"> <!-- (click)="openBottomSheet()" -->
+                                        <i class="fi fi-rr-settings"></i>
+                                        Ver valoración
+                                    </button>
+                                </div>
+                                <!-- Quotation and Comments -->
+                                <div class="row">
+                                    <h3 class="fw-light text-truncate">
+                                        Cotización.
+                                        <i class="fas fa-level-down-alt"></i>
+                                    </h3>
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <!-- Book reference -->
+                                            <div class="col">
+                                                <h3 class="fw-light text-truncate">
+                                                    Referencia Libro Guía Autométrica:
+                                                </h3>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Taking -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="0" max="9999999999" formControlName="take" #take (keyup)="maxLengthCheck(take)" maxlength="10"  required> 
+                                                        <mat-label>Toma: <span> ${{ take.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="takeInvalid">Proporcione el precio de toma.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <!-- Sale -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="1" max="9999999999" formControlName="sale" #sale (keyup)="maxLengthCheck(sale)" maxlength="10"  required> 
+                                                        <mat-label>Venta: <span> ${{ sale.value | number:'.2-2' }}</span></mat-label> 
+                                                        <mat-hint *ngIf="saleInvalid">Proporcione el precio de venta.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row">
+                                            <!-- Intelimotors reference -->
+                                            <div class="col">
+                                                <h3 class="fw-light text-truncate">
+                                                    Referencia Intelimotors:
+                                                </h3>
+                                            </div>
+
+                                            <div class="row">
+                                                <!-- Taking -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="0" max="9999999999" formControlName="take_intelimotors" #take_intelimotors (keyup)="maxLengthCheck(take_intelimotors)" maxlength="10"  required> 
+                                                        <mat-label>Toma: <span> ${{ take_intelimotors.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="takeIntelimotorsInvalid">Proporcione el precio de toma.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <!-- Sale -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="1" max="9999999999" formControlName="sale_intelimotors" #sale_intelimotors (keyup)="maxLengthCheck(sale_intelimotors)" maxlength="10"  required> 
+                                                        <mat-label>Venta: <span> ${{ sale_intelimotors.value | number:'.2-2' }}</span></mat-label> 
+                                                        <mat-hint *ngIf="saleIntelimotorsInvalid">Proporcione el precio de venta.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+    
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <!-- Reconditioning -->
+                                            <div class="col">
+                                                <h3 class="fw-light text-truncate">
+                                                    Reacondicionamiento:
+                                                </h3>
+                                            </div>
+                                            <div class="row">
+                                                <!-- Workforce -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline" class="opacity-75">
+                                                        <input matInput type="text" placeholder="$000000" min="0" max="9999999999" formControlName="workforce" #workforce (keyup)="maxLengthCheck(workforce)" (change)="onCotizacion()" maxlength="10" [readonly]="workforceInactive">  <!-- required -->
+                                                        <mat-label>Mano de obra: <span> ${{ workforce.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="workforceInvalid">Proporcione el precio.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <!-- Parts, spare parts -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline" class="opacity-75">
+                                                        <input matInput type="text" placeholder="$000000" min="1" max="9999999999" formControlName="spare_parts" #spare_parts (keyup)="maxLengthCheck(spare_parts)" (change)="onCotizacion()" maxlength="10" [readonly]="sparePartsInactive">  <!-- required -->
+                                                        <mat-label>Partes/refacciones: <span> ${{ spare_parts.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="spare_partsInvalid">Proporcione el precio.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <!-- HyP -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline" class="opacity-75">
+                                                        <input matInput type="text" placeholder="$000000" min="1" max="9999999999" formControlName="hyp" #hyp (keyup)="maxLengthCheck(hyp)" (change)="onCotizacion()" maxlength="10" readonly> <!-- [readonly]="inactivo" required -->  
+                                                        <mat-label>HyP: <span> ${{ hyp.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="hypInvalid">Proporcione el precio.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <!-- Total -->
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline" class="opacity-75">
+                                                        <input matInput type="number" formControlName="total" #total readonly> 
+                                                        <mat-label >Total: <span> ${{ total.value | number:'.2-2' }} </span> </mat-label> 
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <!-- Value takes -->
+                                            <div class="col">
+                                                <h3 class="fw-light text-truncate">
+                                                    Valor toma y Oferta final:
+                                                </h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="1" max="9999999999" formControlName="take_value" #take_value (keyup)="maxLengthCheck(take_value)" maxlength="10"  required > 
+                                                        <mat-label>Valor toma: <span> ${{ take_value.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="take_valueInvalid">Proporcione el precio de toma final.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+                                            
+                                            <div class="row">
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="1" max="9999999999" formControlName="final_offer" #final_offer (keyup)="maxLengthCheck(final_offer)" maxlength="10"  required > 
+                                                        <mat-label>Oferta final: <span> ${{ final_offer.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="final_offerInvalid">Proporcione el precio de oferta final.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div>
+
+                                            <!-- <hr *ngIf="roleActived === 2">
+
+                                            <div *ngIf="roleActived === 2" class="row">
+                                                <div class="col">
+                                                    <h3 class="fw-light text-truncate">
+                                                        Oferta de toma:
+                                                    </h3>
+                                                </div>
+                                            </div>
+
+                                            <div class="row" *ngIf="roleActived === 2">
+                                                <div class="col ps-5">
+                                                    <mat-form-field appearance="outline">
+                                                        <input matInput type="number" placeholder="$000000" min="1" max="9999999999" formControlName="new_offer" #new_offer (keyup)="maxLengthCheck(new_offer)" maxlength="10"  required > 
+                                                        <mat-label>Nueva Oferta: <span> ${{ new_offer.value | number:'.2-2' }}</span> </mat-label> 
+                                                        <mat-hint *ngIf="new_offerInvalid">Proporcione el precio de la oferta de toma.</mat-hint>
+                                                    </mat-form-field>
+                                                </div>
+                                            </div> -->
+
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
+                                        <div class="row mt-3">
+                                            <!-- Warranty manual  -->
+                                            <!-- <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                                <mat-slide-toggle formControlName="warranty_manual"  (change)="checked = !checked"> 
+                                                    Manual de garantía
+                                                    Manuales
+                                                </mat-slide-toggle>
+                                            </div>
+                    
+                                            Warranty policy
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-3 col-xl-3">
+                                                <mat-slide-toggle formControlName="valid_warranty" (change)="checkedg = !checkedg"> 
+                                                    Póliza de garantía
+                                                </mat-slide-toggle>
+                                            </div> -->
+            
+                                            <!-- Direct purchase  -->
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                <mat-slide-toggle formControlName="direct_purchase"  (change)="checkedp = !checkedp"> <!-- [(ngModel)]="checkedp" checkedt = !checkedt --> 
+                                                    Compra directa
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                            <!-- Take into account  -->
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                <mat-slide-toggle formControlName="take_into_account"  (change)="checkedt = !checkedt">  <!-- [(ngModel)]="checkedt" checkedp = !checkedp -->
+                                                    Toma a cuenta
+                                                </mat-slide-toggle>
+                                            </div>
+
+                                            <!-- Direct purchase / Take into account  -->
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                <mat-slide-toggle formControlName="direct_purchase_take_account"  (change)="checkedpt = !checkedpt"> 
+                                                    Compra directa/Toma a cuenta
+                                                </mat-slide-toggle>
+                                            </div>
+                                            
+                                        </div>
+
+                                        <!-- <div class="row mt-3">
+                                            Direct purchase / Take into account
+                                            <div class="col-12 col-sm-12 col-md-6 col-lg-6 col-xl-6">
+                                                <mat-slide-toggle formControlName="direct_purchase_take_account"  (change)="checkedpt = !checkedpt"> 
+                                                    Compra directa/Toma a cuenta
+                                                </mat-slide-toggle>
+                                            </div>
+                                        </div> -->
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
+                                        <div class="row mt-5">
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-4 col-xl-4">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Vendedor</mat-label>
+                                                    <mat-select placeholder="Seleccione un vendedor" formControlName="seller" required>
+                                                        <mat-option *ngFor="let seller of sellers" [value]="seller.value">{{seller.viewValue | titlecase}}</mat-option>
+                                                    </mat-select>
+                                                    <mat-hint *ngIf="sellerInvalid">Seleccione un vendedor.</mat-hint>
+                                                </mat-form-field>
+                                            </div>
+                                            
+                                            <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Auto nuevo/seminuevo</mat-label>
+                                                    <mat-select placeholder="Seleccione un auto por favor" formControlName="ownedPreowned">
+                                                        <mat-option *ngFor="let ownedPreowned of ownedPreowneds" value="{{ ownedPreowned.vin }}">{{ ownedPreowned.name}} - {{ ownedPreowned.vin }} - {{ ownedPreowned.type === 'new' ? 'Nuevo' : 'Seminuevo' }} </mat-option> <!--- {{ ownedPreowned.type }}-->
+                                                    </mat-select>
+                                                </mat-form-field>
+                                            </div>
+
+                                            
+                                        </div>
+                                    </div>
+                                    
+
+                                    <div class="col-12 col-sm-12 col-md-6 col-lg-12 col-xl-12">
+                                        <div class="row">
+                                            <!-- Comments -->
+                                            <div class="col mt-5">
+                                                <h3 class="fw-light text-truncate">
+                                                    Comentarios:
+                                                </h3>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <mat-form-field class="example-full-width" appearance="outline">
+                                                        <mat-label>Deja un comentario</mat-label>
+                                                        <textarea rows="6" matInput placeholder="Déjanos saber que es lo que opinas..." formControlName="comments" ></textarea>
+                                                      </mat-form-field>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!-- <div class="col-12">
+                                Firms 
+                                <div class="row">
+                                    <h3 class="fw-light text-truncate">
+                                        Firmas.
+                                        <i class="fas fa-level-down-alt"></i>
+                                    </h3>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="row mb-2">
+                                            <div class="col">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Nombre Técnico</mat-label>
+                                                    <input matInput type="text" placeholder="Nombre Completo Técnico Certificado" formControlName="name_technical"  required>
+                                                    <mat-hint *ngIf="name_technicalInvalid">Ingrese el nombre completo del Técnico.</mat-hint>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Nombre Gerente</mat-label>
+                                                    <input matInput type="text" placeholder="Nombre Completo Gerente" formControlName="name_manager"  required>
+                                                    <mat-hint *ngIf="name_managerInvalid">Ingrese el nombre completo del Gerente.</mat-hint>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-form-field appearance="outline">
+                                                    <mat-label>Nombre Valuador - Comprador</mat-label>
+                                                    <input matInput type="text" placeholder="Nombre Completo Valuador - Comprador" formControlName="name_appraiser"  required>
+                                                    <mat-hint *ngIf="name_appraiserInvalid">Ingrese el nombre completo del Valuador - Comprador.</mat-hint>
+                                                </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-card>Nombre y Firma Técnico Certificado</mat-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-card>Nombre y Firma Gerente</mat-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-12 col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                                        <div class="row">
+                                            <div class="col">
+                                                <mat-card>Nombre y Firma Valuador - Comprador</mat-card>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+
+                            <div class="mt-3">
+                                <button mat-button type="submit" matStepperNext class="btn abcars-background-color rounded-pill text-dark mx-2" [disabled]="quotationForm.invalid">
+                                    <span >Enviar</span>
+                                </button>
+                            </div>
+
+                        </form>
+                    </mat-step>
+                </mat-stepper>
+            </div>
+        </div>
+    </div>
+</div>

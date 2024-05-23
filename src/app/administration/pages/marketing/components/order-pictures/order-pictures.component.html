@@ -1,0 +1,29 @@
+<div cdkDropList class="list" (cdkDropListDropped)="drop($event)">
+    <div class="box" *ngFor="let image of imagesForSlider; let i = index" cdkDrag>
+        <div class="row">
+            <div class="col-2">
+                posición {{ i + 1 }}
+            </div>
+            <div class="col-7">
+                <div>
+                    <b>Es de un sitio externo:</b> {{ image.external_website }}
+                </div>
+                <div>
+                    <b>Url:</b> {{ image.path }}
+                </div>
+            </div>
+            <div class="col-3">
+                <img class="card-img-top img-fluid img-size-sm" [src]="image.path" alt="{{ image.id }}">
+            </div>
+        </div>
+
+    </div>
+    <!-- Button Submit -->
+    <div class="row mt-2">
+        <div class="col-12 text-center">
+            <button mat-mini-fab color="accent" aria-label="Borrar imagenes" (click)="changeOrder()">
+                <mat-icon>autorenew</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

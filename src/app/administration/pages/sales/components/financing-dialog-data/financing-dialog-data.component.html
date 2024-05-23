@@ -1,0 +1,545 @@
+<div class="container">    
+    <div class="row">
+        <h1 class="fw-bold mt-3">Financiamiento</h1>
+        <h4 class="fs-5 fw-light">Expendiente general de Precalificar para Financiamiento.</h4>
+
+        <!-- Information Financing -->
+        <div class="col-12">
+            <mat-accordion class="example-headers-align">
+                <!-- Step Financing -->
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+                    <!-- Header Step -->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Financiamiento</mat-panel-title>
+                    </mat-expansion-panel-header>                    
+
+                    <mat-list>                        
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">Precio total del Vehículo</div>
+                            <div mat-line>${{ financing.price | number:'0.2-2' }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">Total de Enganche</div>
+                            <div mat-line>${{ financing.hitch | number:'0.2-2' }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">Año del Vehículo</div>
+                            <div mat-line>{{ financing.year }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">Marca</div>
+                            <div mat-line>{{ financing.brand.name | titlecase }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">Modelo</div>
+                            <div mat-line>{{ financing.carmodel.name | titlecase }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">Plan de Financiamiento</div>
+                            <div mat-line>{{ financing.monthly_fees }}</div>
+                        </mat-list-item>
+                    </mat-list>
+
+                    <!-- Button Next Step -->
+                    <mat-action-row>
+                        <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+              
+                <!-- Step General Information -->
+                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+                    <!-- Header Step -->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Datos Generales</mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <mat-list>
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Nombre del Cliente</div>
+                                    <div mat-line>{{ financing.client.user.name | titlecase }} {{ financing.lastname | titlecase }} {{ financing.client.user.surname | titlecase }} {{ financing.mothername | titlecase }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Clave Única de Registro de Población</div>
+                                    <div mat-line>{{ financing.client.curp | uppercase }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Género</div>
+                                    <div mat-line>{{ (financing.client.user.gender === 'm') ? 'Hombre' : 'Mujer' }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Correo Electrónico</div>
+                                    <div mat-line>{{ financing.client.user.email }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">RFC</div>
+                                    <div mat-line>{{ financing.rfc | uppercase }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">1.º Telefóno</div>
+                                    <div mat-line>{{ financing.client.phone1 }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">2.º Telefóno</div>
+                                    <div mat-line>{{ financing.client.phone2 }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Estado Civil</div>
+                                    <div mat-line>{{ financing.civil_status  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Nivel de Estudios</div>
+                                    <div mat-line>{{ financing.studies_level }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Dependientes Economicos</div>
+                                    <div mat-line>{{ financing.economic_dependents }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Cuenta con Vehículo</div>
+                                    <div mat-line>{{ (financing.has_vehicle === 'yes') ? 'Si' : 'No' }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+
+                        <div class="col-12 col-md-6 mt-3">
+                            <mat-list>
+                                <h6 class="fs-6 fw-light">Domicilio</h6>
+
+                                <mat-list-item>
+                                    <div mat-line class="fw-bold">Dirección</div>
+                                    <div mat-line>{{ financing.street_name | titlecase }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>
+                                    <div mat-line class="fw-bold">Número</div>
+                                    <div mat-line>{{ financing.number }}</div>
+                                </mat-list-item>
+                                
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>
+                                    <div mat-line class="fw-bold">Colonia</div>
+                                    <div mat-line>{{ financing.suburb | titlecase }}</div>
+                                </mat-list-item>
+                                
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>
+                                    <div mat-line class="fw-bold">Código Postal</div>
+                                    <div mat-line>{{ financing.postal_code }}</div>
+                                </mat-list-item>
+                                
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>
+                                    <div mat-line class="fw-bold">Estado</div>
+                                    <div mat-line>{{ financing.state.name }}</div>
+                                </mat-list-item>
+                                
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>
+                                    <div mat-line class="fw-bold">Municipio</div>
+                                    <div mat-line>{{ financing.municipality | titlecase }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </div>
+                
+                    <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                        <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+              
+                <!-- References -->
+                <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+                    <!-- Header Step -->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Referencias</mat-panel-title>
+                    </mat-expansion-panel-header>
+              
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <mat-list>
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Nombre de la Empresa</div>
+                                    <div mat-line>{{ financing.company | titlecase }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Situación Laboral</div>
+                                    <div mat-line>{{ financing.employment_situation  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Ingreso Mensual (Neto)</div>
+                                    <div mat-line>${{ financing.salary | number:'0.2-2' }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Puesto que desempeña</div>
+                                    <div mat-line>{{ financing.role }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Actividad Laboral</div>
+                                    <div mat-line>{{ financing.date_start | date:'dd MMMM, yyyy'  }} al {{ financing.date_end | date:'dd MMMM, yyyy' }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Telefóno de la Empresa</div>
+                                    <div mat-line>{{ financing.number_phone_company }}</div>
+                                </mat-list-item>
+
+                                <h6 class="fs-6 fw-light">Dirección de la Empresa</h6>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Dirección</div>
+                                    <div mat-line>{{ (financing.street_name_company) ? financing.street_name_company : 'N/A'  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider> 
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Número</div>
+                                    <div mat-line>{{ (financing.number_home_company) ? financing.number_home_company : 'N/A'  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Colonia</div>
+                                    <div mat-line>{{ (financing.suburb_company) ? financing.suburb_company : 'N/A'  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Código Postal</div>
+                                    <div mat-line>{{ (financing.postal_code_company) ? financing.postal_code_company : 'N/A'  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Estado</div>
+                                    <div mat-line>{{ (financing.state_company) ? financing.state_company : 'N/A'  }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Municipio</div>
+                                    <div mat-line>{{ (financing.municipality_company) ? financing.municipality_company : 'N/A'  }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <h6 class="fs-6 fw-light">1.º Referencia</h6>
+
+                            <!-- 1.º Reference -->
+                            <mat-list>
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Nombre</div>
+                                    <div mat-line>{{ financing.references[0].name }} {{ financing.references[0].surname }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Telefóno</div>
+                                    <div mat-line>{{ financing.references[0].phone }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Relación</div>
+                                    <div mat-line>{{ financing.references[0].relationship }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Dirección</div>
+                                    <div mat-line>{{ financing.street_name_reference | titlecase }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Número</div>
+                                    <div mat-line>{{ financing.number_reference }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Colonia</div>
+                                    <div mat-line>{{ financing.suburb_reference }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Código Postal</div>
+                                    <div mat-line>{{ financing.postal_code_reference }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Estado</div>
+                                    <div mat-line>{{ financing.state_reference }}</div>
+                                </mat-list-item>
+
+                                <mat-divider></mat-divider>
+
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Municipio</div>
+                                    <div mat-line>{{ financing.municipality_reference }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <h6 class="fs-6 fw-light">2.º Referencia</h6>
+
+                            <!-- 2.º Reference -->
+                            <mat-list>
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Nombre</div>
+                                    <div mat-line>{{ financing.references[1].name }} {{ financing.references[1].surname }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Telefóno</div>
+                                    <div mat-line>{{ financing.references[1].phone }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Relación</div>
+                                    <div mat-line>{{ financing.references[1].relationship }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>
+
+                        <div class="col-12 col-lg-6">
+                            <h6 class="fs-6 fw-light">3.º Referencia</h6>
+
+                            <!-- 3.º Reference -->
+                            <mat-list>
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Nombre</div>
+                                    <div mat-line>{{ financing.references[2].name }} {{ financing.references[2].surname }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Telefóno</div>
+                                    <div mat-line>{{ financing.references[2].phone }}</div>
+                                </mat-list-item>
+        
+                                <mat-divider></mat-divider>
+        
+                                <mat-list-item>                            
+                                    <div mat-line class="fw-bold">Relación</div>
+                                    <div mat-line>{{ financing.references[2].relationship }}</div>
+                                </mat-list-item>
+                            </mat-list>
+                        </div>                        
+                    </div>
+
+                    <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                        <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+
+                <!-- Step Financing Information -->
+                <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+                    <!-- Header Step -->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Información Financiera</mat-panel-title>
+                    </mat-expansion-panel-header>
+              
+                    <mat-list>
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">¿Cuenta con alguna tarjeta de crédito?</div>
+                            <div mat-line>{{ (financing.credit_card === 'yes') ? 'Si' : 'No'}}</div>
+                        </mat-list-item>
+
+                        <mat-divider *ngIf="financing.credit_card === 'yes'"></mat-divider>
+
+                        <mat-list-item *ngIf="financing.credit_card === 'yes'">                            
+                            <div mat-line class="fw-bold">Últimos cuatro dígitos de su tarjeta</div>
+                            <div mat-line>{{ financing.numbers_card }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">¿Cuenta con algún crédito Hipotecario?</div>
+                            <div mat-line>{{ (financing.mortgage_credit === 'yes') ? 'Si' : 'No' }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">¿Cuenta con algún crédito Automotriz?</div>
+                            <div mat-line>{{ (financing.automotive_credit === 'yes') ? 'Si' : 'No' }}</div>
+                        </mat-list-item>
+
+                        <mat-divider></mat-divider>
+
+                        <mat-list-item>                            
+                            <div mat-line class="fw-bold">¿Estas solicitando el financiamiento para otra persona?</div>
+                            <div mat-line>{{ (financing.third_person === 'yes') ? 'Si' : 'No' }}</div>
+                        </mat-list-item>
+                    </mat-list>
+                
+                    <mat-action-row>
+                        <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                        <button mat-button color="primary" (click)="nextStep()">Siguiente</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+
+                <!-- Files -->
+                <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
+                    <!-- Header Step -->
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>Documentación</mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                                <div class="carousel-indicators">
+                                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                                  <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                                </div>
+
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img [src]="fileFront | safeURL" class="d-block w-100" alt="INE Frontal">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>Primera Parte del INE</h5>
+                                        </div>
+                                    </div>
+
+                                    <div class="carousel-item">
+                                        <img [src]="fileBack | safeURL" class="d-block w-100" alt="INE Trasera">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5>Segunda Parte del INE</h5>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Anterior</span>
+                                </button>
+
+                                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                  <span class="visually-hidden">Siguiente</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Button Next Step -->              
+                    <mat-action-row>
+                        <a rel="noopener noreferrer" href="{{ url + '/api/financing_front/' + financing.id }}">
+                            <button mat-button color="accent">
+                                Descargar INE Front
+                            </button>
+                        </a>
+                        <a rel="noopener noreferrer" href="{{ url + '/api/financing_back/' + financing.id }}">
+                            <button mat-button color="accent">
+                                Descargar INE Back
+                            </button>
+                        </a>
+                        <button mat-button color="warn" (click)="prevStep()">Anterior</button>
+                    </mat-action-row>
+                </mat-expansion-panel>
+            </mat-accordion>
+        </div>
+    </div>
+
+    <div class="row float-end mt-3 mb-3">
+        <div mat-dialog-actions>
+            <button mat-button mat-dialog-close type="button" class="btn abcars-background-color rounded-pill text-dark" (click)="closeSheet()">
+                Cerrar
+            </button> 
+        </div>
+    </div>      
+</div>

@@ -1,0 +1,243 @@
+.chip-list {
+    width: 100%;
+}
+
+.sliderPrecios{
+    display: flex;
+}
+
+mat-slider {
+    width: 100%;
+}
+
+/* Circle Color */
+::ng-deep .mat-accent .mat-slider-thumb {
+    background-color: #383838 !important;
+}
+
+/* Background when is cliked  */
+::ng-deep .mat-accent .mat-slider-thumb-label {
+    background-color: #707070 !important;
+    /*replace with your color*/
+    padding: 20px;
+}
+
+/* Line color mat-slider */
+::ng-deep .mat-accent .mat-slider-track-fill {
+    background-color: #FFCB54 !important;
+}
+
+.mat-chip.mat-standard-chip.mat-chip-selected.mat-primary {
+    background-color: #FFCB54 !important;
+    color: white !important;
+}
+
+mat-accordion mat-expansion-panel {
+    width: 100%;
+    border-radius: 10px !important;
+}
+
+.widget-heading h1 {
+    font-size: 20px;
+    margin-bottom: 40px;
+    position: relative;
+}
+
+.widget-heading h1::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -15px;
+    height: 2px;
+    width: 70px;
+    background: #FFCB54;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.search-navbar-sticky {
+    position: sticky;
+    top: 0px;
+    z-index: 3;
+    background-color: white;
+}
+
+/* Styles Spinner SK Cube Grid */
+.sk-cube-grid {
+    width: 90px;
+    height: 90px;
+    margin: 100px auto;
+}
+  
+.sk-cube-grid .sk-cube {
+    width: 33%;
+    height: 33%;
+    background-color: var(--abcars-color);
+    float: left;
+    -webkit-animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out;
+    animation: sk-cubeGridScaleDelay 1.3s infinite ease-in-out; 
+}
+
+.sk-cube-grid .sk-cube1 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; 
+}
+
+.sk-cube-grid .sk-cube2 {
+-webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s; 
+}
+
+.sk-cube-grid .sk-cube3 {
+-webkit-animation-delay: 0.4s;
+        animation-delay: 0.4s; 
+}
+
+.sk-cube-grid .sk-cube4 {
+-webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s; 
+}
+
+.sk-cube-grid .sk-cube5 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; 
+}
+
+.sk-cube-grid .sk-cube6 {
+-webkit-animation-delay: 0.3s;
+        animation-delay: 0.3s; 
+}
+
+.sk-cube-grid .sk-cube7 {
+-webkit-animation-delay: 0s;
+        animation-delay: 0s; 
+}
+
+.sk-cube-grid .sk-cube8 {
+-webkit-animation-delay: 0.1s;
+        animation-delay: 0.1s; 
+}
+
+.sk-cube-grid .sk-cube9 {
+-webkit-animation-delay: 0.2s;
+        animation-delay: 0.2s; 
+}
+
+.button-BuscameUnAuto{
+    background-color: #1057DB;
+    color: aliceblue;
+}
+
+.buttonFiltro{
+    background-color: #1057DB;
+    color: white;
+    padding: 10px;
+ }
+
+.searchIcon{
+    font-size: 25px;
+}
+ 
+@-webkit-keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+                transform: scale3D(1, 1, 1);
+    } 35% {
+        -webkit-transform: scale3D(0, 0, 1);
+                transform: scale3D(0, 0, 1); 
+    }
+}
+
+@keyframes sk-cubeGridScaleDelay {
+    0%, 70%, 100% {
+        -webkit-transform: scale3D(1, 1, 1);
+                transform: scale3D(1, 1, 1);
+    } 35% {
+        -webkit-transform: scale3D(0, 0, 1);
+                transform: scale3D(0, 0, 1);
+    } 
+}
+
+
+
+/* .mg-top-30px{
+    padding-top: 30px;
+}
+.filter_vehicles{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    padding: -5px 5px 0 5px;
+    background-color: #D9D9D9;
+    border-top-right-radius: 10px;
+    border-bottom-left-radius:10px;
+    border-bottom-right-radius:10px;
+}
+
+.borrar_filter{
+    display: flex;
+    justify-content: space-between;
+}
+.borrar_filter_title{
+    
+    padding-right: 40px;
+    background-color: #D9D9D9;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    margin-bottom: 0;
+}
+.borrar_filter_title h3{
+    margin:5px 0 0 20px;
+    padding-bottom: 0;
+    text-align: center;
+    color: #1057DB;
+}
+.filter_img_buscarAuto{
+    width: 30px;
+    margin-left: 5px;
+}
+.filter_vehicles_inputs{
+    display: flex;
+    margin: 7px auto -15px auto;
+    gap: calc(3%);
+    width: 95%;
+}
+.filter_vehicles_containerButton{
+    width: 100%;
+    height: 100%;
+}
+.filter_vehicles_button{
+    background-color: #1057DB;
+}
+.button-BuscameUnAuto{
+    background-color: #1057DB;
+    color: aliceblue;
+}
+.container_Button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.buscame_unAutoImg{
+    width: 30px;
+    color: white;
+}
+.expantedd{
+    box-shadow: none !important;
+}
+.buttonFiltro{
+   background-color: #1057DB;
+   color: white;
+}
+@media (max-width: 600px) {
+   .filter_vehicles_inputs{
+       flex-direction: column;
+   }
+   .buttonFiltro{
+       display: inline;
+   }
+
+ } */

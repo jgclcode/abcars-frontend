@@ -1,0 +1,27 @@
+.div-financing-background {
+    z-index: 1;
+    margin-top: -20vw;
+}
+
+.img-financing-background {
+    width: 50vw;
+}
+
+@media only screen and (max-width: 1200px) {
+    .img-financing-background {
+        width: 50vw;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .img-financing-background {
+        width: 100vw;
+    }
+
+}
+
+@media only screen and (max-width: 767px) {
+    .btn-position {
+        text-align: right;
+    }
+}

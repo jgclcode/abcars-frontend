@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3 mb-3">
+            <h1 class="text-center fw-bold">Actualizar información de Refacción</h1>
+        </div>
+    </div>
+
+    <!-- Spare Part -->
+    <div class="row">
+        <div class="col-12 mb-3">            
+            <form [formGroup]="form" (ngSubmit)="submit()">
+                <!-- Refacción Original -->
+                <div class="row">
+                    <h3 class="text-muted">Refacción Original</h3>
+
+                    <!-- Price -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" formControlName="priceOriginal" placeholder="1" min="0" max="1000000" required>
+                            <mat-hint *ngIf="invalidPriceOriginal">Establecer precio de la refacción original.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Time -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha de Entrega</mat-label>
+                            <input matInput [matDatepicker]="pickerOriginal" placeholder="dd/mm/yyyy" [min]="date" formControlName="timeOriginal" required>
+                            <mat-hint *ngIf="invalidTimeOriginal">Ingrese fecha de entrega de pieza original.</mat-hint>
+
+                            <mat-datepicker-toggle matSuffix [for]="pickerOriginal"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #pickerOriginal></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Refacción Generic -->
+                <div class="row">
+                    <h3 class="text-muted">Refacción Generica</h3>
+
+                    <!-- Price -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" formControlName="priceGeneric" placeholder="1" min="0" max="1000000" required>
+                            <mat-hint *ngIf="invalidPriceGeneric">Establecer precio de la refacción generica.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Time -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha de Entrega</mat-label>
+                            <input matInput [matDatepicker]="pickerGeneric" placeholder="dd/mm/yyyy" [min]="date" formControlName="timeGeneric" required>
+                            <mat-hint *ngIf="invalidTimeGeneric">Ingrese fecha de entrega de pieza generica.</mat-hint>
+
+                            <mat-datepicker-toggle matSuffix [for]="pickerGeneric"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #pickerGeneric></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Refacción Used -->
+                <div class="row">
+                    <h3 class="text-muted">Refacción Usada/Reparada</h3>
+
+                    <!-- Price -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" formControlName="priceUsed" placeholder="1" min="0" max="1000000" required>
+                            <mat-hint *ngIf="invalidPriceUsed">Establecer precio de la refacción usada.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Time -->
+                    <div class="col-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Fecha de Entrega</mat-label>
+                            <input matInput [matDatepicker]="pickerUsed" placeholder="dd/mm/yyyy" [min]="date" formControlName="timeUsed" required>
+                            <mat-hint *ngIf="invalidTimeUsed">Ingrese fecha de entrega de pieza usada.</mat-hint>
+
+                            <mat-datepicker-toggle matSuffix [for]="pickerUsed"></mat-datepicker-toggle>
+                            <mat-datepicker touchUi #pickerUsed></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Buttons Actions -->
+                <div class="row">
+                    <div class="col-12 mt-3 mb-3 text-center">
+                        <button mat-button type="submit" class="btn abcars-background-color rounded-pill text-dark mx-2" [disabled]="form.invalid">                            
+                            <span *ngIf="!spinner">Guardar</span>
+                            <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        </button>
+
+                        <button mat-raised-button type="button" class="btn abcars-background-color-secondary px-4 rounded-pill text-dark" (click)="closeSheet()">
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+.containerss {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Opcional para mejorar la experiencia en dispositivos móviles */
+    border-radius: 4px;
+    /* box-shadow: 0 6px 10px rgba(0, 0, 0, .08), 0 0 6px rgba(0, 0, 0, .05); */
+  }
+  
+  .card {
+    flex: 0 0 auto;
+    width: 300px; /* O el ancho que desees para las tarjetas */
+    margin-right: 10px; /* O el margen que desees entre las tarjetas */
+  }
+
+  .card img {
+    display: block;
+     width: 300px;
+    height: 300px;
+  }
+  
+  h1{
+    text-align: center;
+  }

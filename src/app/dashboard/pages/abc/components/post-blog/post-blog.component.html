@@ -1,0 +1,16 @@
+<div class="card" >
+    <!-- Imagen post -->
+    <img [src]="post?.pictureMedia" class="img-fluid card-img " alt="{{ post?.title?.rendered }}">  
+    <div class="card-img-overlay d-flex align-items-center p-2 p-sm-1 img-recent"> 
+        <div class="w-100 mt-auto">
+            <!-- Card title -->
+            <h3 class="text-white fs-3">{{ post?.title?.rendered?.substr(0, 30) }}</h3>   
+            <p class="text-white">{{ post?.excerpt?.rendered?.substr(3, 22)?.toUpperCase() }}</p>
+        
+            <!-- Card info -->
+            <ul class="nav nav-divider align-items-center text-light">                            
+                <li class="nav-item">Por ABCars.mx • {{ post?.date | date:'dd MMMM, yyyy'  }}</li>                            
+            </ul>
+        </div>
+    </div>
+</div>

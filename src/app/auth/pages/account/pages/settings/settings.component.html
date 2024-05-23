@@ -1,0 +1,147 @@
+<div class="container">
+    <!-- Arror Back -->
+    <div class="row">
+        <div class="col-12 mt-5 text-start">
+            <a class="text-decoration-none text-dark" [routerLink]="[url_dashboard]">
+                <i class="fas fa-arrow-left"></i> Regresar
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3 class="fs-3 fw-bold">Perfil</h3>
+            <h6 class="fs-6 fw-light">Aquí podrás editar tu información en caso de actualización o estar incorrecta.</h6>
+        </div>
+    </div>
+
+    <hr />
+
+    <!-- Picture & Information Customer -->
+    <div class="row">
+        <!-- Picture -->
+        <div class="col-12 col-md-4 mt-4">
+            <h5 class="fs-6 fw-bold text-light text-dark">Tu Fotografía</h5>
+
+            <div class="avatar-upload">
+                <div class="avatar-edit">
+                    <input type='file' id="picture" accept=".png, .jpg, .jpeg" (change)="assignImage($event)" />
+                    <label for="picture"></label>
+                </div>
+
+                <div class="avatar-preview mx-auto">
+                    <img id="imagePreview" [src]="image_path" alt="User Picture Imagen" />                
+                </div>
+            </div>
+        </div>
+
+        <!-- Information -->
+        <div class="col-12 col-md-8 mt-4 mb-5">
+            <h5 class="fs-6 fw-bold text-light text-dark">Tu información</h5>
+
+            <!-- Form Customer -->
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <!-- Name, Surname and Email -->
+                <div class="row">
+                    <!-- Name -->
+                    <div class="col-12 col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Nombre(s)</mat-label>
+                            <input matInput type="text" placeholder="Louis" formControlName="name">
+                            <mat-hint *ngIf="nameInvalid">Complete su nombre(s).</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Father and Mother Lastname -->
+                    <div class="col-12 col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Apellidos</mat-label>
+                            <input matInput type="text" placeholder="Chevrolet" formControlName="surname">
+                            <mat-hint *ngIf="surnameInvalid">Complete sus apellidos.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="col-12 col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Correo Electrónico</mat-label>
+                            <input matInput type="email" placeholder="a@b.c" formControlName="email">
+                            <mat-hint *ngIf="emailInvalid">Ingrese un correo electrónico válido.</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Gender and Phone's -->
+                <div class="row">
+                    <!-- Gender -->
+                    <div class="col-12 col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Género</mat-label>
+                            <mat-select matInput formControlName="gender" required>
+                                <mat-option value="f">Mujer</mat-option>
+                                <mat-option value="m">Hombre</mat-option>
+                            </mat-select>
+                            <mat-hint *ngIf="genderInvalid">Seleccione el género.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Phone One -->
+                    <div class="col-12 col-md-5">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Número de Teléfono Principal</mat-label>
+                            <input matInput type="tel" placeholder="1234567890" formControlName="phoneOne" required>
+                            <mat-hint *ngIf="phoneOneInvalid">Ingrese un número telefónico válido.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Phone Two -->
+                    <div class="col-12 col-md-4">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Número de Teléfono Secundario</mat-label>
+                            <input matInput type="tel" placeholder="1234567890" formControlName="phoneTwo" required>
+                            <mat-hint *ngIf="phoneTwoInvalid">Ingrese un número telefónico válido.</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <!-- Curp and Password -->
+                <div class="row">
+                    <!-- Curp -->
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Clave Única de Registro de Población (CURP)</mat-label>
+                            <input matInput type="text" placeholder="ABC123" formControlName="curp" (keyup)="convertMayus($event)" required>
+                            <mat-hint *ngIf="curp">Ingrese correctamente su Clave Única de Registro de Población.</mat-hint>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- Password -->
+                    <div class="col-12 col-md-6">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput placeholder="********" [type]="hide ? 'password' : 'text'" formControlName="password">
+                            <button mat-icon-button type="button" matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                            </button>
+                            <mat-hint *ngIf="passwordInvalid">
+                                <p *ngIf="passwordInvalid">Escriba una contraseña, caracteres permitidos: @ % #</p>
+                                <p *ngIf="passwordLength">La contraseña debe ser mínimo de 8 a 32 caracteres.</p>
+                            </mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-6 mt-3 mx-auto text-center">
+                        <div class="text-center mt-3">
+                            <button mat-raised-button type="submit" class="btn abcars-background-color py-2 rounded-pill text-dark" [disabled]="form.invalid || spinner">                                
+                                <span *ngIf="!spinner">Actualizar</span>
+                                <span *ngIf="spinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>                                    
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

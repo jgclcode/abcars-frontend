@@ -1,0 +1,45 @@
+.bi {
+    vertical-align: -.125em;
+    fill: currentColor;
+}
+
+.snackbar {
+    background: #383838 !important;
+    color: black !important;
+}
+
+.shared-icon {
+    width: auto !important;
+}
+
+.reserved-card {
+    border-radius: 10px !important;
+}
+
+.float-end {
+    float: right;
+}
+
+
+/* Style carousel */
+.picture-carousel {
+    height: 400px !important;
+}
+
+@media screen and (max-width: 991px) {
+    .picture-carousel {
+        height: 380px !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .picture-carousel {
+        height: 330px !important;
+    }
+}
+
+@media screen and (max-width: 540px) {
+    .picture-carousel {
+        height: 300px !important;
+    }
+}

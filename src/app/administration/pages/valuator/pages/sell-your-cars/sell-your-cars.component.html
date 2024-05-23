@@ -1,0 +1,228 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-5 mb-5">
+            <!-- Header -->
+            <div class="row">
+                <div class="col-12">
+                    <h4 class="fs-4 fw-bold text-truncate">Solicitudes de Vender tu Auto</h4>
+                    <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);" aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item" [routerLink]="['/admin']">Overview</li>
+                            <li class="breadcrumb-item active" aria-current="page">Vende tu Auto</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+            <!-- Search Input -->
+            <div class="row">
+                <div class="col-11">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Buscar...</mat-label>
+                        <input matInput (keyup)="applyFilter($event)" placeholder="Uno, dos, tres por mi..." #input>
+                    </mat-form-field>
+                </div>
+                <!-- Service button -->
+                <div class="col-1 py-3">
+                    <mat-icon class="mg__right" (click)="openBottomSheetSellCar()"><i class="fi fi-rr-add"></i></mat-icon>
+                </div>
+            </div>
+
+            <!-- Datatable -->
+            <div class="row">
+                <div class="col-12">
+                    <section class="example-container mat-elevation-z8"tabindex="0">
+                        <table mat-table [dataSource]="dataSource" matSort>
+                                <div>
+                                    <div class="fl__date">
+                                        <!-- ID Column -->
+                                        <ng-container matColumnDef="id" sticky>
+                                            <div style="width: 50px;">
+                                                <th class="th__table"  mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                                <td data-titulo="id" class="fw-bold td__table" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850 th__responsive-550">{{addDom(0)}}</span>-->{{ row.id }} </td>
+                                            </div>
+                                        </ng-container>
+
+                                        <!-- Name Column -->
+                                        <ng-container matColumnDef="name">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre cliente</th>
+                                            <td data-titulo="nombre" class="td__table" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850 th__responsive-550">{{addDom(1)}}</span>-->{{ row.client_sale.user.name }} </td>
+                                        </ng-container>
+
+                                        <!-- Surname Column -->
+                                        <ng-container matColumnDef="surname">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Apellido cliente</th>
+                                            <td data-titulo="apellido" class="td__table" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850 th__750">{{addDom(2)}}</span>-->{{ row.client_sale.user.surname }} </td>
+                                        </ng-container>
+
+                                        <!-- Brand Column -->
+                                        <ng-container matColumnDef="brand">
+                                            <th class="th__table th__m" mat-header-cell *matHeaderCellDef mat-sort-header>Marca auto</th>
+                                            <td data-titulo="marca" class="td__table td__m" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850 th__750">{{addDom(3)}}</span>--> {{ row.brand.name }} </td>
+                                        </ng-container>
+
+                                        <!-- Carmodel Column -->
+                                        <ng-container matColumnDef="carmodel">
+                                            <th class="th__table th__m" mat-header-cell *matHeaderCellDef mat-sort-header>Modelo auto</th>
+                                            <td data-titulo="modelo" class="td__table td__m td__m-950" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850">{{addDom(4)}}</span>--> {{ row.carmodel.name }} </td>
+                                        </ng-container>
+
+                                        <!-- VIN Column -->
+                                        <ng-container matColumnDef="vin">
+                                            <th class="th__table th__m" mat-header-cell *matHeaderCellDef mat-sort-header>VIN</th>
+                                            <td data-titulo="vin" class="td__table td__m td__m-950" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850">{{addDom(5)}}</span>--> {{ row.vin }} </td>
+                                        </ng-container>
+                                        <!-- Year Column -->
+                                        <ng-container matColumnDef="year">
+                                            <th class="th__table th__m" mat-header-cell *matHeaderCellDef mat-sort-header>Año</th>
+                                            <td data-titulo="año" class="td__table td__m" mat-cell *matCellDef="let row"><!--<span class="th__responsive th__responsive-850">{{addDom(6)}}</span>--> {{ row.year }} </td>
+                                        </ng-container>
+                                    </div>
+                                    <!-- Date Column -->
+                                    <div class="fl__date">
+                                        <ng-container matColumnDef="status">
+                                            <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Estatus</th>
+                                            <td data-titulo="Estatus" mat-cell *matCellDef="let row" class="px2 td__mm">
+                                                <!--<span class="th__responsive th__responsive-850 th__res">{{addDom(7)}}</span>-->
+                                                <span class="badge rounded-pill" [ngClass]="{
+                                                    'bg-secondary'        : row.status === 'stand_by' || row.status === 'pre_approved',
+                                                    'bg-primary'          : row.status === 'valued_standBy_parts' || row.status === 'to_valued',
+                                                    'bg-warning text-dark': row.status === 'valued' || row.status === 'buy_offer',
+                                                    'bg-success'          : row.status === 'ready_to_buy' || row.status === 'buy' || row.status === 'pre_preparation' || row.status === 'preparation' ||  row.status === 'readyForSale',
+                                                    'bg-danger'           : row.status === 'reject' || row.status === 'rejected'
+                                                }">
+
+                                                    {{ 
+                                                        (row.status === 'stand_by') ? 'En espera' :
+                                                        (row.status === 'pre_approved') ? 'Proceder' :
+                                                        (row.status === 'reject') ? 'Rechazado' :
+                                                        (row.status === 'rejected') ? 'Rechazado' :
+                                                        (row.status === 'valued_standBy_parts') ? 'Listo p/valuar' :
+                                                        (row.status === 'to_valued') ? 'Listo p/valuar' :
+                                                        (row.status === 'valued') ? 'Valuado' :
+                                                        (row.status === 'buy_offer') ? 'Expediente completo' :
+                                                        (row.status === 'ready_to_buy') ? 'Pendiente de pago' :
+                                                        (row.status === 'buy') ? 'Comprado' :
+                                                        (row.status === 'pre_preparation') ? 'Pendiente reacondicionar' :
+                                                        (row.status === 'preparation') ? 'En preparación' :
+                                                        (row?.check_list === null) ? '-----' :
+                                                        (row?.check_list?.status === 'reviewed') ? 'Valorado' :
+                                                        (row?.check_list?.status === 'rejected') ? 'Rechazado' :
+                                                        (row?.check_list?.status === 'preparation') ? 'Preparado' : 'L.P. Venta'
+                                                    }} 
+                                                </span>
+                                            </td>
+                                        </ng-container>
+
+                                        <!-- Preparation Column -->
+                                        <ng-container matColumnDef="preparation">
+                                            <th class="th__table th__m" mat-header-cell *matHeaderCellDef mat-sort-header>En Preparación</th>
+                                            <td class="td__mm" data-titulo="En Preparación" mat-cell *matCellDef="let row" class="px-2 td__mm">
+                                                <!--<span class="th__responsive th__responsive-850 th__res">{{addDom(8)}}</span>-->
+                                                <mat-slide-toggle [checked]="row?.check_list?.status === 'bought' || row?.check_list?.status === 'readyForSale'" [disabled]="disabled" *ngIf=" row.status !== 'buy' && row.status !== 'rejected' && row.status !== 'pre_preparation' && row.status !== 'preparation' "></mat-slide-toggle>
+                                                    <!-- <a href="http://abcars-backend.test/api/authorization/{{ row.id }}" style="text-decoration:none"> -->
+                                                    <a href="https://abcars.mx/abcars-backend/api/authorization/{{ row.id }}" style="text-decoration:none">
+                                                        <button *ngIf=" row.status === 'pre_preparation' || row.status === 'preparation' && myButon === true " mat-button type="button" class="btn abcars-background-color rounded-pill text-dark mx-2" (click)="sheetService(row.id)"> <!-- row.status === 'buy' || retrasa hasta que el status sea pendiente de reacondicionamiento -->
+                                                            <i class="fi fi-rr-download"></i> Hoja de Servicio
+                                                        </button>
+                                                    </a>
+                                            </td> 
+                                        </ng-container>
+                                        
+                                        <!-- Actions Column -->
+                                        <ng-container matColumnDef="actions">
+                                            <th class="th__table th__m" mat-header-cell *matHeaderCellDef>Acciones</th>
+                                            <td class="td__mm" data-titulo="acciones" mat-cell *matCellDef="let row" class="px-2 td__mm">
+                                                <!--<span class="th__responsive th__responsive-850 th__res">{{addDom(9)}}</span>-->
+                                                <button *ngIf=" row.status === 'pre_approved' || row.status === 'reject' " mat-button type="button" class="btn abcars-background-color rounded-pill text-dark mx-2" (click)="sweetProcedure(row.id)">
+                                                    Proceder
+                                                </button>
+                                                <mat-icon *ngIf=" row.status === 'stand_by' || row.status === 'valued_standBy_parts' || row.status === 'to_valued' || row.status === 'valued' || row.status === 'buy_offer' || row.status === 'ready_to_buy' || row.status === 'buy' || row.status === 'preparation' " [matMenuTriggerFor]="menu"><i class="fi fi-rr-magic-wand"></i></mat-icon>
+                                                <mat-menu #menu="matMenu">
+                                                    <!-- New Check option -->
+                                                    <a mat-menu-item [routerLink]="['/admin/general/checklist/', row.id]">
+                                                        <!-- *ngIf="row?.check_list?.status !== 'readyForSale'" -->
+                                                        <i class="fi fi-rr-pencil"></i> Comenzar
+                                                    </a>
+                                                    <a mat-menu-item (click)="openBottomSheetRating(row.id, row.vin)" *ngIf="row.status === 'to_valued' || row.status === 'buy_offer'  ">
+                                                        <i class="fi fi-rr-settings"></i>
+                                                        <!-- Servicio -->
+                                                        Ver valoración
+                                                    </a>
+
+                                                    <!-- Prueba Local --> <!--Antes era *ngIf="row.status !== 'stand_by' "-->
+                                                    <!-- <a mat-menu-item *ngIf="row.status === 'to_valued' || row.status === 'valued' || row.status === 'buy_offer' || row.status === 'ready_to_buy' " href="http://127.0.0.1:8000/api/getCheckListbyId/{{ row.vin }}" target="_blank">
+                                                        <i class="fi fi-rr-transform"></i>
+                                                        Descargar Valuación
+                                                    </a> -->
+
+                                                    <!-- En server -->
+                                                    <a mat-menu-item *ngIf="row.status === 'to_valued' || row.status === 'valued' || row.status === 'buy_offer' || row.status === 'ready_to_buy' " href="{{url}}/api/getCheckListbyId/{{ row.vin }}" target="_blank"> 
+                                                        <i class="fi fi-rr-transform"></i>
+                                                        Descargar Valuación
+                                                    </a>
+
+                                                    <!-- Prueba Local Descarga Cotización Cliente-->
+                                                    <!-- <a mat-menu-item *ngIf="row.status === 'to_valued' || row.status === 'valued' || row.status === 'buy_offer' || row.status === 'ready_to_buy' " href="http://127.0.0.1:8000/api/getCheckListbyIdCustomer/{{ row.vin }}" target="_blank">
+                                                        <i class="fi fi-rr-download"></i>
+                                                        Cotización Cliente
+                                                    </a> -->
+
+                                                    <!-- En server Descarga Cotización Cliente-->
+                                                    <a mat-menu-item *ngIf="row.status === 'to_valued' || row.status === 'valued' || row.status === 'buy_offer' || row.status === 'ready_to_buy' " href="{{url}}/api/getCheckListbyIdCustomer/{{ row.vin }}" target="_blank"> 
+                                                        <i class="fi fi-rr-download"></i>
+                                                        Cotización Cliente
+                                                    </a>
+
+                                                    <a mat-menu-item [routerLink]="['/admin/valuator/requests/', row.id]" *ngIf="row.status === 'to_valued' || row.status === 'valued' ">
+                                                        <!-- *ngIf="row?.check_list?.status !== 'bought' && row?.check_list?.status !== 'readyForSale'" -->
+                                                        <i class="fi fi-rr-calculator"></i>
+                                                        <!-- Cotizar -->
+                                                        Valuar
+                                                    </a>
+                                                    <!-- Upload Documents Check List -->
+                                                    <!-- <a mat-menu-item (click)="openBottomSheetDocumentation(row.id, row.check_list?.id)" *ngIf="row.status === 'valued' || row.status === 'buy_offer' "> -->
+                                                    <a mat-menu-item (click)="openBottomSheetDocumentation(row.id)" *ngIf="row.status === 'valued' || row.status === 'buy_offer' ">
+                                                        <i class="fi fi-rr-folder"></i> Documentación
+                                                    </a>
+                                                    <!-- Take car option -->
+                                                    <a mat-menu-item (click)="statusOutstanding(row.id)" *ngIf="row.status === 'buy_offer' ">
+                                                        <i class="fi fi-rr-car"></i> Toma de auto
+                                                    </a>
+                                                    <!-- <a mat-menu-item (click)="updatePreparation(row.id)" *ngIf=" row.status !== 'ready_to_buy' "> --> <!-- row?.check_list?.status !== 'bought' && row?.check_list?.status !== 'readyForSale' -->
+                                                        <!-- <i class="fi fi-rr-shopping-cart-check"></i> Comprado
+                                                    </a> -->
+                                                    <a mat-menu-item (click)="updateStatus(row.id)" *ngIf=" row.status === 'valued' "> <!-- row.status !== 'ready_to_buy' && row.status !== 'stand_by' && row.status !== 'buy' && row.status !== 'preparation' -->
+                                                        <i class="fi fi-rr-cross-small"></i> Rechazado
+                                                    </a>
+                                                    <!-- <a mat-menu-item (click)="openChecklistForm(row.id, row.vin)" *ngIf="row?.check_list?.status === 'bought' || row?.check_list?.status === 'readyForSale'">
+                                                        <i class="fi fi-rr-pencil"></i>
+                                                        Editar Req. Servicio
+                                                    </a> -->
+                                                    
+                                                    <a mat-menu-item (click)="updateReadyForSale(row.id)" *ngIf=" row.status === 'preparation' ">
+                                                        <i class="fi fi-rr-shopping-cart-check"></i>
+                                                        L.P. Venta
+                                                    </a>
+                                                    <a mat-menu-item href="https://abcars.mx/abcars-backend/api/qrgenerate/{{ row.vin }}" *ngIf=" row.status === 'buy' || row.status === 'preparation' "> <!-- row?.check_list?.status === 'readyForSale' -->
+                                                        <i class="fi fi-rr-transform"></i> Descargar QR
+                                                    </a>
+                                                </mat-menu>
+                                            </td>
+                                        </ng-container>
+                                    </div>
+                                </div>
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            <!-- Row shown when there is no matching data. -->
+                            <tr class="mat-row" *matNoDataRow>
+                                <td class="mat-cell" colspan="4">No hay datos que coincidan con el filtro: "{{ input.value }}"</td>
+                            </tr>
+                        </table>
+                        <mat-paginator [pageSize]="10" [length]="length" [pageIndex]="pageIndex - 1" (page)="paginationChange($event)"></mat-paginator>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
