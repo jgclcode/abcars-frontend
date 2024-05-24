@@ -4,21 +4,49 @@
     <div class="row">
         <div class="col-12 mt-5 mb-5">
             <div class="text-center">
-                <h1 class="fs-2 fw-bold">Cotiza tu Auto</h1>
-                <h5 class="fs-5 fw-light">Proporciona tus datos y el enganche del auto de tus sueños.</h5>
+                <!-- <h1 class="fs-2 fw-bold">Cotiza tu Auto</h1> -->
+                <!-- <h5 class="fs-5 fw-light">Proporciona tus datos y el enganche del auto de tus sueños.</h5> -->
+                <h1 class="fs-2 fw-bold">Formulario de prospección</h1>
+                <h5 class="fs-5 fw-light">Proporciona los datos que se solicitan.</h5>
             </div>
 
             <!-- Form -->
             <div class="row">
                 <!-- Request quote-->
                 <div class="col-12 mt-4">
-                    <h4 class="heading-4 horizontal_line mb-4"><span>Elige el tipo de auto</span></h4>
+                    <!-- <h4 class="heading-4 horizontal_line mb-4"><span>Elige el tipo de auto</span></h4> -->
+                    <h4 class="heading-4 horizontal_line mb-4"><span>Prospectador o vendedor</span></h4>
                     <div class="row">
                         <form [formGroup]="requestQuoteFormGroup" (ngSubmit)="onSubmit()">
                             <div class="col-12">
+
                                 <div class="row">
-                                    <!-- Bodies -->
+
                                     <div class="col-12 col-md-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Nombre(s)</mat-label>
+                                            <input matInput type="text" placeholder="Escriba el nombre del prospectador" formControlName="prospectorName" required>
+                                            <mat-hint *ngIf="prospectorNameInvalid">Complete su nombre(s).</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <div class="col-12 col-md-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Apellidos</mat-label>
+                                            <input matInput type="text" placeholder="Escriba el apellido del prospectador" formControlName="prospectorSurname" required>
+                                            <mat-hint *ngIf="prospectorSurnameInvalid">Complete sus apellidos.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+                                    
+                                    <div class="col-12 col-md-4">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Lugar de prospección</mat-label>
+                                            <input matInput type="text" placeholder="Lugar de prospección o evento" formControlName="placeProspection" required>
+                                            <mat-hint *ngIf="placeProspectionInvalid">Complete este campo por favor.</mat-hint>
+                                        </mat-form-field>
+                                    </div>
+
+                                    <!-- <div class="col-12 col-md-4">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Carrocería</mat-label>
                                             <mat-select placeholder="Seleccione una carroceía" formControlName="body" required>
@@ -26,10 +54,10 @@
                                             </mat-select>
                                             <mat-hint *ngIf="bodyInvalid">Seleccione una carrocería.</mat-hint>
                                         </mat-form-field>
-                                    </div>
+                                    </div> -->
 
-                                    <!-- Brands -->
-                                    <div class="col-12 col-md-4">
+                                    
+                                    <!-- <div class="col-12 col-md-4">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Marca</mat-label>
                                             <mat-select placeholder="Seleccionar una Marca" formControlName="brand" required>
@@ -37,18 +65,18 @@
                                             </mat-select>
                                             <mat-hint *ngIf="brandInvalid">Seleccione una marca.</mat-hint>
                                         </mat-form-field>
-                                    </div>
+                                    </div> -->
 
-                                    <!-- Models -->
-                                    <div class="col-12 col-md-4">
+                                    
+                                    <!-- <div class="col-12 col-md-4">
                                         <mat-form-field appearance="outline">
                                             <mat-label>Modelo</mat-label>
-                                            <mat-select placeholder="Seleccionar un Modelo"  formControlName="model" > <!--#modelInput required-->
-                                                <mat-option *ngFor="let model of vehicles" value="{{ model.name }}" (click)="getVehicle(model.vin)"> {{ model.name | titlecase }}</mat-option> <!--filteredModels-->
+                                            <mat-select placeholder="Seleccionar un Modelo"  formControlName="model" >
+                                                <mat-option *ngFor="let model of vehicles" value="{{ model.name }}" (click)="getVehicle(model.vin)"> {{ model.name | titlecase }}</mat-option>
                                             </mat-select>
                                             <mat-hint *ngIf="modelInvalid">Seleccione un modelo.</mat-hint>
                                         </mat-form-field>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
 
@@ -174,9 +202,28 @@
                                                 </mat-form-field> 
                                             </div>
 
-                                            <div class="col-12 col-md-6 mb-2">
+                                            <div class="col-12 col-md-6">
                                                 <mat-form-field appearance="outline">
-                                                    <!-- <mat-label>Tipo de compra:</mat-label> -->
+                                                    <mat-label>¿Cuál es la siguiente acción para ese prospecto?</mat-label>
+                                                    <input matInput type="text" placeholder="Llamar, Enviar cotización, Agendar cita en agencia, Visita a domicilio." formControlName="next" required>
+                                                    <mat-hint *ngIf="nextInvalid">Complete este campo por favor.</mat-hint>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div class="col-12 col-md-6">
+                                                <div class="row">
+                                                    <!-- Commentary  -->
+                                                    <div class="col">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Comentario del prospecto.</mat-label>
+                                                            <textarea matInput placeholder="Comentario del prospecto" formControlName="commentaryLead"></textarea>
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- <div class="col-12 col-md-6 mb-2">
+                                                <mat-form-field appearance="outline">
                                                     <mat-label>¿Le gustaría comprar a crédito, contado, o un plan de renta?</mat-label>
                                                     <mat-select placeholder="Seleccionar el tipo de compra "  formControlName="buyType" required>
                                                         <mat-option value="Renta">Renta</mat-option>
@@ -226,11 +273,11 @@
                                                     </mat-select>
                                                     <mat-hint *ngIf="WhatsCurrentProfessionalSituationInvalid">Seleccione una opción.</mat-hint>
                                                 </mat-form-field>
-                                            </div>
+                                            </div> -->
 
-                                            <div class="col-12 col-sm-12 col-md-6">
+                                            <!-- <div class="col-12 col-sm-12 col-md-6">
                                                 <div class="row">
-                                                    <!-- Commentary  -->
+                                                    Commentary 
                                                     <div class="col">
                                                         <mat-form-field appearance="outline">
                                                             <mat-label>Comentario del lead.</mat-label>
@@ -238,7 +285,7 @@
                                                         </mat-form-field>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> -->
 
                                             <div class="col-12 text-end">
                                                 <mat-checkbox formControlName="checkbox" required>
@@ -262,6 +309,21 @@
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span>Valid</span>
+            <pre>{{ requestQuoteFormGroup.valid | json }}</pre>
+            
+            <span>Invalid</span>
+            <pre>{{ requestQuoteFormGroup.invalid| json }}</pre>
+            
+            <span>Value</span>
+            <pre>{{ requestQuoteFormGroup.value | json }}</pre>
+
+
+
         </div>
     </div>
 </div>

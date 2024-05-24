@@ -115,17 +115,34 @@ export class QuoteRequestComponent implements OnInit {
     this.search( this.pageIndex );
   }
 
-  get bodyInvalid() {
-    return this.requestQuoteFormGroup.get('body')!.invalid && (this.requestQuoteFormGroup.get('body')!.dirty || this.requestQuoteFormGroup.get('body')!.touched);
+  // get bodyInvalid() {
+  //   return this.requestQuoteFormGroup.get('body')!.invalid && (this.requestQuoteFormGroup.get('body')!.dirty || this.requestQuoteFormGroup.get('body')!.touched);
+  // }
+
+  // get brandInvalid() {
+  //   return this.requestQuoteFormGroup.get('brand')!.invalid && (this.requestQuoteFormGroup.get('brand')!.dirty || this.requestQuoteFormGroup.get('brand')!.touched);
+  // }
+  
+  // get modelInvalid() {
+  //   return this.requestQuoteFormGroup.get('model')!.invalid && (this.requestQuoteFormGroup.get('model')!.dirty || this.requestQuoteFormGroup.get('model')!.touched);
+  // }
+
+  get prospectorNameInvalid() {
+    return this.requestQuoteFormGroup.get('prospectorName')!.invalid && (this.requestQuoteFormGroup.get('prospectorName')!.dirty || this.requestQuoteFormGroup.get('prospectorName')!.touched);
   }
   
-  get brandInvalid() {
-    return this.requestQuoteFormGroup.get('brand')!.invalid && (this.requestQuoteFormGroup.get('brand')!.dirty || this.requestQuoteFormGroup.get('brand')!.touched);
+  get prospectorSurnameInvalid() {
+    return this.requestQuoteFormGroup.get('prospectorSurname')!.invalid && (this.requestQuoteFormGroup.get('prospectorSurname')!.dirty || this.requestQuoteFormGroup.get('prospectorSurname')!.touched);
   }
   
-  get modelInvalid() {
-    return this.requestQuoteFormGroup.get('model')!.invalid && (this.requestQuoteFormGroup.get('model')!.dirty || this.requestQuoteFormGroup.get('model')!.touched);
+  get placeProspectionInvalid() {
+    return this.requestQuoteFormGroup.get('placeProspection')!.invalid && (this.requestQuoteFormGroup.get('placeProspection')!.dirty || this.requestQuoteFormGroup.get('placeProspection')!.touched);
   }
+  
+  get nextInvalid() {
+    return this.requestQuoteFormGroup.get('next')!.invalid && (this.requestQuoteFormGroup.get('next')!.dirty || this.requestQuoteFormGroup.get('next')!.touched);
+  }
+  
   
   get nameInvalid() {
     return this.requestQuoteFormGroup.get('name')!.invalid && (this.requestQuoteFormGroup.get('name')!.dirty || this.requestQuoteFormGroup.get('name')!.touched);
@@ -143,43 +160,48 @@ export class QuoteRequestComponent implements OnInit {
     return this.requestQuoteFormGroup.get('phone')!.invalid && (this.requestQuoteFormGroup.get('phone')!.dirty || this.requestQuoteFormGroup.get('phone')!.touched);
   }
   
-  get buyTypeInvalid() {
-    return this.requestQuoteFormGroup.get('buyType')!.invalid && (this.requestQuoteFormGroup.get('buyType')!.dirty || this.requestQuoteFormGroup.get('buyType')!.touched);
-  }
+  // get buyTypeInvalid() {
+  //   return this.requestQuoteFormGroup.get('buyType')!.invalid && (this.requestQuoteFormGroup.get('buyType')!.dirty || this.requestQuoteFormGroup.get('buyType')!.touched);
+  // }
   
-  get wantReleaseInvalid() {
-    return this.requestQuoteFormGroup.get('wantRelease')!.invalid && (this.requestQuoteFormGroup.get('wantRelease')!.dirty || this.requestQuoteFormGroup.get('wantRelease')!.touched);
-  }
+  // get wantReleaseInvalid() {
+  //   return this.requestQuoteFormGroup.get('wantRelease')!.invalid && (this.requestQuoteFormGroup.get('wantRelease')!.dirty || this.requestQuoteFormGroup.get('wantRelease')!.touched);
+  // }
   
-  get initialCreditInvalid() {
-    return this.requestQuoteFormGroup.get('initialCredit')!.invalid && (this.requestQuoteFormGroup.get('initialCredit')!.dirty || this.requestQuoteFormGroup.get('initialCredit')!.touched);
-  }
+  // get initialCreditInvalid() {
+  //   return this.requestQuoteFormGroup.get('initialCredit')!.invalid && (this.requestQuoteFormGroup.get('initialCredit')!.dirty || this.requestQuoteFormGroup.get('initialCredit')!.touched);
+  // }
   
-  get WhatsCurrentProfessionalSituationInvalid() {
-    return this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')!.invalid && (this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')!.dirty || this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')!.touched);
-  }
+  // get WhatsCurrentProfessionalSituationInvalid() {
+  //   return this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')!.invalid && (this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')!.dirty || this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')!.touched);
+  // }
 
   public onSubmit() {
     // Change spinner
     this.spinner = true;
 
     // Launch request
-    let body = this.requestQuoteFormGroup.get('body')?.value;
-    let brand = this.requestQuoteFormGroup.get('brand')?.value;
-    let model = this.requestQuoteFormGroup.get('model')?.value;
+    let body = 'Prospección';
+    let brand = 'Prospección';
+    let model = 'Prospección';
+    let prospectorName = this.requestQuoteFormGroup.get('prospectorName')?.value;
+    let prospectorSurname = this.requestQuoteFormGroup.get('prospectorSurname')?.value;
+    let placeProspection = this.requestQuoteFormGroup.get('placeProspection')?.value;
     let name = this.requestQuoteFormGroup.get('name')?.value;
     let surname = this.requestQuoteFormGroup.get('surname')?.value;
     let email = this.requestQuoteFormGroup.get('email')?.value;
     let phone = this.requestQuoteFormGroup.get('phone')?.value;
-    let buyType = this.requestQuoteFormGroup.get('buyType')?.value;
-    let wantRelease = this.requestQuoteFormGroup.get('wantRelease')?.value;
-    let initialCredit = this.requestQuoteFormGroup.get('initialCredit')?.value;
-    let WhatsCurrentProfessionalSituation = this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')?.value;
+    // let buyType = this.requestQuoteFormGroup.get('buyType')?.value;
+    let buyType = 'Prospección';
+    let next = this.requestQuoteFormGroup.get('next')?.value;
+    // let initialCredit = this.requestQuoteFormGroup.get('initialCredit')?.value;
+    // let WhatsCurrentProfessionalSituation = this.requestQuoteFormGroup.get('WhatsCurrentProfessionalSituation')?.value;
     let commentaryLead = this.requestQuoteFormGroup.get('commentaryLead')?.value;
-    console.log(body, brand, model, name, surname, email, phone, buyType, wantRelease, initialCredit, WhatsCurrentProfessionalSituation, commentaryLead);
+    // console.log(body, brand, model, name, surname, email, phone, buyType, wantRelease, initialCredit, WhatsCurrentProfessionalSituation, commentaryLead);
     
     // Genera la requisición de la cotización
-    this._requestQ.setQuoteRequest(body, brand, model, name, surname, email, phone, buyType, wantRelease, initialCredit, WhatsCurrentProfessionalSituation, commentaryLead)
+    // this._requestQ.setQuoteRequest(body, brand, model, name, surname, email, phone, buyType, wantRelease, initialCredit, WhatsCurrentProfessionalSituation, commentaryLead)
+    this._requestQ.setQuoteRequest(body, brand, model, prospectorName, prospectorSurname, placeProspection, name, surname, email, phone, buyType, next, commentaryLead) /** initialCredit, WhatsCurrentProfessionalSituation, */
     .subscribe({
       next: (sheetQ: Sheetquote) => {
         if (sheetQ.code === '200' && sheetQ.status === 'success') {
@@ -216,17 +238,28 @@ export class QuoteRequestComponent implements OnInit {
    */
   private createFormRequestQuoteGroup(){
     this.requestQuoteFormGroup = this._formBuilder.group({
-      body: ['', [Validators.required]],
-      brand: ['', [Validators.required]],
-      model: ['', [Validators.required]],
+      // body: ['', [Validators.required]],
+      // brand: ['', [Validators.required]],
+      // model: ['', [Validators.required]],
+      body: ['Prospección'],
+      brand: ['Prospección'],
+      model: ['Prospección'],
+      prospectorName: ['', [Validators.required]],
+      prospectorSurname: ['', [Validators.required]],
+      placeProspection: ['', [Validators.required]],
+      next: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.pattern("[a-zA-Z ]+")]],
       surname: ['', [Validators.required, Validators.pattern("[a-zA-Z ]+")]],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
       phone: ['', [Validators.required, Validators.pattern("[0-9]{10}"), Validators.minLength(10), Validators.maxLength(10)]],
-      buyType: ['', [Validators.required]],
-      wantRelease: ['', [Validators.required]],
-      initialCredit: ['', [Validators.required]],
-      WhatsCurrentProfessionalSituation: ['', [Validators.required]],
+      // buyType: ['', [Validators.required]],
+      // wantRelease: ['', [Validators.required]],
+      // initialCredit: ['', [Validators.required]],
+      // WhatsCurrentProfessionalSituation: ['', [Validators.required]],
+      buyType: ['Prospección'],
+      wantRelease: [null],
+      initialCredit: [null],
+      WhatsCurrentProfessionalSituation: [null],
       commentaryLead: [null],
       checkbox: [false, Validators.required]
     });
