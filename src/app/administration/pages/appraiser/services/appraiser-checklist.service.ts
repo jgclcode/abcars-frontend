@@ -159,8 +159,11 @@ export class AppraiserChecklistService {
    * Reference API Update km
    */
   public updateAppraiserKm(id:number, status: Object): Observable<SellCarValuation>{
+    const token = localStorage.getItem('user_token');
+    
     return this._http.put<SellCarValuation>(`${ this.url }/api/sell_your_car/${ id }`, status, {      
-      headers: this.headers.set('Authorization', JSON.stringify(localStorage.getItem('user_token'))) 
+      // headers: this.headers.set('Authorization', JSON.stringify(localStorage.getItem('user_token'))) 
+      headers: this.headers.set('Authorization', `"${token}"`)
     });
   }
 }
