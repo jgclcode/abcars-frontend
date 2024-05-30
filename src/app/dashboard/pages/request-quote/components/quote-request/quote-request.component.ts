@@ -207,15 +207,16 @@ export class QuoteRequestComponent implements OnInit {
         if (sheetQ.code === '200' && sheetQ.status === 'success') {
           Swal.fire({
             icon: 'success',
-            title: 'Cotización generada correctamente',
-            text: `Nos pondremos en contacto contigo lo antes posible para seguir con el proceso de Adquirir tu Auto.`,
+            title: 'Formulario enviado correctamente',
+            // text: `Nos pondremos en contacto contigo lo antes posible para seguir con el proceso de Adquirir tu Auto.`,
             showConfirmButton: true,
             confirmButtonColor: '#EEB838',
             timer: 3500
           });
 
           setTimeout(() => {
-            this._router.navigateByUrl('/saved-process');
+            // this._router.navigateByUrl('/saved-process');
+            window.location.reload();
           }, 2000);
         } else {
           Swal.fire({
