@@ -44,6 +44,8 @@ export class QuoteRequestComponent implements OnInit {
 
     public spinner: boolean = false;
 
+    public isDisabled: boolean = true;
+
   // References forms
   public requestQuoteFormGroup!: UntypedFormGroup
 
@@ -247,7 +249,8 @@ export class QuoteRequestComponent implements OnInit {
       model: ['Prospección'],
       prospectorName: ['', [Validators.required]],
       prospectorSurname: ['', [Validators.required]],
-      placeProspection: ['', [Validators.required]],
+      // placeProspection: ['', [Validators.required]],
+      placeProspection: [{value: null, disabled: this.isDisabled}],
       next: ['', [Validators.required]],
       name: ['', [Validators.required, Validators.pattern("[a-zA-Z ]+")]],
       surname: ['', [Validators.required, Validators.pattern("[a-zA-Z ]+")]],
