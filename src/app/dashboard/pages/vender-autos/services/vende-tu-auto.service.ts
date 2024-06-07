@@ -75,7 +75,8 @@ export class VendeTuAutoService {
       "gettoken":false
     }    
 
-    return this._http.post<UserData>(this.url+'/api/register', body, {headers: this.headers});
+    // return this._http.post<UserData>(this.url+'/api/register', body, {headers: this.headers});
+    return this._http.post<UserData>(this.url+'/api/register', body, { headers: this.headers.set('Authorization', JSON.stringify(localStorage.getItem('user_token'))) });
   }
 
   public setClient(
