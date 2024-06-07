@@ -47,7 +47,7 @@ export class AuthService {
    * API Register
    */
   public register(user: UntypedFormGroup): Observable<Register> {
-    return this._http.post<Register>(`${ this.url }/api/register`, user, { headers: this.headers });
+    return this._http.post<Register>(`${ this.url }/api/register`, user, { headers: this.headers.set('Authorization', JSON.stringify(localStorage.getItem('user_token'))) });
   }
 
   /**
