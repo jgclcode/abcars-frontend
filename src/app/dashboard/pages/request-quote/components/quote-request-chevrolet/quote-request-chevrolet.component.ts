@@ -102,8 +102,8 @@ export class QuoteRequestChevroletComponent implements OnInit {
             brandType: ['', [Validators.required]],
             newpreowned: ['', [Validators.required]],
             checkbox: [false, Validators.required],
-            folioNumber: ['', [Validators.required, Validators.pattern("[0-9]{6}"), Validators.minLength(6), Validators.maxLength(10)]],
-            fullNameReferring: ['', [Validators.required, Validators.pattern("[a-zA-Z ]+")]]
+            folioNumber: ['', [Validators.pattern("[0-9]{6}"), Validators.minLength(6), Validators.maxLength(10)]],
+            fullNameReferring: ['', [Validators.pattern("[a-zA-Z ]+")]]
         });
     }
 
