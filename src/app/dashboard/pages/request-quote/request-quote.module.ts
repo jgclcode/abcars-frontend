@@ -10,6 +10,7 @@ import { RequestOfferComponent } from './components/requestOffer/requestOffer.co
 import { RequestSetAsideComponent } from './requestSetAside/requestSetAside.component';
 import { SafePipe } from './pipes/safe.pipe';
 import { QuoteRequestComponent } from './components/quote-request/quote-request.component';
+import { QuoteRequestChevroletComponent } from './components/quote-request-chevrolet/quote-request-chevrolet.component';
 
 
 
@@ -19,7 +20,8 @@ import { QuoteRequestComponent } from './components/quote-request/quote-request.
     RequestOfferComponent,
     RequestSetAsideComponent,
     SafePipe,
-    QuoteRequestComponent
+    QuoteRequestComponent,
+    QuoteRequestChevroletComponent
   ],
   imports: [
     CommonModule,
