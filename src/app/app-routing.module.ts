@@ -24,6 +24,7 @@ import { RequestSetAsideComponent } from './dashboard/pages/request-quote/reques
 import { SuccesfulPaymentComponent } from './dashboard/components/succesful-payment/succesfulPayment.component';
 import { SuccessfulPendingPaymentComponent } from './dashboard/components/successful-pending-payment/successful-pending-payment.component';
 import { QuoteRequestComponent } from './dashboard/pages/request-quote/components/quote-request/quote-request.component';
+import { QuoteRequestChevroletComponent } from './dashboard/pages/request-quote/components/quote-request-chevrolet/quote-request-chevrolet.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,7 @@ const routes: Routes = [
   { path: 'solicitud-cotizacion', loadChildren: () => import('./dashboard/pages/request-quote/request-quote.module').then(m => m.RequestQuoteModule) },
   { path: 'solicitud-offer/:vin', component: RequestOfferComponent },
   { path: 'solicitud-cotiza', component: QuoteRequestComponent },
+  { path: 'form-prospection-chevrolet', component: QuoteRequestChevroletComponent },
   { path: 'solicitud-set-aside/:vin', component: RequestSetAsideComponent },
   { path: 'saved-process', component: SavedProcessComponent },
   { path: 'success-payment/:id/:title/:totalPay/:status/:status_detail', component: SuccesfulPaymentComponent },
