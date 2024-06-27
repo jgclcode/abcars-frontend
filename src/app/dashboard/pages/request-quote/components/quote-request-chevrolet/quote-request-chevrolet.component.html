@@ -50,14 +50,14 @@
                                             <div class="col-12 col-md-4">
                                                 <mat-form-field appearance="outline">
                                                     <mat-label>Folio</mat-label>
-                                                    <input matInput type="text" placeholder="No. de folio" #folio (keyup)="maxLengthCheck(folio)" maxlength="10" formControlName="folioNumber" required>
+                                                    <input matInput type="text" placeholder="No. de folio" #folio (keyup)="maxLengthCheck(folio)" maxlength="10" formControlName="folioNumber">
                                                     <mat-hint *ngIf="folioNumberInvalid">Inserte el número de folio, debe ser de seis cifras.</mat-hint>
                                                 </mat-form-field>
                                             </div>
                                             <div class="col-12 col-md-4">
                                                 <mat-form-field appearance="outline">
                                                     <mat-label>Nombre completo del referente</mat-label>
-                                                    <input matInput type="text" placeholder="Roberto Islas" formControlName="fullNameReferring" required>
+                                                    <input matInput type="text" placeholder="Roberto Islas" formControlName="fullNameReferring">
                                                     <mat-hint *ngIf="fullNameReferringInvalid">Inserte el nombre completo del referente.</mat-hint>
                                                 </mat-form-field>
                                             </div>
