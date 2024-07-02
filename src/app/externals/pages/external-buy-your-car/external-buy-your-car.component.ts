@@ -211,7 +211,7 @@ export class ExternalBuyYourCarComponent implements OnInit {
     let stringCarrocerias = arrayCarrocerias.join().length > 0 ? arrayCarrocerias.join() : 'vacio';
     let stringTransmissions = 'vacio';
     // Obtener marcas del servicio
-    this._compraTuAutoService.getBrands(stringModels, stringYears, stringCarrocerias, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getBrands(stringModels, stringYears, stringCarrocerias, this.hitchMin, this.hitchValue, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataBrands: DataBrands ) => {
         this.allBrands = [];
@@ -228,7 +228,7 @@ export class ExternalBuyYourCarComponent implements OnInit {
     });
 
     // Obtener modelos del servicio
-    this._compraTuAutoService.getModels( stringBrands, stringYears, stringCarrocerias, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getModels( stringBrands, stringYears, stringCarrocerias, this.hitchMin, this.hitchValue, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataModels: DataModels ) => {
         this.allModels = [];
@@ -245,7 +245,7 @@ export class ExternalBuyYourCarComponent implements OnInit {
     });
 
     // Obtener years del servicio
-    this._compraTuAutoService.getYears( stringBrands, stringModels, stringCarrocerias, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getYears( stringBrands, stringModels, stringCarrocerias, this.hitchMin, this.hitchValue, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataYears: DataYears ) => {
         this.allYears = [];
@@ -262,7 +262,7 @@ export class ExternalBuyYourCarComponent implements OnInit {
     });
 
     // Obtener vehiclebodies
-    this._compraTuAutoService.getVehicleBodies( stringBrands, stringModels, stringYears, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getVehicleBodies( stringBrands, stringModels, stringYears, this.hitchMin, this.hitchValue, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataVehicleBody: DataVehicleBody ) => {
         this.allCarrocerias = [];
@@ -279,7 +279,7 @@ export class ExternalBuyYourCarComponent implements OnInit {
     });
 
     // Obtener states del servicio
-    this._compraTuAutoService.getStates( stringBrands, stringModels, stringCarrocerias, stringYears, this.hitchValue, stringTransmissions )
+    this._compraTuAutoService.getStates( stringBrands, stringModels, stringCarrocerias, stringYears, this.hitchMin, this.hitchValue, stringTransmissions )
     .subscribe({
       next: ( dataStates: DataStates ) => {
         this.allStates = [];
@@ -532,7 +532,7 @@ export class ExternalBuyYourCarComponent implements OnInit {
     let stringCarrocerias = arrayCarrocerias.join().length > 0 ? arrayCarrocerias.join() : 'vacio';    
     let stringTransmissions = 'vacio';
     this._compraTuAutoService.getVehicles( this.pageSize, stringBrands, stringModels, stringYears, stringCarrocerias, 
-                                          this.hitchValue, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a', 
+                                          this.hitchMin, this.hitchValue, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a', 
                                           this.orden, page, stringStates, stringTransmissions)
     .subscribe({
       next: ( response ) => {

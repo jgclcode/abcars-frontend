@@ -34,6 +34,7 @@ export class VehiclesComponent {
   public orden:string = 'vacio';
 
   // References "Enganche"
+  public hitchMin = 20000;
   public hitchValue = 3000000;
 
   // MatPaginator Inputs
@@ -72,7 +73,7 @@ export class VehiclesComponent {
     });
     let stringCarrocerias = arrayCarrocerias.join().length > 0 ? arrayCarrocerias.join() : 'vacio';
 
-    this._compraTuAutoService.getVehiclesAll(this.pageSize, stringBrands, stringModels, stringYears, stringCarrocerias, 
+    this._compraTuAutoService.getVehiclesAll(this.pageSize, stringBrands, stringModels, stringYears, stringCarrocerias, this.hitchMin,
                                             this.hitchValue, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a', this.orden, page, 'vacio')
                                             .subscribe({
                                               next: (response) => {

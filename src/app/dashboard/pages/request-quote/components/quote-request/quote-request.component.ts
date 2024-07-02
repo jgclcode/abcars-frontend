@@ -288,7 +288,7 @@ export class QuoteRequestComponent implements OnInit {
     let stringCarrocerias = arrayCarrocerias.join().length > 0 ? arrayCarrocerias.join() : 'vacio';
     
     // Obtener marcas del servicio
-    this._compraTuAutoService.getBrands(stringModels, stringYears, stringCarrocerias, 3000000, stringStates, stringTransmissions)
+    this._compraTuAutoService.getBrands(stringModels, stringYears, stringCarrocerias, 250000, 3000000, stringStates, stringTransmissions)
     .subscribe({
       next: ( dataBrands: DataBrands) => {
         if (!this.brandTotal) {
@@ -310,7 +310,7 @@ export class QuoteRequestComponent implements OnInit {
     });
 
     // Obtener modelos del servicio
-    this._compraTuAutoService.getModels( stringBrands, stringYears, stringCarrocerias, 3000000, stringStates, stringTransmissions)
+    this._compraTuAutoService.getModels( stringBrands, stringYears, stringCarrocerias, 250000, 3000000, stringStates, stringTransmissions)
     .subscribe({
       next: ( dataModels: DataModels) => {
         this.allModels = [];
@@ -326,7 +326,7 @@ export class QuoteRequestComponent implements OnInit {
     });
 
     // Obtener years del servicio
-    this._compraTuAutoService.getYears( stringBrands, stringModels, stringCarrocerias, 3000000, stringStates, stringTransmissions )
+    this._compraTuAutoService.getYears( stringBrands, stringModels, stringCarrocerias, 250000, 3000000, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataYears: DataYears ) => {
         this.allYears = [];
@@ -342,7 +342,7 @@ export class QuoteRequestComponent implements OnInit {
     });
 
     // Get vehiclebodies
-    this._compraTuAutoService.getVehicleBodies( stringBrands, stringModels, stringYears, 3000000, stringStates, stringTransmissions )
+    this._compraTuAutoService.getVehicleBodies( stringBrands, stringModels, stringYears, 250000, 3000000, stringStates, stringTransmissions )
     .subscribe({
       next: (dataVehicleBody: DataVehicleBody) => {
         this.allCarrocerias = [];
@@ -379,7 +379,7 @@ export class QuoteRequestComponent implements OnInit {
     });
 
     // Obtener states del servicio
-    this._compraTuAutoService.getStates( stringBrands, stringModels, stringCarrocerias, stringYears, 3000000, stringTransmissions )
+    this._compraTuAutoService.getStates( stringBrands, stringModels, stringCarrocerias, stringYears, 250000, 3000000, stringTransmissions )
     .subscribe({
       next: ( dataStates: DataStates ) => {
         this.allStates = [];
@@ -395,7 +395,7 @@ export class QuoteRequestComponent implements OnInit {
     });
 
     // Obtener transmisiones del servicio
-    this._compraTuAutoService.getTransmissions( stringBrands, stringModels, stringCarrocerias, stringYears, 3000000 , stringStates)
+    this._compraTuAutoService.getTransmissions( stringBrands, stringModels, stringCarrocerias, stringYears, 250000, 3000000 , stringStates)
     .subscribe({
       next: ( dataTransmissions: DataTransmissions ) => {
         this.allTransmissions = [];
@@ -449,7 +449,7 @@ export class QuoteRequestComponent implements OnInit {
     let stringTransmisiones = this.transmissions.join().length > 0 ? this.transmissions.join() : 'vacio';
 
     this._compraTuAutoService.getVehicles( this.pageSize, stringBrands, stringModels, stringYears,
-                                          stringCarrocerias, 3000000, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a',
+                                          stringCarrocerias, 250000, 3000000, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a',
                                            this.orden, page, stringStates, stringTransmisiones)
     .subscribe({
       next: ( response ) => {
