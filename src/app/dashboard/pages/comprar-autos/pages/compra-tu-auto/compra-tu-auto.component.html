@@ -164,19 +164,21 @@
                                 </mat-form-field>
 
                                 <!-- Price -->
-                                <h3 class="fw-bold">Precio: <span class="fw-bold"> ${{ hitchValue | number:'.2-2' }}</span></h3>
+                                <h3 class="fw-bold">Rango de Precio:</h3>
+                                <h3 class="fw-bold"><span class="fw-bold"> ${{ hitchMin | number:'.2-2' }}</span> : <span class="fw-bold"> ${{ hitchMax | number:'.2-2' }}</span></h3>
                                 <mat-card-content class="sliderPrecios">
-                                    <!-- <h3 class="fw-bold">Total <span class="fw-bold"> ${{ hitchValue }}</span></h3> -->
+                                    <!-- <h3 class="fw-bold">Total <span class="fw-bold"> ${{ hitchValue }}</span></h3>-->
                                     <mat-slider 
                                         [disabled]="disabled" 
-                                        [min]="hitchMin"
-                                        [max]="hitchMax"
+                                        [min]="100"
+                                        [max]="3500000"
                                         [step]="hitchStep"
                                         [discrete]="thumbLabel"
                                         [displayWith]="formatLabelHitch"
                                         [showTickMarks]="showTicks"
                                         aria-label="units">
-                                        <input matSliderThumb [(ngModel)]="hitchValue" (input)="precio()">
+                                        <input [(ngModel)]="hitchMin" matSliderStartThumb (input)="precio()">
+                                        <input matSliderEndThumb [(ngModel)]="hitchMax" (input)="precio()">
                                     </mat-slider>
                                 </mat-card-content>
 

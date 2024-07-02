@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', component: CompraTuAutoComponent },
   { path: 'detail/:vin', component: DetailComponent },
   { path: 'detail/:vin/:userId', component: DetailComponent },
-  { path: ':marca/:modelo/:anio/:precio/:carroceria/:estado/:busqueda/:transmision/:pagina', component: CompraTuAutoComponent },  
+  { path: ':marca/:modelo/:anio/:minprecio/:maxprecio/:carroceria/:estado/:busqueda/:transmision/:pagina', component: CompraTuAutoComponent },  
   { path: 'acquisition/vehicle/:method/:vin', component: AcquisitionFormComponent },
   { path: '**', pathMatch: 'full', redirectTo: '' }
 ];

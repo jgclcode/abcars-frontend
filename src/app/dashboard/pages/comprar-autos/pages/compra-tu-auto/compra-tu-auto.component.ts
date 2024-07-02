@@ -92,7 +92,7 @@ export class CompraTuAutoComponent implements OnInit {
   public hitchMax = 3000000;
   public hitchMin = 250000;
   public hitchStep = 100;
-  public hitchValue = 3000000;
+  // public hitchValue = 3000000;
   public thumbLabel = true;
   public disabled = false;
   public showTicks = false;
@@ -132,7 +132,7 @@ export class CompraTuAutoComponent implements OnInit {
       next: ( minMaxPrices: MinMaxPrices ) => {
         this.hitchMin = minMaxPrices.min;
         this.hitchMax = minMaxPrices.max;
-        this.hitchValue = this.hitchMax;
+        // this.hitchValue = this.hitchMax;
       }
     });    
 
@@ -195,8 +195,12 @@ export class CompraTuAutoComponent implements OnInit {
           });
         }
 
-        if( params['precio'] != undefined ){
-          this.hitchValue = params['precio'];          
+        if( params['minprecio'] != undefined ){
+          this.hitchMin = params['minprecio'];          
+        }
+        
+        if( params['maxprecio'] != undefined ){
+          this.hitchMax = params['maxprecio'];          
         }
 
         if( params['busqueda'] != undefined && params['busqueda'] != 'sin-busqueda' ){
@@ -281,7 +285,7 @@ export class CompraTuAutoComponent implements OnInit {
     let stringCarrocerias = arrayCarrocerias.join().length > 0 ? arrayCarrocerias.join() : 'vacio';
     
     // Obtener marcas del servicio
-    this._compraTuAutoService.getBrands(stringModels, stringYears, stringCarrocerias, this.hitchValue, stringStates, stringTransmissions)
+    this._compraTuAutoService.getBrands(stringModels, stringYears, stringCarrocerias, this.hitchMin, this.hitchMax, stringStates, stringTransmissions)
     .subscribe({
       next: ( dataBrands: DataBrands ) => {
         this.allBrands = [];
@@ -297,7 +301,7 @@ export class CompraTuAutoComponent implements OnInit {
     });
     
     // Obtener modelos del servicio
-    this._compraTuAutoService.getModels( stringBrands, stringYears, stringCarrocerias, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getModels( stringBrands, stringYears, stringCarrocerias, this.hitchMin, this.hitchMax, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataModels: DataModels ) => {
         this.allModels = [];
@@ -313,7 +317,7 @@ export class CompraTuAutoComponent implements OnInit {
     });
 
     // Obtener years del servicio
-    this._compraTuAutoService.getYears( stringBrands, stringModels, stringCarrocerias, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getYears( stringBrands, stringModels, stringCarrocerias, this.hitchMin, this.hitchMax, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataYears: DataYears ) => {
         this.allYears = [];
@@ -329,7 +333,7 @@ export class CompraTuAutoComponent implements OnInit {
     });
 
     // Obtener vehiclebodies
-    this._compraTuAutoService.getVehicleBodies( stringBrands, stringModels, stringYears, this.hitchValue, stringStates, stringTransmissions )
+    this._compraTuAutoService.getVehicleBodies( stringBrands, stringModels, stringYears, this.hitchMin, this.hitchMax, stringStates, stringTransmissions )
     .subscribe({
       next: ( dataVehicleBody: DataVehicleBody ) => {
         this.allCarrocerias = [];
@@ -350,7 +354,7 @@ export class CompraTuAutoComponent implements OnInit {
     });
 
     // Obtener states del servicio
-    this._compraTuAutoService.getStates( stringBrands, stringModels, stringCarrocerias, stringYears, this.hitchValue, stringTransmissions )
+    this._compraTuAutoService.getStates( stringBrands, stringModels, stringCarrocerias, stringYears, this.hitchMin, this.hitchMax, stringTransmissions )
     .subscribe({
       next: ( dataStates: DataStates ) => {
         this.allStates = [];
@@ -366,7 +370,7 @@ export class CompraTuAutoComponent implements OnInit {
     });
 
     // Obtener transmisiones del servicio
-    this._compraTuAutoService.getTransmissions( stringBrands, stringModels, stringCarrocerias, stringYears, this.hitchValue , stringStates)
+    this._compraTuAutoService.getTransmissions( stringBrands, stringModels, stringCarrocerias, stringYears, this.hitchMin, this.hitchMax, stringStates)
     .subscribe({
       next: ( dataTransmissions: DataTransmissions ) => {
         this.allTransmissions = [];
@@ -633,7 +637,7 @@ export class CompraTuAutoComponent implements OnInit {
     this.timer = setTimeout(() => {
       this.execImportantMethods();
       this.search(1);
-    }, 300);
+    }, 600);
   }
 
   public search( page:number | null = null ){
@@ -649,11 +653,11 @@ export class CompraTuAutoComponent implements OnInit {
     let estados = this.states.length > 0 ? this.states.join('-') : 'sin-estados';
     let transmisiones = this.transmissions.length > 0 ? this.transmissions.join('-') : 'sin-transmisiones';
 
-    this._router.navigate(['compra-tu-auto', marcas, modelos, anios, this.hitchValue, carrocerias, estados, busqueda, transmisiones, page == null ? this.pageIndex : page ]);
+    this._router.navigate(['compra-tu-auto', marcas, modelos, anios, this.hitchMin, this.hitchMax, carrocerias, estados, busqueda, transmisiones, page == null ? this.pageIndex : page ]);
   }
 
   public navigate(){
-    this._router.navigate(['compra-tu-auto', 'sin-marcas', 'sin-modelos', 'sin-anios', 3000000, 'sin-carrocerias', 'sin-estados', 'sin-busqueda', 'sin-transmisiones', 1 ]);              
+    this._router.navigate(['compra-tu-auto', 'sin-marcas', 'sin-modelos', 'sin-anios', 250000, 3000000, 'sin-carrocerias', 'sin-estados', 'sin-busqueda', 'sin-transmisiones', 1 ]);              
   }
 
   public searchByWord(){
@@ -692,7 +696,7 @@ export class CompraTuAutoComponent implements OnInit {
     let stringTransmisiones = this.transmissions.join().length > 0 ? this.transmissions.join() : 'vacio';
 
     this._compraTuAutoService.getVehicles( this.pageSize, stringBrands, stringModels, stringYears,
-                                          stringCarrocerias, this.hitchValue, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a',
+                                          stringCarrocerias, this.hitchMin, this.hitchMax, this.palabra_busqueda.length > 0 ? this.palabra_busqueda : 'a',
                                           this.orden, page, stringStates, stringTransmisiones)
     .subscribe({
       next: ( response ) => {
@@ -726,7 +730,8 @@ export class CompraTuAutoComponent implements OnInit {
     this.carrocerias = [];
     this.states = [];
     this.transmissions = [];
-    this.hitchValue = this.hitchMax;
+    this.hitchMin = this.hitchMin;
+    this.hitchMax = this.hitchMax;
     this.execImportantMethods();
     this.search(1);
   }
