@@ -136,6 +136,12 @@ mat-accordion mat-expansion-panel {
     padding: 10px;
  }
 
+.buttonHighEnd{
+    background-color: #FFCB54;
+    color: black;
+    padding: 10px;
+ }
+
 .searchIcon{
     font-size: 25px;
 }

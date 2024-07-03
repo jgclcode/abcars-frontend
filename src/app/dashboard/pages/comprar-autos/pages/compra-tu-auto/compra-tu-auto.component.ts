@@ -8,7 +8,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatAutocompleteSelectedEvent as MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatChipInputEvent as MatChipInputEvent } from '@angular/material/chips';
 import { MatAccordion } from '@angular/material/expansion';
-import { MatPaginator as MatPaginator, PageEvent as PageEvent } from '@angular/material/paginator';
+import { MatPaginator as MatPaginator, MatPaginatorIntl, PageEvent as PageEvent } from '@angular/material/paginator';
 
 // Services
 import { CompraTuAutoService } from './../../services/compra-tu-auto.service';
@@ -26,7 +26,8 @@ import { DataStates } from '../../interfaces/compra-tu-auto/data_states.interfac
 @Component({
   selector: 'app-compra-tu-auto',
   templateUrl: './compra-tu-auto.component.html',
-  styleUrls: ['./compra-tu-auto.component.css']
+  styleUrls: ['./compra-tu-auto.component.css'],
+  providers: [{ provide: MatPaginatorIntl}]
 })
 
 export class CompraTuAutoComponent implements OnInit {
@@ -96,6 +97,7 @@ export class CompraTuAutoComponent implements OnInit {
   public min = 100;
   public max = 3000000;
 
+  public highEndChange = 1000000;
 
   public thumbLabel = true;
   public disabled = false;
@@ -128,9 +130,10 @@ export class CompraTuAutoComponent implements OnInit {
     private _activatedRoute: ActivatedRoute,
     private _router: Router,
     private titleService: Title,
-    private metaService: Meta
+    private metaService: Meta,
+    private paginatorIntl: MatPaginatorIntl
   ) {
-    
+    this.customizePaginator();
     this._compraTuAutoService.getMinMaxPrices()
     .subscribe({
       next: ( minMaxPrices: MinMaxPrices ) => {
@@ -257,6 +260,19 @@ export class CompraTuAutoComponent implements OnInit {
 
     this.execImportantMethods();
     this.search( this.pageIndex );
+  }
+
+  customizePaginator(){
+    this.paginatorIntl.itemsPerPageLabel = 'Items por página';
+    this.paginatorIntl.getRangeLabel = (page: number, pageSize: number, length: number) => {
+      if (length === 0 || pageSize === 0) {
+        return `0 de ${length}`;
+      }
+      const startIndex = page * pageSize;
+      const endIndex = Math.min(startIndex + pageSize, length);
+
+      return `${startIndex + 1} – ${endIndex} de ${length}`;
+    };
   }
 
   capitalizeFirstLetter(string:string):string {
@@ -740,6 +756,21 @@ export class CompraTuAutoComponent implements OnInit {
     this.transmissions = [];
     this.hitchMin = this.hitchMin;
     this.hitchMax = this.hitchMax;
+    this.execImportantMethods();
+    this.search(1);
+  }
+
+  public highEnd( page: number | null = null, highEndChange: number){
+    // this.orden = 'highEnd';
+    this.hitchMin = highEndChange;
+    this.hitchMax = this.max;
+    this.execImportantMethods();
+    this.search(page);
+  }
+
+  public lowEnd(){
+    this.hitchMin = this.min;
+    this.hitchMax = this.max;
     this.execImportantMethods();
     this.search(1);
   }
