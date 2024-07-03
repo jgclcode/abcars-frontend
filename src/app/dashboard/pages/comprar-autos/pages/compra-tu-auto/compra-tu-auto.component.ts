@@ -92,7 +92,11 @@ export class CompraTuAutoComponent implements OnInit {
   public hitchMax = 3000000;
   public hitchMin = 250000;
   public hitchStep = 100;
-  // public hitchValue = 3000000;
+
+  public min = 100;
+  public max = 3000000;
+
+
   public thumbLabel = true;
   public disabled = false;
   public showTicks = false;
@@ -130,9 +134,13 @@ export class CompraTuAutoComponent implements OnInit {
     this._compraTuAutoService.getMinMaxPrices()
     .subscribe({
       next: ( minMaxPrices: MinMaxPrices ) => {
+        
+        this.min = minMaxPrices.min;
+        this.max = minMaxPrices.max;
+        
         this.hitchMin = minMaxPrices.min;
         this.hitchMax = minMaxPrices.max;
-        // this.hitchValue = this.hitchMax;
+
       }
     });    
 
