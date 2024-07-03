@@ -16,6 +16,21 @@
             </mat-form-field>
         </div>
     </div>
+
+    <div class="row mb-3">
+        <div class="col-6">
+            <button mat-raised-button class="abcars-background-color px-4 py-1 rounded-pill text-dark mb-4" (click)="highEnd(1, highEndChange)" class="buttonHighEnd"> <!---->
+                <i class="fa fa-diamond"></i>
+                Ver Inventario Gama Alta
+            </button>
+        </div>
+        <div class="col-6 text-end">
+            <button mat-raised-button class="abcars-background-color px-4 py-1 rounded-pill text-dark mb-4" style="margin-left: 7px;" (click)="lowEnd()" class="buttonFiltro"> <!---->
+                <i class="fa fa-level-down"></i>
+                Ver todo el inventario
+            </button>
+        </div>
+    </div>
     
     <div class="row">
         <div class="col-6 text-start">
