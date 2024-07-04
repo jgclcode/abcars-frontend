@@ -38,7 +38,7 @@ export class FooterComponent {
    * @param carmodel String
    */
   public redirectStockVehicle(brand: string, carmodel: string) {
-    window.location.href = `/compra-tu-auto/${ brand.toLocaleLowerCase() }/${ carmodel.toLocaleLowerCase() }/sin-anios/3000000/sin-carrocerias/sin-estados/sin-busqueda/sin-transmisiones/1`;
+    window.location.href = `/compra-tu-auto/${ brand.toLocaleLowerCase() }/${ carmodel.toLocaleLowerCase() }/sin-anios/100000/5000000/sin-carrocerias/sin-estados/sin-busqueda/sin-transmisiones/1`;
     this.scrollTop();
   }
 

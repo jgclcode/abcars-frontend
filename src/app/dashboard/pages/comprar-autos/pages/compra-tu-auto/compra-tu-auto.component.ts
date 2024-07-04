@@ -90,12 +90,12 @@ export class CompraTuAutoComponent implements OnInit {
 
   // References "Enganche"
   public hitchTickInterval = 1;  
-  public hitchMax = 3000000;
-  public hitchMin = 250000;
+  public hitchMax = 5000000;
+  public hitchMin = 100000;
   public hitchStep = 100;
 
   public min = 100;
-  public max = 3000000;
+  public max = 5000000;
 
   public highEndChange = 1000000;
 
