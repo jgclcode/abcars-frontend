@@ -11,7 +11,7 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { SavedProcessComponent } from './dashboard/components/saved-process/saved-process.component';
 import { FindmeVehicleComponent } from './dashboard/pages/findme-vehicle/findme-vehicle.component';
 import { ErrorProcessComponent } from './dashboard/components/error-process/error-process.component';
-import { ContactComponent } from './dashboard/pages/contact/contact.component';
+// import { ContactComponent } from './dashboard/pages/contact/contact.component';
 import { SuccessfulPendingPaymentComponent } from './dashboard/components/successful-pending-payment/successful-pending-payment.component';
 
 // Angular Material & Flex Layout
@@ -29,10 +29,6 @@ import { VenderAutosRoutingModule } from './dashboard/pages/vender-autos/vender-
 import { VenderAutosModule } from './dashboard/pages/vender-autos/vender-autos.module';
 import { CitasRoutingModule } from './dashboard/pages/citas/citas-routing.module';
 import { CitasModule } from './dashboard/pages/citas/citas.module';
-import { AsistenciasRoutingModule } from './dashboard/pages/asistencias/asistencias-routing.module';
-import { AsistenciasModule } from './dashboard/pages/asistencias/asistencias.module';
-import { ExternalsModule } from './externals/externals.module';
-import { ExternalsRoutingModule } from './externals/externals-routing.module';
 import { AdministrationRoutingModule } from './administration/administration-routing.module';
 import { AdministrationModule } from './administration/administration.module';
 import { AbcModule } from './dashboard/pages/abc/abc.module';
@@ -40,12 +36,12 @@ import { AbcRoutingModule } from './dashboard/pages/abc/abc-routing.module';
 import { InventoryComponent } from './dashboard/pages/inventory/inventory.component';
 
 import { MatSliderModule } from '@angular/material/slider';
-import { LoginComponent } from './administration/pages/form_check/login/login.component';
-import { SharedModule } from './administration/pages/form_check/shared/shared.module';
+// import { LoginComponent } from './administration/pages/form_check/login/login.component';
+// import { SharedModule } from './administration/pages/form_check/shared/shared.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { DetailsComponent } from './administration/pages/form_check/reportes/details/details.component';
+// import { DetailsComponent } from './administration/pages/form_check/reportes/details/details.component';
 import { InterceptorService } from './shared/interceptor.service';
-import { ReportdetailsComponent } from './administration/pages/form_check/report-photo/reportdetails/reportdetails.component';
+// import { ReportdetailsComponent } from './administration/pages/form_check/report-photo/reportdetails/reportdetails.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 
 // Pipes
@@ -62,11 +58,11 @@ import { SafePayPipe } from './dashboard/components/successful-pending-payment/p
     FindmeVehicleComponent,
     SavedProcessComponent,
     ErrorProcessComponent,
-    ContactComponent,
+    // ContactComponent,
     InventoryComponent,
-    LoginComponent,
-    DetailsComponent,
-    ReportdetailsComponent,
+    // LoginComponent,
+    // DetailsComponent,
+    // ReportdetailsComponent,
     LandingPageComponent,
     SuccessfulPendingPaymentComponent,
     SafePayPipe
@@ -86,17 +82,13 @@ import { SafePayPipe } from './dashboard/components/successful-pending-payment/p
     VenderAutosModule,
     CitasRoutingModule,
     CitasModule,
-    AsistenciasRoutingModule,
-    AsistenciasModule,
-    ExternalsModule,
-    ExternalsRoutingModule,
     BrowserAnimationsModule,
     AdministrationModule,
     AdministrationRoutingModule,
     AbcModule,
     AbcRoutingModule,
     MatSliderModule,
-    SharedModule,   
+    // SharedModule,   
     HttpClientModule,
   ],
   providers: [Title,{ provide: HTTP_INTERCEPTORS, useClass: InterceptorService, multi: true }], 

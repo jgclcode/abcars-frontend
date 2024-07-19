@@ -19,7 +19,7 @@ import { SparePartsGuard } from './pages/spare-parts/guards/spare-parts.guard';
 import { SparePartsManagerGuard } from './pages/spare-parts-manager/guards/spare-parts-manager.guard';
 import { ContactGuard } from './pages/contact/guards/contact.guard';
 import { SellerGuard } from './pages/seller/guards/seller.guard';
-import { PicturesGuard } from './pages/form_check/guards/pictures.guard';
+// import { PicturesGuard } from './pages/form_check/guards/pictures.guard';
 
 const routes: Routes = [
   { path: '', component: CheckRoleComponent },
@@ -34,7 +34,7 @@ const routes: Routes = [
   { path: 'parts', loadChildren: () => import('./pages/spare-parts/spare-parts.module').then(m => m.SparePartsModule), canActivate: [SparePartsGuard], canLoad: [SparePartsGuard] },
   { path: 'pmanager', loadChildren: () => import('./pages/spare-parts-manager/spare-parts-manager.module').then(m => m.SparePartsManagerModule), canActivate: [SparePartsManagerGuard], canLoad: [SparePartsManagerGuard] },
   { path: 'contact', loadChildren: () => import('./pages/contact/contact.module').then(m => m.ContactModule), canActivate: [ContactGuard], canLoad: [ContactGuard] },
-  { path: 'pictures', loadChildren: () => import('./pages/form_check/dashboard.module').then(m => m.DashboardModule), canActivate: [PicturesGuard], canLoad: [PicturesGuard] },
+  // { path: 'pictures', loadChildren: () => import('./pages/form_check/dashboard.module').then(m => m.DashboardModule), canActivate: [PicturesGuard], canLoad: [PicturesGuard] },
   { path: 'contadora', loadChildren: () => import('./pages/accountant/accountant.module').then(m => m.AccountantModule) },
   { path: 'seller', loadChildren: () => import('./pages/seller/seller.module').then(m => m.SellerModule), canActivate: [SellerGuard], canLoad: [SellerGuard] },
   
