@@ -25,8 +25,8 @@ import { SparePartsRoutingModule } from './pages/spare-parts/spare-parts-routing
 import { ContactRoutingModule } from './pages/contact/contact-routing.module';
 import { AccountantRoutingModule } from './pages/accountant/accountant-routing.module';
 import { SellerRoutingModule } from './pages/seller/seller-routing.module'
-import { PinturesComponent } from './pages/pintures/pintures.component';
-import { DashboardRoutingModule } from './pages/form_check/dashboard-routing.module';
+// import { PinturesComponent } from './pages/pintures/pintures.component';
+// import { DashboardRoutingModule } from './pages/form_check/dashboard-routing.module';
 import { SparePartsOverviewComponent } from './components/spare-parts-overview/spare-parts-overview.component';
 
 @NgModule({
@@ -36,7 +36,7 @@ import { SparePartsOverviewComponent } from './components/spare-parts-overview/s
     ClientDialogDataComponent,
     ChecklistGerericComponent,
     NotAuthorizedComponent,
-    PinturesComponent,
+    // PinturesComponent,
     SparePartsOverviewComponent,
 
   ],
@@ -59,7 +59,7 @@ import { SparePartsOverviewComponent } from './components/spare-parts-overview/s
     ContactRoutingModule,
     AccountantRoutingModule,
     SellerRoutingModule,
-    DashboardRoutingModule,
+    // DashboardRoutingModule,
   
   ],
   exports: [

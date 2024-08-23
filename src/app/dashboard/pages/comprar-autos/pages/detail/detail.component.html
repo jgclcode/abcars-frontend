@@ -136,11 +136,18 @@
                                 <div class="row marginContentLeft" *ngIf="priceOffer">
                                     <div class="col-12">
                                         <p class="fw-light">Compra por:</p>
-                                        <!-- <span class="fs-4 fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</span>  -->
-                                        <span class="fs-4 fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.priceOffer| number:'.2-2') : '' }}</span> 
+                                        <span class="fs-4 fw-bold abcars-offer"><del>${{ vehicle != undefined ? (vehicle.price | number:'.2-2') : '' }}</del></span> 
+                                        <!-- <span class="fs-4 fw-bold abcars-offer">${{ vehicle != undefined ? (vehicle.priceOffer| number:'.2-2') : '' }}</span>  -->
                                     </div>
                                 </div>
-                                
+
+                                <div class="row marginContentLeft" *ngIf="priceOffer">
+                                    <div class="col-12">
+                                        <p class="fw-light">Precio de oferta:</p>
+                                        <span class="fs-4 fw-bold abcars-color">${{ vehicle != undefined ? (vehicle.priceOffer | number:'.2-2') : '' }}</span>
+                                    </div>
+                                </div>
+
                                 <!-- <div class="row marginContentLeft" *ngIf="priceOffer">
                                     <div class="col-12">
                                         <p class="fw-light">Bono de:</p>

@@ -10,7 +10,7 @@ import { ComprarAutosRoutingModule } from './comprar-autos-routing.module';
 // Components
 import { AcquisitionFormComponent } from './pages/acquisition-form/acquisition-form.component';
 import { CompraTuAutoComponent } from './pages/compra-tu-auto/compra-tu-auto.component';
-import { AutosEnOfertaComponent } from "./pages/autos-en-oferta/autos-en-oferta.component";
+// import { AutosEnOfertaComponent } from "./pages/autos-en-oferta/autos-en-oferta.component";
 import { DetailComponent } from './pages/detail/detail.component';
 import { MethodsAcquiringComponent } from './components/methods-acquiring/methods-acquiring.component';
 import { NotificationReservedComponent } from './components/notification-reserved/notification-reserved.component';
@@ -29,7 +29,7 @@ import { StickyWhatsappDetailComponent } from 'src/app/shared/sticky-whatsapp-de
     DetailComponent, 
     MethodsAcquiringComponent, 
     AcquisitionFormComponent, 
-    NotificationReservedComponent, AskInformationComponent, AutosEnOfertaComponent, ModalComponent,
+    NotificationReservedComponent, AskInformationComponent, ModalComponent,
     StickyWhatsappComponent,
     StickyWhatsappDetailComponent
   ],
