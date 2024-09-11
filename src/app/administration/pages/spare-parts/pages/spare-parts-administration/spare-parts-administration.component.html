@@ -36,14 +36,16 @@
 
                             <!-- Client Name column -->
                             <ng-container matColumnDef="clientName">
-                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-                                <td data-titulo="nombre" class="td__table" mat-cell *matCellDef="let row">{{ row.client_sale.user.name }}</td>
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Nombre técnico</th>
+                                <!-- <td data-titulo="nombre" class="td__table" mat-cell *matCellDef="let row">{{ row.client_sale.user.name }}</td> -->
+                                <td data-titulo="nombre" class="td__table" mat-cell *matCellDef="let row">{{ row.check_list.tech_user.name }}</td>
                             </ng-container>
     
                             <!-- Client Surname column -->
                             <ng-container matColumnDef="clientSurname">
-                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos</th>
-                                <td data-titulo="apellido" class="td__table" mat-cell *matCellDef="let row">{{ row.client_sale.user.surname }}</td>
+                                <th class="th__table" mat-header-cell *matHeaderCellDef mat-sort-header>Apellidos técnico</th>
+                                <!-- <td data-titulo="apellido" class="td__table" mat-cell *matCellDef="let row">{{ row.client_sale.user.surname }}</td> -->
+                                <td data-titulo="apellido" class="td__table" mat-cell *matCellDef="let row">{{ row.check_list.tech_user.surname }}</td>
                             </ng-container>
     
                             <!-- Brand name column -->
