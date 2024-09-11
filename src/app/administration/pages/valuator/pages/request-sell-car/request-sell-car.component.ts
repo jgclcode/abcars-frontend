@@ -403,7 +403,10 @@ export class RequestSellCarComponent implements OnInit {
             }
 
             if (spare.status === 'on hold') {
-              this.sparePartsInactive = false;
+              // this.sparePartsInactive = false;
+              this.sparePartsInactive = true;
+              productPriceAmount = spare.priceOriginal * spare.amount;
+              numbers.push(productPriceAmount);
             }
           })
 
