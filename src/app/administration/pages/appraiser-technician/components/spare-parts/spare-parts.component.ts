@@ -103,27 +103,32 @@ export class SparePartsComponent implements OnInit {
   */
   public onSubmit() {
     this.spinner = true;
-    this.spare_parts_quote.forEach(spare_part => {
+    const totalParts = this.spare_parts_quote.length;
+
+    this.spare_parts_quote.forEach((spare_part, index) => {
       const { name, amount, hours } = spare_part;
+      const is_last = index === totalParts - 1;
       // Create spare_part form
-      let spareForm = this._formBuilder.group({ name, amount, hours, sell_your_car_id: this.data.sell_your_car_id });
+      let spareForm = this._formBuilder.group({ name, amount, hours, sell_your_car_id: this.data.sell_your_car_id, is_last });
 
       // Launch form
       this._sparePartService.postSparePart(spareForm.value)
       .subscribe({
         next: ({ code, status, message }: PostSparePart) => {
           if (code === '200' && status === 'success') {
-            // Print Alert
-            Swal.fire({
-              icon: 'success',                
-              text: String(message),
-              showConfirmButton: true,
-              confirmButtonColor: '#EEB838',
-              timer: 3500         
-            });
-
-            this.spinner = false;
-            this.getSpareParts();
+            if (is_last) {
+              // Print Alert
+              Swal.fire({
+                icon: 'success',                
+                text: String(message),
+                showConfirmButton: true,
+                confirmButtonColor: '#EEB838',
+                timer: 3500         
+              });
+  
+              this.spinner = false;
+              this.getSpareParts();
+            }
           } else {
             // Print Alert
             Swal.fire({
