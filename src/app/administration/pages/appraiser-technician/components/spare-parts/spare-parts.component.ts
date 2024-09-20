@@ -39,6 +39,7 @@ export class SparePartsComponent implements OnInit {
   public spinner: boolean = false;
   public spare_parts_quote: SpareParts[] = [];
   public spare_parts: SparePart[] = [];
+  public checked = false;
 
   constructor(
     @Inject(MAT_BOTTOM_SHEET_DATA) public data: any,
@@ -165,17 +166,36 @@ export class SparePartsComponent implements OnInit {
    * Set elements into array of spare parts
    */
   public addSparePart() {
-    // Push element in array
-    this.spare_parts_quote.push(this.form.value);
+    
+    if (this.form.valid) {
+      // Push element in array
+      this.spare_parts_quote.push(this.form.value);
+      // Reset form & Clean controls
+      this.createForm();
+      this.form.get('name')?.clearValidators();
+      this.form.get('name')?.updateValueAndValidity();
+      this.form.get('amount')?.clearValidators();
+      this.form.get('amount')?.updateValueAndValidity();
+      this.form.get('hours')?.clearValidators();
+      this.form.get('hours')?.updateValueAndValidity();
+    }else{
+      this.createForm();
+      this.form.patchValue({
+        name: 'Sin Reacondicionamiento',
+        amount: 0,
+        hours: 0,
+        sell_your_car_id: this.data.sell_your_car_id
+      });
+      // Push element in array
+      this.spare_parts_quote.push(this.form.value);
+      this.form.patchValue({
+        name: '',
+        amount: '',
+        hours: ''
+      });
+      this.onSubmit();
+    }
 
-    // Reset form & Clean controls
-    this.createForm();
-    this.form.get('name')?.clearValidators();
-    this.form.get('name')?.updateValueAndValidity();
-    this.form.get('amount')?.clearValidators();
-    this.form.get('amount')?.updateValueAndValidity();
-    this.form.get('hours')?.clearValidators();
-    this.form.get('hours')?.updateValueAndValidity();
   }
 
   /**
@@ -203,4 +223,22 @@ export class SparePartsComponent implements OnInit {
     this.bottomsheet.dismiss();
   }
 
+  public noReconditioning(){
+    if (this.checked) {
+      Swal.fire({
+        icon: 'warning',
+        title: '¿Proceder sin agregar refacciones?',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonText: 'Si',
+        confirmButtonColor: '#eeb838',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.addSparePart();
+        } else if (result.isDismissed) {
+          this.checked = false;
+        }
+      });
+    }
+  }
 }

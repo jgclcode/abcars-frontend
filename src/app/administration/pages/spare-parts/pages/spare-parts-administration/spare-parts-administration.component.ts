@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator as MatPaginator, PageEvent as PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource as MatTableDataSource } from '@angular/material/table';
+import { environment } from 'src/environments/environment';
 
 // Services
 import { AppraiserDatatableService } from '../../../appraiser/services/appraiser-datatable.service';
@@ -14,7 +15,7 @@ import { SellYourCarValuations } from '../../../appraiser/interfaces/appraiser-d
 })
 
 export class SparePartsAdministrationComponent implements OnInit {
-
+  public url: string = environment.baseUrl;
   // MatTableSource
   public displayedColumns: string[] = ['id', 'clientName', 'clientSurname', 'brandName', 'modelName', 'vin', 'year', 'status', 'statusRefac', 'actions'];
   public dataSource!: MatTableDataSource<any>;

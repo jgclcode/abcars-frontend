@@ -22,7 +22,7 @@
                         <table mat-table [dataSource]="dataSource">
                             <!-- ID Column -->
                             <ng-container matColumnDef="id">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID</th>
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Refacción</th>
                                 <td class="fw-bold" mat-cell *matCellDef="let row">{{ row.id }}</td>
                             </ng-container>
 
@@ -92,6 +92,18 @@
                                         }}
                                     </span>                                    
                                 </td>
+                            </ng-container>
+
+                            <!-- Vin Column -->
+                            <ng-container matColumnDef="carVin">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>Auto vin</th>
+                                <td mat-cell *matCellDef="let row">{{ row.vin }}</td>
+                            </ng-container>
+                            
+                            <!-- id Register Column -->
+                            <ng-container matColumnDef="idSell">
+                                <th mat-header-cell *matHeaderCellDef mat-sort-header>ID Registro</th>
+                                <td class="fw-bold" mat-cell *matCellDef="let row">{{ row.sell_your_car_id }}</td>
                             </ng-container>
 
                             <!-- Actions Column -->
