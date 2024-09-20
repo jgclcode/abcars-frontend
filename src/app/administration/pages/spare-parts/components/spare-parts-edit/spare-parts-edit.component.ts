@@ -22,7 +22,7 @@ import { GetSpareParts, SparePart } from '../../interfaces/spare-parts.interface
 export class SparePartsEditComponent implements OnInit {
 
   // References
-  public displayedColumns: string[] = ['id', 'name', 'status', 'amount', 'hours', 'fill', 'actions'];
+  public displayedColumns: string[] = ['id', 'name', 'status', 'amount', 'hours', 'fill', 'carVin', 'idSell', 'actions'];
   public dataSource!: MatTableDataSource<SparePart>;
 
   constructor(

@@ -55,6 +55,9 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-12 mt-3">
+                        <mat-slide-toggle [(ngModel)]="checked" labelPosition="before" (change)="noReconditioning()" [disabled]="spare_parts_quote.length > 0">Sin reacondicionamiento</mat-slide-toggle> <!--: {{checked}}-->
+                    </div>
                 </div>
             </div>
 
