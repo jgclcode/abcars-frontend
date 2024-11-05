@@ -47,6 +47,7 @@ export interface Vehicle {
     vehiclebody:     VehicleBody;
     branch:          Branch;
     vehicle_images:  VehicleImage[];
+    video_link:      string | null;
     vehicle_360_images:  null | VehicleImage[];
     shields:         Shield[];
     choices:         Choice[];
