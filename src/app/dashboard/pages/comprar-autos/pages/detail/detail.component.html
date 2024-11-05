@@ -357,6 +357,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="accordion-item">
+                                <a target="_blank" [attr.href]="vehicle.video_link || null"  rel="noopener noreferrer" style="text-decoration: none;">
+                                    <h6 class="accordion-header fw-bold fs-5" id="headingSectionThree">
+                                        <button class="accordion-button collapsed fw-bold fs-5" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSectionThree" aria-expanded="false" aria-controls="collapseSectionThree">
+                                            <h2 [ngClass]="{'text-gray': !vehicle.video_link}">Ver vídeo del vehículo</h2>
+                                        </button>
+                                    </h6>
+                                </a>
+                            </div>
                         </div>
 
                         <hr style="border: 1px solid #707070; margin-top: 10px;">
