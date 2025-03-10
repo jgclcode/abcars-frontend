@@ -204,9 +204,11 @@ export class DetailComponent implements OnInit, OnDestroy {
             if (d) {
               this.descriptions = this.description.split('\n\n');
               this.descriptions.pop();
-            }else {
+            }else if(this.description.includes('\n')) {
               this.descriptions = this.description.split('\n');
               this.descriptions.pop();
+            }else {
+              this.descriptions = this.description.split('\n');
             }
           } else {
             this.descriptions = ["Lo sentimos, este vehículo no cuenta con alguna descripción activa."];
