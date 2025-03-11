@@ -30,10 +30,11 @@ export class LandingPageComponent {
       lastName: ['', [Validators.required, Validators.pattern("[a-zA-Z ]+")]],
       phone: ['', [Validators.required, Validators.pattern("[0-9]{10}"), Validators.minLength(10), Validators.maxLength(10)]],
       email: ['', [Validators.required, Validators.pattern("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$")]],
-      date: ['', [Validators.required]],
-      time: ['', [Validators.required]],
-      filial: ['', [Validators.required]],
-      appointment: [''],
+      to_purchase: ['', [Validators.required]],
+      type_purchase: ['', [Validators.required]],
+      initial_investment: ['', [Validators.required]],
+      profession: ['', [Validators.required]],
+
     });
   }
 
@@ -53,14 +54,8 @@ export class LandingPageComponent {
     return this.form.get('phone')!.invalid && (this.form.get('phone')!.dirty || this.form.get('phone')!.touched);
   }
 
-  get dateInvalid() {
-    return this.form.get('date')!.invalid && (this.form.get('date')!.dirty || this.form.get('date')!.touched);
-  }
-  get timeInvalid() {
-    return this.form.get('time')!.invalid && (this.form.get('time')!.dirty || this.form.get('time')!.touched);
-  }
-  get filialInvalid() {
-    return this.form.get('filial')!.invalid && (this.form.get('filial')!.dirty || this.form.get('filial')!.touched);
+  get initialInvestmentInvalid() {
+    return this.form.get('initial_investment')!.invalid && (this.form.get('initial_investment')!.dirty || this.form.get('initial_investment')!.touched);
   }
 
   private dontShowNavAndFooter(){
@@ -86,6 +81,7 @@ export class LandingPageComponent {
     this.form.get('appointment')?.setValue(this.convert(this.form.get('date')?.value));
     
     this.spinner = false;
+
     this._landingService.createLead(this.form.value)
         .subscribe({
 

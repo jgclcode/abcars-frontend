@@ -18,3 +18,29 @@
     background-color: #008bcc !important;
     color: #fff !important;
 }
+
+.img-mobile {
+    width: 100%;
+    display: none;
+}
+
+.img-desktop {
+    width: 100%;
+    display: block;
+}
+
+.contact-title {
+    font-size: x-large;
+    text-align: center; /* Centra el texto */
+    font-weight: bold;  /* Negrita */
+}
+
+/* Cuando la pantalla sea menor a 768px (ejemplo para móviles) */
+@media (max-width: 768px) {
+    .img-mobile {
+        display: block;
+    }
+    .img-desktop {
+        display: none;
+    }
+}
